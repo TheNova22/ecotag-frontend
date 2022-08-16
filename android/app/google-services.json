@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645746490811",
+    "project_id": "ecotag-211c8",
+    "storage_bucket": "ecotag-211c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645746490811:android:ad3a8448dc7f1d8f18989e",
+        "android_client_info": {
+          "package_name": "com.example.sih_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645746490811-4adirid9l8sbhmsj73e3duqo0eeiqmel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs0NhZ3xEGNMMXefHuvrHU_3_kkPHYgMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645746490811-4adirid9l8sbhmsj73e3duqo0eeiqmel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
