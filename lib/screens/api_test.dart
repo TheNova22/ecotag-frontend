@@ -46,6 +46,15 @@ class APITestScreen extends StatelessWidget {
                 },
               ),
               TextButton(
+                child: const Text("getAllRoutes"),
+                onPressed: () async {
+                  final x = await EcoTagAPI().getAllRoutes(
+                      fromAddress: "Mathikere, Bangalore",
+                      toAddress: "NIT Silchar, Silchar, Assam");
+                  debugPrint(x.toString());
+                },
+              ),
+              TextButton(
                 child: const Text("getSupplierDetails"),
                 onPressed: () async {
                   final x = await EcoTagAPI().getSupplierDetails(
