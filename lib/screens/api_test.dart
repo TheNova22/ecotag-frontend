@@ -39,6 +39,13 @@ class APITestScreen extends StatelessWidget {
                 },
               ),
               TextButton(
+                child: const Text("getShipments"),
+                onPressed: () async {
+                  final x = await EcoTagAPI().getShipments(manufacturer: "aaa");
+                  debugPrint(x.toString());
+                },
+              ),
+              TextButton(
                 child: const Text("getSupplierDetails"),
                 onPressed: () async {
                   final x = await EcoTagAPI().getSupplierDetails(
