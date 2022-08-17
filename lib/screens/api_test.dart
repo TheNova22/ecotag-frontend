@@ -26,28 +26,33 @@ class APITestScreen extends StatelessWidget {
               TextButton(
                 child: const Text("getProductFromBarcode"),
                 onPressed: () async {
-                  EcoTagAPI().getProductFromBarcode(barcode: "zxcv");
+                  final x =
+                      await EcoTagAPI().getProductFromBarcode(barcode: "zxcv");
+                  debugPrint(x.toString());
                 },
               ),
               TextButton(
                 child: const Text("getManufacturers"),
                 onPressed: () async {
-                  EcoTagAPI().getManufacturers(maker: "maker");
+                  final x = await EcoTagAPI().getManufacturers(maker: "maker");
+                  debugPrint(x.toString());
                 },
               ),
               TextButton(
                 child: const Text("getSupplierDetails"),
                 onPressed: () async {
-                  EcoTagAPI().getSupplierDetails(
+                  final x = await EcoTagAPI().getSupplierDetails(
                       searchTerm: "Mixed Fruit Jam",
                       latitude: 19.462,
                       longitude: 1412.594566);
+                  debugPrint(x.toString());
                 },
               ),
               TextButton(
                 child: const Text("getProductByName"),
                 onPressed: () async {
-                  EcoTagAPI().getProductByName(name: "water");
+                  final x = await EcoTagAPI().getProductByName(name: "water");
+                  debugPrint(x.toString());
                 },
               ),
               TextButton(

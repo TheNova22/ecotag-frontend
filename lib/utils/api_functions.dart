@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:sih_frontend/model/manufacturer.dart';
 import 'package:sih_frontend/model/product.dart';
+import 'package:sih_frontend/model/supplier.dart';
 import 'package:sih_frontend/utils/authentication.dart';
 
 class EcoTagAPI {
@@ -16,7 +18,7 @@ class EcoTagAPI {
         await _dio.get('${_baseUrl}getProductNameByBarcode?barcode=$barcode');
     debugPrint('${userData.data}');
     showToast('${userData.data}');
-    return Map<String, dynamic>.from(userData.data);
+    return jsonDecode(userData.data);
   }
 
   Future<Map<String, dynamic>> getProductFromBarcode(
@@ -35,7 +37,9 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return jsonDecode(userData.data);
+    return jsonDecode(userData.data)
+        .map<Manufacturer>((e) => Manufacturer.fromMap(e))
+        .toList();
   }
 
   Future<List<dynamic>> getSupplierDetails(
@@ -47,7 +51,9 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return jsonDecode(userData.data);
+    return jsonDecode(userData.data)
+        .map<Supplier>((e) => Supplier.fromMap(e))
+        .toList();
   }
 
   Future<List<Product>> getProductByName({required String name}) async {
