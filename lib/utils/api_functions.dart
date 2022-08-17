@@ -68,7 +68,7 @@ class EcoTagAPI {
         .toList();
   }
 
-  Future<List<Product>> getShipments({required String manufacturer}) async {
+  Future<List<Shipment>> getShipments({required String manufacturer}) async {
     Response userData =
         await _dio.get('${_baseUrl}getShipments?manufacturer=$manufacturer');
     debugPrint(' ${userData.data}');
