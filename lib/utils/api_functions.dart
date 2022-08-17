@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/utils/authentication.dart';
 
 class EcoTagAPI {
@@ -49,13 +50,15 @@ class EcoTagAPI {
     return jsonDecode(userData.data);
   }
 
-  Future<List<dynamic>> getProductByName({required String name}) async {
+  Future<List<Product>> getProductByName({required String name}) async {
     Response userData =
         await _dio.get('${_baseUrl}getProductByName?searchTerm=$name');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return jsonDecode(userData.data);
+    return jsonDecode(userData.data)
+        .map<Product>((e) => Product.fromMap(e))
+        .toList();
   }
 
   Future<List<dynamic>> getCategoriesByName({required String name}) async {
