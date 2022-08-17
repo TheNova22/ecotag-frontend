@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/model/manufacturer.dart';
 import 'package:sih_frontend/model/product.dart';
+import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/model/supplier.dart';
 import 'package:sih_frontend/utils/authentication.dart';
 
@@ -64,6 +65,16 @@ class EcoTagAPI {
 
     return jsonDecode(userData.data)
         .map<Product>((e) => Product.fromMap(e))
+        .toList();
+  }
+
+  Future<List<Product>> getShipments({required String manufacturer}) async {
+    Response userData =
+        await _dio.get('${_baseUrl}getShipments?manufacturer=$manufacturer');
+    debugPrint(' ${userData.data}');
+    showToast('${userData.data}');
+    return jsonDecode(userData.data)
+        .map<Shipment>((e) => Shipment.fromMap(e))
         .toList();
   }
 
