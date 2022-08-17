@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_frontend/screens/api_test.dart';
 import 'package:sih_frontend/screens/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 
 // to build web app
 // flutter build web --web-renderer canvaskit --no-sound-null-safety --release
@@ -12,6 +14,7 @@ import 'package:flutter/services.dart';
 // flutter build apk --split-per-abi
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // if (kIsWeb) {
   await Firebase.initializeApp(
       // Replace with actual values
       options: const FirebaseOptions(
@@ -24,10 +27,11 @@ void main() async {
           messagingSenderId: "325443015605",
           appId: "1:325443015605:web:565e445cd3b50016813ffc",
           measurementId: "G-S60LB92CG8"));
-
-  // if (!kIsWeb) {
-  await Firebase.initializeApp();
   // }
+
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+  }
 
   runApp(const MyApp());
 }
@@ -45,15 +49,7 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return Scaffold(
-            body: Scaffold(
-              body: IconButton(
-                  onPressed: () async {
-                    FirebaseAuth.instance.signOut();
-                  },
-                  icon: Icon(Icons.logout)),
-            ),
-          );
+          return APITestScreen();
         }
         return const LoginScreen();
       },
