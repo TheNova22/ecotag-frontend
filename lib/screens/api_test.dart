@@ -40,8 +40,8 @@ class APITestScreen extends StatelessWidget {
                 onPressed: () async {
                   EcoTagAPI().getSupplierDetails(
                       searchTerm: "Mixed Fruit Jam",
-                      latitude: "19.462",
-                      longitude: "1412.594566");
+                      latitude: 19.462,
+                      longitude: 1412.594566);
                 },
               ),
               TextButton(
@@ -65,19 +65,19 @@ class APITestScreen extends StatelessWidget {
                       manufacturer: "aaa",
                       startLocation: "ABC Speaker Maker, Bangalore",
                       pid: "zxcv",
-                      totalWeight: "50.4",
-                      currentLat: "128.35",
-                      currentLong: "74.45");
+                      totalWeight: 50.4,
+                      currentLat: 128.35,
+                      currentLong: 74.45);
                 },
               ),
               TextButton(
                 child: const Text("addManufacturer"),
                 onPressed: () async {
                   EcoTagAPI().addManufacturer(
-                      id: "bbb",
-                      company: "ABC Speaker Maker",
-                      lat: "333.213",
-                      long: "123.1422",
+                      id: "ccc",
+                      company: "XYZ Speaker Maker",
+                      lat: 333.213,
+                      long: 123.1422,
                       address: "Central Kolkata, Kolkata, India",
                       phone: "+91358359938");
                 },
@@ -100,10 +100,10 @@ class APITestScreen extends StatelessWidget {
                 onPressed: () async {
                   EcoTagAPI().addProduct(
                       name: "Leaf Water Bottle",
-                      category: ["Water Bottle", "Plastic Material"],
+                      category: ["Fire Bottle", "Plastic Material"],
                       emission: 76.35,
                       manufacturer: "bbb",
-                      barcode: "zxcv",
+                      barcode: "qwytu",
                       rawMaterials: ["Plastic"],
                       components: ["gslwoig"]);
                 },

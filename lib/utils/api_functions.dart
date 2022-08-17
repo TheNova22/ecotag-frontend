@@ -15,66 +15,65 @@ class EcoTagAPI {
         await _dio.get('${_baseUrl}getProductNameByBarcode?barcode=$barcode');
     debugPrint('${userData.data}');
     showToast('${userData.data}');
-    return json.decode(userData.data);
+    return Map<String, dynamic>.from(userData.data);
   }
 
-  Future<Map<String, String>> getProductFromBarcode(
+  Future<Map<String, dynamic>> getProductFromBarcode(
       {required String barcode}) async {
     Response userData =
         await _dio.get('${_baseUrl}getProduct?barcode=$barcode');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return jsonDecode(userData.data);
   }
 
-  Future<Map<String, String>> getManufacturers({required String maker}) async {
+  Future<List<dynamic>> getManufacturers({required String maker}) async {
     Response userData =
         await _dio.get('${_baseUrl}getManufacturers?searchTerm=$maker');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return jsonDecode(userData.data);
   }
 
-  Future<Map<String, String>> getSupplierDetails(
+  Future<List<dynamic>> getSupplierDetails(
       {required String searchTerm,
-      required String latitude,
-      required String longitude}) async {
+      required double latitude,
+      required double longitude}) async {
     Response userData = await _dio.get(
         '${_baseUrl}getSuppliers?searchTerm=$searchTerm&latitude=$latitude&longitude=$longitude');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return jsonDecode(userData.data);
   }
 
-  Future<Map<String, String>> getProductByName({required String name}) async {
+  Future<List<dynamic>> getProductByName({required String name}) async {
     Response userData =
         await _dio.get('${_baseUrl}getProductByName?searchTerm=$name');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return jsonDecode(userData.data);
   }
 
-  Future<Map<String, String>> getCategoriesByName(
-      {required String name}) async {
+  Future<List<dynamic>> getCategoriesByName({required String name}) async {
     Response userData =
         await _dio.get('${_baseUrl}getCategories?searchTerm=$name');
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return List<String>.from(jsonDecode(userData.data));
   }
 
-  Future<Map<String, String>> addShipment(
+  Future<Map<String, dynamic>> addShipment(
       {required String manufacturer,
       required String startLocation,
       required String pid,
-      required String totalWeight,
-      required String currentLat,
-      required String currentLong}) async {
+      required double totalWeight,
+      required double currentLat,
+      required double currentLong}) async {
     final data = json.encode({
       "manufacturer": manufacturer,
       "startLocation": startLocation,
@@ -87,10 +86,10 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return Map<String, dynamic>.from(userData.data);
   }
 
-  Future<Map<String, String>> addManufacturer(
+  Future<Map<String, dynamic>> addManufacturer(
       {id, company, lat, long, address, phone}) async {
     final data = json.encode({
       "_id": id,
@@ -105,10 +104,10 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return Map<String, dynamic>.from(userData.data);
   }
 
-  Future<Map<String, String>> updateShipment(
+  Future<Map<String, dynamic>> updateShipment(
       {shipmentID,
       location,
       currentLat,
@@ -129,10 +128,10 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return Map<String, dynamic>.from(userData.data);
   }
 
-  Future<Map<String, String>> addProduct({
+  Future<Map<String, dynamic>> addProduct({
     name,
     category,
     emission,
@@ -154,6 +153,6 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return {};
+    return Map<String, dynamic>.from(userData.data);
   }
 }
