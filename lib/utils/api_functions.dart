@@ -45,14 +45,14 @@ class EcoTagAPI {
         .toList();
   }
 
-  Future<List<dynamic>> getSupplierDetails(
+  Future<List<Supplier>> getSupplierDetails(
       {required String searchTerm,
       required double latitude,
       required double longitude}) async {
     Response userData = await _dio.get(
         '${_baseUrl}getSuppliers?searchTerm=$searchTerm&latitude=$latitude&longitude=$longitude');
     debugPrint(' ${userData.data}');
-    showToast('${userData.data}');
+    // showToast('${userData.data}');
 
     return jsonDecode(userData.data)
         .map<Supplier>((e) => Supplier.fromMap(e))
