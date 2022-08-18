@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/result.dart';
@@ -66,117 +67,137 @@ class _CustomerScreenState extends State<CustomerScreen> {
           color: Color(0xff464646),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0, top: 10),
-                child: Row(
-                  children: [
-                    Text("Good morning!",
-                        style: GoogleFonts.openSans(
-                            fontSize: 28,
-                            color: Color(0xff464646),
-                            fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(200),
-                        color: Color.fromARGB(47, 91, 208, 2)),
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (OverscrollIndicatorNotification overScroll) {
+          overScroll.disallowIndicator();
+          return false;
+        },
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0, top: 10),
+                  child: Row(
+                    children: [
+                      Text("Good morning!",
+                          style: GoogleFonts.openSans(
+                              fontSize: 28,
+                              color: Color(0xff464646),
+                              fontWeight: FontWeight.w600)),
+                    ],
                   ),
-                  SizedBox(
-                      width: 200,
-                      height: 100,
-                      child: Image.asset('assets/barcode.png'))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
-                    child: Text("Recent Scans",
-                        style: GoogleFonts.openSans(
-                            fontSize: 24,
-                            color: Color(0xff464646),
-                            fontWeight: FontWeight.w400)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 100,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    SizedBox(
-                      width: 50,
-                      height: 100,
-                    ),
-                    for (int i = 0; i < 5; i++)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 100,
-                          width: 90,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/cotton.jpeg"))),
-                        ),
-                      )
-                  ],
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("Donate",
-                            style: GoogleFonts.openSans(
-                                fontSize: 20,
-                                color: Color(0xff464646),
-                                fontWeight: FontWeight.w700)),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                            "Help companies take a cleaner and safer next step",
-                            style: GoogleFonts.openSans(
-                                fontSize: 14,
-                                color: Color(0xff464646),
-                                fontWeight: FontWeight.w600)),
-                      ],
-                    )
-                  ],
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-              SizedBox(
+                Container(
+                  width: 200,
                   height: 200,
+                  padding: EdgeInsets.all(40),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200),
+                    // ignore: prefer_const_literals_to_create_immutables
+
+                    color: Color(0xffD2DFC8),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        blurRadius: 4,
+                        offset: Offset(0, 4), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    "assets/barcode.png",
+                    width: 100,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text("Recent Scans",
+                          style: GoogleFonts.openSans(
+                              fontSize: 24,
+                              color: Color(0xff464646),
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 100,
                   child: ListView(
-                    children: [for (int i = 0; i < 5; i++) OrganisationTile()],
-                  ))
-            ],
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      for (int i = 0; i < 5; i++)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 100,
+                            width: 90,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage("assets/cotton.jpeg"))),
+                          ),
+                        ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Donate",
+                              style: GoogleFonts.openSans(
+                                  fontSize: 24,
+                                  color: Color(0xff464646),
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: w / 1.25,
+                            child: AutoSizeText(
+                                "Help companies take a cleaner and safer next step",
+                                minFontSize: 11,
+                                maxLines: 1,
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14,
+                                    color: Color(0xff464646),
+                                    fontWeight: FontWeight.w600)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Column(
+                  children:
+                      [1, 2, 3, 4, 5].map((e) => OrganisationTile()).toList(),
+                )
+              ],
+            ),
           ),
         ),
       ),
