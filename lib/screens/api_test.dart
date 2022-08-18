@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/api_functions.dart';
+import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 
 class APITestScreen extends StatelessWidget {
   const APITestScreen({Key? key}) : super(key: key);
@@ -46,14 +46,21 @@ class APITestScreen extends StatelessWidget {
                 },
               ),
               TextButton(
-                child: const Text("getAllRoutes"),
-                onPressed: () async {
-                  final x = await EcoTagAPI().getAllRoutes(
-                      fromAddress: "Mathikere, Bangalore",
-                      toAddress: "NIT Silchar, Silchar, Assam");
-                  debugPrint(x.toString());
-                },
-              ),
+                  child: const Text("getAllRoutes"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                ReverseLogisticsScreen()));
+                  }
+                  // () async {
+                  //   final x = await EcoTagAPI().getAllRoutes(
+                  //       fromAddress: "Mathikere, Bangalore",
+                  //       toAddress: "NIT Silchar, Silchar, Assam");
+                  //   debugPrint(x.toString());
+                  // },
+                  ),
               TextButton(
                 child: const Text("getSupplierDetails"),
                 onPressed: () async {
