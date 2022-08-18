@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:sih_frontend/model/route.dart' as rt;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,13 +54,18 @@ class ModeDetails extends StatelessWidget {
                   SizedBox(
                     height: 2,
                   ),
-                  Text(
-                    res.source,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.openSans(
-                        fontSize: 16,
-                        color: Color(0xff464646),
-                        fontWeight: FontWeight.w600),
+                  SizedBox(
+                    width: w / 2.2,
+                    child: AutoSizeText(
+                      res.source,
+                      minFontSize: 11,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.openSans(
+                          fontSize: 16,
+                          color: Color(0xff464646),
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -74,13 +80,18 @@ class ModeDetails extends StatelessWidget {
                   SizedBox(
                     height: 2,
                   ),
-                  Text(
-                    res.destination,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.openSans(
-                        fontSize: 16,
-                        color: Color(0xff464646),
-                        fontWeight: FontWeight.w600),
+                  SizedBox(
+                    width: w / 2.2,
+                    child: AutoSizeText(
+                      res.destination,
+                      minFontSize: 11,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.openSans(
+                          fontSize: 16,
+                          color: Color(0xff464646),
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -95,8 +106,10 @@ class ModeDetails extends StatelessWidget {
                       SizedBox(
                         width: 3,
                       ),
-                      Text(
+                      AutoSizeText(
                         res.result[selectedIndex].emission.toStringAsFixed(2),
+                        minFontSize: 11,
+                        maxLines: 1,
                         style: GoogleFonts.openSans(
                             fontSize: 16,
                             color: res.result[selectedIndex].emission > 75000.0
@@ -174,7 +187,7 @@ class ModeDetails extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                width: 50,
+                width: 40,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,82 +195,117 @@ class ModeDetails extends StatelessWidget {
                   Container(
                     alignment: Alignment.center,
                     height: 30,
-                    child: Text(
-                      res.source,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.openSans(
-                          fontSize: 21,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w600),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        res.source,
+                        minFontSize: 11,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 21,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 80,
-                    child: Text(
-                      "${res.result[selectedIndex].initalToPort1_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].initalToPort1_emission.toStringAsFixed(2)} kg CO\u2082",
-                      style: GoogleFonts.openSans(
-                          fontSize: 16,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w400),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        "${res.result[selectedIndex].initalToPort1_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].initalToPort1_emission.toStringAsFixed(2)} kg CO\u2082",
+                        minFontSize: 11,
+                        maxLines: 2,
+                        style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 30,
-                    child: Text(
-                      res.result[selectedIndex].from,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.openSans(
-                          fontSize: 21,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w600),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        res.result[selectedIndex].from,
+                        minFontSize: 11,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 21,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 80,
-                    child: Text(
-                      "${res.result[selectedIndex].port1ToPort2_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].port1ToPort2_emission.toStringAsFixed(2)} kg CO\u2082",
-                      style: GoogleFonts.openSans(
-                          fontSize: 16,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w400),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        "${res.result[selectedIndex].port1ToPort2_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].port1ToPort2_emission.toStringAsFixed(2)} kg CO\u2082",
+                        minFontSize: 11,
+                        maxLines: 2,
+                        style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 30,
-                    child: Text(
-                      res.result[selectedIndex].to,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.openSans(
-                          fontSize: 21,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w600),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        res.result[selectedIndex].to,
+                        minFontSize: 11,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 21,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 80,
-                    child: Text(
-                      "${res.result[selectedIndex].port2ToFinal_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].port2ToFinal_emission.toStringAsFixed(2)} kg CO\u2082",
-                      style: GoogleFonts.openSans(
-                          fontSize: 16,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w400),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        "${res.result[selectedIndex].port2ToFinal_distance.toStringAsFixed(2)} km \n${res.result[selectedIndex].port2ToFinal_emission.toStringAsFixed(2)} kg CO\u2082",
+                        minFontSize: 11,
+                        maxLines: 2,
+                        style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
                     height: 30,
-                    child: Text(
-                      res.destination,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.openSans(
-                          fontSize: 21,
-                          color: Color(0xff464646),
-                          fontWeight: FontWeight.w600),
+                    child: SizedBox(
+                      width: w / 1.8,
+                      child: AutoSizeText(
+                        res.destination,
+                        overflow: TextOverflow.ellipsis,
+                        minFontSize: 11,
+                        maxLines: 1,
+                        style: GoogleFonts.openSans(
+                            fontSize: 21,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
                 ],
