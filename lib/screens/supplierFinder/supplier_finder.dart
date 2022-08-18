@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/supplier.dart';
@@ -103,7 +104,7 @@ class _SupplierFinderState extends State<SupplierFinder> {
                                 getSuppliers();
                               },
                             ),
-                            hintText: "Try Mixed Fruit Jam",
+                            hintText: "Try Raw Cotton",
                             hintStyle: const TextStyle(color: Colors.grey),
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
@@ -118,7 +119,11 @@ class _SupplierFinderState extends State<SupplierFinder> {
                     ],
                   ),
                   searched
-                      ? Container()
+                      ? Column(
+                          children: suppliers
+                              .map((e) => SupplierCard(supplier: e))
+                              .toList(),
+                        )
                       : Container(
                           height: 60,
                           alignment: Alignment.center,
@@ -127,11 +132,120 @@ class _SupplierFinderState extends State<SupplierFinder> {
                                   fontSize: 28,
                                   color: Color(0xff464646),
                                   fontWeight: FontWeight.w300)),
-                        )
+                        ),
                 ],
               ),
             ),
           )),
+    );
+  }
+}
+
+class SupplierCard extends StatelessWidget {
+  const SupplierCard({Key? key, required this.supplier}) : super(key: key);
+  final Supplier supplier;
+
+  @override
+  Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15),
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(25), // Image border
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Color(0xffECF0F1),
+                          image: DecorationImage(
+                              image: NetworkImage(supplier.image_url),
+                              fit: BoxFit.fitWidth)),
+                    )
+                    // SizedBox.fromSize(
+                    //   size: Size.fromRadius(40), // Image radius
+                    //   child: Image.network(supplier.image_url, fit: BoxFit.fill),
+                    // ),
+                    ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: w / 2,
+                      child: AutoSizeText(
+                        supplier.product_title,
+                        minFontSize: 12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 18,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      width: w / 2,
+                      child: AutoSizeText(
+                        supplier.manufacturer_name,
+                        minFontSize: 8,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 14,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 2),
+                      width: w / 2,
+                      child: AutoSizeText(
+                        supplier.manufacturer_address,
+                        minFontSize: 11,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.openSans(
+                            fontSize: 8,
+                            color: Color(0xff464646),
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 5),
+                  width: 1,
+                  height: 75,
+                  color: Colors.grey,
+                ),
+                Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 55,
+                  color: Color(0xff464646),
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            width: w / 1.2,
+            color: Color.fromARGB(255, 209, 209, 209),
+            height: 1,
+          )
+        ],
+      ),
     );
   }
 }
