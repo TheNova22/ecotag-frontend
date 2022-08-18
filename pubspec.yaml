@@ -43,6 +43,7 @@ dependencies:
   json_annotation: ^4.6.0
   google_fonts: ^3.0.1
   timelines: ^0.1.0
+  auto_size_text: ^3.0.0
 
 
 
