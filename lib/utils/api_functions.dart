@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/model/manufacturer.dart';
 import 'package:sih_frontend/model/product.dart';
+import 'package:sih_frontend/model/result.dart';
 import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/model/supplier.dart';
 import 'package:sih_frontend/utils/authentication.dart';
@@ -85,6 +86,15 @@ class EcoTagAPI {
     showToast('${userData.data}');
 
     return List<String>.from(jsonDecode(userData.data));
+  }
+
+  Future<Result> getAllRoutes(
+      {required String fromAddress, required String toAddress}) async {
+    Response userData = await _dio.get(
+        '${_baseUrl}getAllRoutes?fromAddress=$fromAddress&toAddress=$toAddress');
+    debugPrint(' ${userData.data}');
+    showToast('${userData.data}');
+    return Result.fromMap(jsonDecode(userData.data));
   }
 
   Future<Map<String, dynamic>> addShipment(

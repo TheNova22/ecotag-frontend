@@ -18,15 +18,13 @@ void main() async {
   await Firebase.initializeApp(
       // Replace with actual values
       options: const FirebaseOptions(
-          apiKey: "AIzaSyAKT1K87BKF-N_EfqRT9QtnasHQk-p9CVI",
-          authDomain: "officialconnect-58897.firebaseapp.com",
-          databaseURL:
-              "https://officialconnect-58897-default-rtdb.firebaseio.com",
-          projectId: "officialconnect-58897",
-          storageBucket: "officialconnect-58897.appspot.com",
-          messagingSenderId: "325443015605",
-          appId: "1:325443015605:web:565e445cd3b50016813ffc",
-          measurementId: "G-S60LB92CG8"));
+          apiKey: "AIzaSyDfyw5imlf334KAgveGqVM_VkHTRs8yZiA",
+          authDomain: "ecotag-211c8.firebaseapp.com",
+          projectId: "ecotag-211c8",
+          storageBucket: "ecotag-211c8.appspot.com",
+          messagingSenderId: "645746490811",
+          appId: "1:645746490811:web:4823527c73bf0d8618989e",
+          measurementId: "G-KWHSSV8FMV"));
   // }
 
   if (!kIsWeb) {
