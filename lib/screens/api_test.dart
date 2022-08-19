@@ -11,8 +11,8 @@ class APITestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scaffold(
-        body: Center(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: [
               Padding(

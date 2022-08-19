@@ -8,7 +8,7 @@ class Product {
   final String categoryID;
   final List<String> manufacturer;
   final String name;
-  final int rating;
+  final double rating;
   final double totalEmission;
   final int totalManufacturers;
   final double score;
@@ -31,7 +31,7 @@ class Product {
     String? categoryID,
     List<String>? manufacturer,
     String? name,
-    int? rating,
+    double? rating,
     double? totalEmission,
     int? totalManufacturers,
     double? score,
@@ -70,7 +70,7 @@ class Product {
       categoryID: map['categoryID'] ?? '',
       manufacturer: List<String>.from(map['manufacturer']),
       name: map['name'] ?? '',
-      rating: map['rating']?.toInt() ?? 0,
+      rating: map['rating']?.toDouble() ?? 0,
       totalEmission: map['totalEmission']?.toDouble() ?? 0.0,
       totalManufacturers: map['totalManufacturers']?.toInt() ?? 0,
       score: map['score']?.toDouble() ?? 0.0,
