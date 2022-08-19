@@ -70,6 +70,15 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<Product> getProductDetailsByBarcode({required String barcode}) async {
+    Response userData = await _dio
+        .get('${_baseUrl}getProductDetailsByBarcode?barcode=$barcode');
+    debugPrint(' ${userData.data}');
+    // showToast('${userData.data}');
+
+    return Product.fromMap(jsonDecode(userData.data));
+  }
+
   Future<List<Shipment>> getShipments({required String manufacturer}) async {
     Response userData =
         await _dio.get('${_baseUrl}getShipments?manufacturer=$manufacturer');
