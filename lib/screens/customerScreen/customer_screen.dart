@@ -1,17 +1,10 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sih_frontend/model/result.dart';
-import 'package:sih_frontend/model/route.dart' as rt;
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile.dart';
-import 'package:sih_frontend/screens/reverseLogistics/components/custom_tfield.dart';
-import 'package:sih_frontend/screens/reverseLogistics/components/mode_details.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
-import 'package:timelines/timelines.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 // will use there productNameByBarcode and getProductFromBarcode
 // Here is the rundown:
@@ -28,30 +21,11 @@ class CustomerScreen extends StatefulWidget {
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-  TextEditingController fromController = TextEditingController();
-  TextEditingController toController = TextEditingController();
-  bool searched = false;
-  rt.Route res =
-      rt.Route.fromMap({"source": "", "destination": "", "result": []});
-  int selectedIndex = 0;
-
+  String barcode = "";
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-
-    Future getModes() async {
-      await EcoTagAPI()
-          .getAllRoutes(
-              fromAddress: fromController.text.trim(),
-              toAddress: toController.text.trim())
-          .then((value) {
-        setState(() {
-          res = value;
-          searched = true;
-        });
-      });
-    }
 
     return Scaffold(
       backgroundColor: Color(0xffECF0F1),
@@ -92,28 +66,38 @@ class _CustomerScreenState extends State<CustomerScreen> {
                 SizedBox(
                   height: 50,
                 ),
-                Container(
-                  width: 200,
-                  height: 200,
-                  padding: EdgeInsets.all(40),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(200),
-                    // ignore: prefer_const_literals_to_create_immutables
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  onTap: () async {
+                    String barcodeScanRes =
+                        await FlutterBarcodeScanner.scanBarcode(
+                            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                    print(barcodeScanRes);
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    padding: EdgeInsets.all(40),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(200),
+                      // ignore: prefer_const_literals_to_create_immutables
 
-                    color: Color(0xffD2DFC8),
+                      color: Color(0xffD2DFC8),
 
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: Offset(0, 4), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Image.asset(
-                    "assets/barcode.png",
-                    width: 100,
-                    fit: BoxFit.fitWidth,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 4,
+                          offset: Offset(0, 4), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      "assets/barcode.png",
+                      width: 100,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 SizedBox(
