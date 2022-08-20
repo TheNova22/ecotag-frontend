@@ -5,6 +5,7 @@ import 'package:sih_frontend/screens/api_test.dart';
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
+import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 // to build web app
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return APITestScreen();
+          return const ManufacturerHome();
         }
         return const LoginScreen();
       },

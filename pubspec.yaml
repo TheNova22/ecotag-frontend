@@ -44,9 +44,7 @@ dependencies:
   google_fonts: ^3.0.1
   timelines: ^0.1.0
   auto_size_text: ^3.0.0
-
-
-
+  flutter_svg: ^1.1.4
 
 dev_dependencies:
   flutter_test:
@@ -93,9 +91,9 @@ flutter:
       fonts:
         - asset: assets/fonts/OleoScript-Regular.ttf
 
-    - family: Pacifico
+    - family: Acme
       fonts:
-        - asset: assets/fonts/Pacifico-Regular.ttf
+        - asset: assets/fonts/Acme-Regular.ttf
 
     - family: PermanentMarker
       fonts:
