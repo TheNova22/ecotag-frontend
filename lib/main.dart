@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/screens/api_test.dart';
+import 'package:sih_frontend/screens/customerScreen/customer_screen.dart';
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return const ManufacturerHome();
+          // return const ManufacturerHome();
+          return CustomerScreen();
         }
         return const LoginScreen();
       },

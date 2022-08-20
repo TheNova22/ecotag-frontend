@@ -55,6 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
     TextFormField emailForm1 = TextFormField(
+      // style: textStyle.copyWith(fontSize: width * 0.05),
+      cursorHeight: 30, // autofocus: true,
+      controller: emailController,
+      key: const ValueKey('email'),
       onFieldSubmitted: _submitEmail,
       decoration: InputDecoration(
         labelText: "Enter Email",
