@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextButton(
                                     style: TextButton.styleFrom(
                                       minimumSize: const Size(100, 50),
-                                      foregroundColor: Colors.white,
+                                      //foregroundColor: Colors.white,
                                       backgroundColor: const Color.fromARGB(
                                           255, 255, 255, 255),
                                       elevation: 4,
