@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route.dart';
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -132,30 +136,43 @@ class _CustomerScreenState extends State<CustomerScreen> {
                 ),
                 SizedBox(
                   height: 100,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      for (int i = 0; i < 5; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 100,
-                            width: 90,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage("assets/cotton.jpeg"))),
-                          ),
-                        ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                    ],
+                  child: FutureBuilder(
+                    future: SharedPreferences.getInstance(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError ||
+                          snapshot.connectionState == ConnectionState.waiting) {
+                        return Text("Your previous scans will appear here");
+                      }
+                      SharedPreferences prefs =
+                          snapshot.data! as SharedPreferences;
+                      final String s = prefs.getString("scannedProducts") ?? "";
+                      if (s == "") {
+                        return Text("Your previous scans will appear here");
+                      }
+                      Map<String, dynamic> data = jsonDecode(s);
+                      print(data.keys);
+                      return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: data.keys.map((e) {
+                            Product s = Product.fromJson(data[e]);
+                            return Text(s.name);
+                          }).toList());
+                    },
                   ),
+
+                  // for (int i = 0; i < 5; i++)
+                  //   Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: Container(
+                  //       height: 100,
+                  //       width: 90,
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(30),
+                  //           image: DecorationImage(
+                  //               fit: BoxFit.fill,
+                  //               image: AssetImage("assets/cotton.jpeg"))),
+                  //     ),
+                  //   ),
                 ),
                 SizedBox(
                   height: 20,
@@ -218,11 +235,7 @@ class _ProductCard extends StatelessWidget {
         padding: const EdgeInsets.all(32.0),
         child: Hero(
           tag: _heroAddTodo,
-          // createRectTween: (begin, end) {
-          //   return CustomRectTween(begin: begin, end: end);
-          // },
           child: Material(
-            // color: AppColors.accentColor,
             elevation: 2,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
@@ -264,7 +277,19 @@ class _ProductCard extends StatelessWidget {
                     );
                   } else {
                     final Product a = snapshot.data as Product;
+                    SharedPreferences.getInstance().then((value) {
+                      Map<String, dynamic> data = {};
 
+                      final s = value.getString("scannedProducts") ?? "";
+                      print("hello i am nana" + s);
+                      if (s != "") data = jsonDecode(s);
+                      if (!data.containsKey(a.name)) {
+                        print("ADDING TO THE PREFS");
+                        data.addEntries(
+                            [MapEntry(a.name, a.toJson() as dynamic)]);
+                        value.setString('scannedProducts', jsonEncode(data));
+                      }
+                    });
                     return Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
@@ -274,7 +299,13 @@ class _ProductCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(a.name),
-                            Image.asset("assets/cotton.jpeg"),
+                            CachedNetworkImage(
+                              imageUrl: a.image_url,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                             RatingBarIndicator(
                               rating: a.rating,
                               itemBuilder: (context, index) => Icon(

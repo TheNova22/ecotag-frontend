@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 class Product {
   final String id;
+  final String image_url;
   final List<String> category;
   final String categoryID;
   final List<String> manufacturer;
@@ -12,9 +14,9 @@ class Product {
   final double totalEmission;
   final int totalManufacturers;
   final double score;
-
   Product({
     required this.id,
+    required this.image_url,
     required this.category,
     required this.categoryID,
     required this.manufacturer,
@@ -27,6 +29,7 @@ class Product {
 
   Product copyWith({
     String? id,
+    String? image_url,
     List<String>? category,
     String? categoryID,
     List<String>? manufacturer,
@@ -38,6 +41,7 @@ class Product {
   }) {
     return Product(
       id: id ?? this.id,
+      image_url: image_url ?? this.image_url,
       category: category ?? this.category,
       categoryID: categoryID ?? this.categoryID,
       manufacturer: manufacturer ?? this.manufacturer,
@@ -52,6 +56,7 @@ class Product {
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
+      'image_url': image_url,
       'category': category,
       'categoryID': categoryID,
       'manufacturer': manufacturer,
@@ -65,12 +70,13 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      id: map['id'] ?? '',
+      id: map['_id'] ?? '',
+      image_url: map['image_url'] ?? '',
       category: List<String>.from(map['category']),
       categoryID: map['categoryID'] ?? '',
       manufacturer: List<String>.from(map['manufacturer']),
       name: map['name'] ?? '',
-      rating: map['rating']?.toDouble() ?? 0,
+      rating: map['rating']?.toDouble() ?? 0.0,
       totalEmission: map['totalEmission']?.toDouble() ?? 0.0,
       totalManufacturers: map['totalManufacturers']?.toInt() ?? 0,
       score: map['score']?.toDouble() ?? 0.0,
@@ -84,16 +90,16 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, category: $category, categoryID: $categoryID, manufacturer: $manufacturer, name: $name, rating: $rating, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers, score: $score)';
+    return 'Product(id: $id, image_url: $image_url, category: $category, categoryID: $categoryID, manufacturer: $manufacturer, name: $name, rating: $rating, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers, score: $score)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
 
     return other is Product &&
         other.id == id &&
+        other.image_url == image_url &&
         listEquals(other.category, category) &&
         other.categoryID == categoryID &&
         listEquals(other.manufacturer, manufacturer) &&
@@ -107,6 +113,7 @@ class Product {
   @override
   int get hashCode {
     return id.hashCode ^
+        image_url.hashCode ^
         category.hashCode ^
         categoryID.hashCode ^
         manufacturer.hashCode ^
