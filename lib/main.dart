@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           // return const ManufacturerHome();
-          // return CustomerScreen();
-          return CreateShipmentScreen();
+          return CustomerScreen();
+          // return CreateShipmentScreen();
         }
         return const LoginScreen();
       },
