@@ -7,6 +7,7 @@ import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
+import 'package:sih_frontend/screens/shipment_create_screen/shipment_create_screen.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 // to build web app

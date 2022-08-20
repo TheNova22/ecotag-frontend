@@ -32,6 +32,7 @@ class CustomerScreen extends StatefulWidget {
 
 class _CustomerScreenState extends State<CustomerScreen> {
   String barcode = "";
+  Map<String, dynamic> data = {};
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -41,6 +42,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
       return 'Afternoon';
     }
     return 'Evening';
+  }
+
+  void statechangeFunction(Map<String, dynamic> d) {
+    setState(() {
+      data = d;
+    });
   }
 
   @override
@@ -61,6 +68,19 @@ class _CustomerScreenState extends State<CustomerScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: Color(0xff464646),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await SharedPreferences.getInstance()
+                  .then((value) => value.clear());
+              setState(() {
+                data = {};
+              });
+            },
+            icon: Icon(Icons.delete),
+            color: Color(0xff464646),
+          ),
+        ],
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
@@ -82,10 +102,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
                           fontSize: 40.0,
                           fontFamily: "Lobster",
                         ),
-                        // GoogleFonts.openSans(
-                        //     fontSize: 28,
-                        //     color: Color(0xff464646),
-                        //     fontWeight: FontWeight.w600)
                       ),
                     ],
                   ),
@@ -111,6 +127,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         builder: (context) {
                           return _ProductCard(
                             barcode: barcodeScanRes,
+                            statechange: statechangeFunction,
                             // product: null,
                           );
                         },
@@ -126,16 +143,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                       // ignore: prefer_const_literals_to_create_immutables
 
                       color: Color(0xffD2DFC8),
-                      // gradient: LinearGradient(
-                      //   begin: Alignment.topRight,
-                      //   end: Alignment.bottomLeft,
-                      //   // Add one stop for each color. Stops should increase from 0 to 1
-                      //   stops: const [0.1, 0.9],
-                      //   colors: const [
-                      //     Color.fromARGB(255, 0, 152, 155),
-                      //     Color.fromARGB(255, 0, 94, 120),
-                      //   ],
-                      // ),
+
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -181,8 +189,8 @@ class _CustomerScreenState extends State<CustomerScreen> {
                       if (s == "") {
                         return Text("Your previous scans will appear here");
                       }
-                      Map<String, dynamic> data = jsonDecode(s);
-                      print(data.keys);
+                      data = jsonDecode(s);
+
                       return ListView(
                           scrollDirection: Axis.horizontal,
                           children: data.keys.map((e) {
@@ -210,34 +218,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                     errorWidget: (context, url, error) =>
                                         Icon(Icons.error),
                                   ),
-                                  // decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(30),
-                                  //     image: DecorationImage(
-                                  //         fit: BoxFit.fill,
-                                  //         image:
-                                  //             // AssetImage("assets/cotton.jpeg")
-                                  //             )
-                                  // ),
                                 ),
                               ),
                             );
                           }).toList());
                     },
                   ),
-
-                  // for (int i = 0; i < 5; i++)
-                  //   Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: Container(
-                  //       height: 100,
-                  //       width: 90,
-                  //       decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(30),
-                  //           image: DecorationImage(
-                  //               fit: BoxFit.fill,
-                  //               image: AssetImage("assets/cotton.jpeg"))),
-                  //     ),
-                  //   ),
                 ),
                 SizedBox(
                   height: 20,
@@ -292,7 +278,9 @@ class _ProductCard extends StatelessWidget {
   /// {@macro add_todo_popup_card}
   final String barcode;
   final Product? product;
-  const _ProductCard({super.key, required this.barcode, this.product = null});
+  final Function? statechange;
+  const _ProductCard(
+      {super.key, required this.barcode, this.product, this.statechange});
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -388,6 +376,7 @@ class _ProductCard extends StatelessWidget {
                                   [MapEntry(a.name, a.toJson() as dynamic)]);
                               value.setString(
                                   'scannedProducts', jsonEncode(data));
+                              statechange!(data);
                             }
                           });
                           return Padding(
