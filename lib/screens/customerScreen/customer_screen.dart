@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -110,6 +111,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         builder: (context) {
                           return _ProductCard(
                             barcode: barcodeScanRes,
+                            // product: null,
                           );
                         },
                       ));
@@ -123,17 +125,17 @@ class _CustomerScreenState extends State<CustomerScreen> {
                       borderRadius: BorderRadius.circular(200),
                       // ignore: prefer_const_literals_to_create_immutables
 
-                      // color: Color(0xffD2DFC8),
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        // Add one stop for each color. Stops should increase from 0 to 1
-                        stops: const [0.1, 0.9],
-                        colors: const [
-                          Color.fromARGB(255, 0, 152, 155),
-                          Color.fromARGB(255, 0, 94, 120),
-                        ],
-                      ),
+                      color: Color(0xffD2DFC8),
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topRight,
+                      //   end: Alignment.bottomLeft,
+                      //   // Add one stop for each color. Stops should increase from 0 to 1
+                      //   stops: const [0.1, 0.9],
+                      //   colors: const [
+                      //     Color.fromARGB(255, 0, 152, 155),
+                      //     Color.fromARGB(255, 0, 94, 120),
+                      //   ],
+                      // ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -187,15 +189,36 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             Product s = Product.fromJson(data[e]);
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 100,
-                                width: 90,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image:
-                                            AssetImage("assets/cotton.jpeg"))),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(HeroDialogRoute(
+                                    builder: (context) {
+                                      return _ProductCard(
+                                        barcode: "",
+                                        product: s,
+                                      );
+                                    },
+                                  ));
+                                },
+                                child: Container(
+                                  height: 100,
+                                  width: 90,
+                                  child: CachedNetworkImage(
+                                    imageUrl: s.image_url,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  // decoration: BoxDecoration(
+                                  //     borderRadius: BorderRadius.circular(30),
+                                  //     image: DecorationImage(
+                                  //         fit: BoxFit.fill,
+                                  //         image:
+                                  //             // AssetImage("assets/cotton.jpeg")
+                                  //             )
+                                  // ),
+                                ),
                               ),
                             );
                           }).toList());
@@ -268,8 +291,8 @@ const String _heroAddTodo = 'add-todo-hero';
 class _ProductCard extends StatelessWidget {
   /// {@macro add_todo_popup_card}
   final String barcode;
-
-  const _ProductCard({super.key, required this.barcode});
+  final Product? product;
+  const _ProductCard({super.key, required this.barcode, this.product = null});
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -283,57 +306,8 @@ class _ProductCard extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
             child: SingleChildScrollView(
-              child: FutureBuilder(
-                future: EcoTagAPI()
-                    .getProductDetailsByBarcode(barcode: barcode.trim()),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: Column(
-                      children: const [
-                        SizedBox(
-                          height: 100,
-                        ),
-                        Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                        SizedBox(
-                          height: 100,
-                        ),
-                      ],
-                    ));
-                  }
-                  if (snapshot.error != null) {
-                    debugPrint(snapshot.error.toString());
-                    return Column(
-                      children: const [
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Center(
-                          child: Text('Could Not find Product in database'),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    );
-                  } else {
-                    final Product a = snapshot.data as Product;
-                    SharedPreferences.getInstance().then((value) {
-                      Map<String, dynamic> data = {};
-
-                      final s = value.getString("scannedProducts") ?? "";
-                      print("hello i am nana" + s);
-                      if (s != "") data = jsonDecode(s);
-                      if (!data.containsKey(a.name)) {
-                        print("ADDING TO THE PREFS");
-                        data.addEntries(
-                            [MapEntry(a.name, a.toJson() as dynamic)]);
-                        value.setString('scannedProducts', jsonEncode(data));
-                      }
-                    });
-                    return Padding(
+              child: product != null
+                  ? Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
                         height: 250,
@@ -341,16 +315,16 @@ class _ProductCard extends StatelessWidget {
                           direction: Axis.vertical,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(a.name),
+                            Text(product!.name),
                             CachedNetworkImage(
-                              imageUrl: a.image_url,
+                              imageUrl: product!.image_url,
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
                                   Icon(Icons.error),
                             ),
                             RatingBarIndicator(
-                              rating: a.rating,
+                              rating: product!.rating,
                               itemBuilder: (context, index) => Icon(
                                 Icons.star,
                                 color: Colors.green,
@@ -362,10 +336,93 @@ class _ProductCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                    );
-                  }
-                },
-              ),
+                    )
+                  : FutureBuilder(
+                      future: EcoTagAPI()
+                          .getProductDetailsByBarcode(barcode: barcode.trim()),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child: Column(
+                            children: const [
+                              SizedBox(
+                                height: 100,
+                              ),
+                              Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              ),
+                              SizedBox(
+                                height: 100,
+                              ),
+                            ],
+                          ));
+                        }
+                        if (snapshot.error != null) {
+                          debugPrint(snapshot.error.toString());
+                          return Column(
+                            children: const [
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Center(
+                                child:
+                                    Text('Could Not find Product in database'),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                            ],
+                          );
+                        } else {
+                          final Product a = snapshot.data as Product;
+                          SharedPreferences.getInstance().then((value) {
+                            Map<String, dynamic> data = {};
+
+                            final s = value.getString("scannedProducts") ?? "";
+                            print("hello i am nana" + s);
+                            if (s != "") data = jsonDecode(s);
+                            if (!data.containsKey(a.name)) {
+                              print("ADDING TO THE PREFS");
+                              data.addEntries(
+                                  [MapEntry(a.name, a.toJson() as dynamic)]);
+                              value.setString(
+                                  'scannedProducts', jsonEncode(data));
+                            }
+                          });
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: SizedBox(
+                              height: 250,
+                              child: Flex(
+                                direction: Axis.vertical,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(a.name),
+                                  CachedNetworkImage(
+                                    imageUrl: a.image_url,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  RatingBarIndicator(
+                                    rating: a.rating,
+                                    itemBuilder: (context, index) => Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    ),
+                                    itemCount: 5,
+                                    itemSize: 50.0,
+                                    direction: Axis.horizontal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
             ),
           ),
         ),

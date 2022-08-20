@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return const ManufacturerHome();
-          // return CustomerScreen();
+          // return const ManufacturerHome();
+          return CustomerScreen();
         }
         return const LoginScreen();
       },
