@@ -12,6 +12,7 @@ class Product {
   final double totalEmission;
   final int totalManufacturers;
   final double score;
+
   Product({
     required this.id,
     required this.category,

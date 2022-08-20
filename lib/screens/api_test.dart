@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/api_functions.dart';
+import 'package:sih_frontend/screens/customerScreen/customer_screen.dart';
+import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
+import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 
 class APITestScreen extends StatelessWidget {
   const APITestScreen({Key? key}) : super(key: key);
@@ -18,19 +20,24 @@ class APITestScreen extends StatelessWidget {
                 child: TextButton(
                   child: const Text("getProductNameByBarcode"),
                   onPressed: () async {
-                    EcoTagAPI()
-                        .getProductNameByBarcode(barcode: "8901138511470");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                CustomerScreen()));
+                    // EcoTagAPI()
+                    //     .getProductNameByBarcode(barcode: "8901138511470");
                   },
                 ),
               ),
-              TextButton(
-                child: const Text("getProductFromBarcode"),
-                onPressed: () async {
-                  final x =
-                      await EcoTagAPI().getProductFromBarcode(barcode: "zxcv");
-                  debugPrint(x.toString());
-                },
-              ),
+              // TextButton(
+              //   child: const Text("getProductFromBarcode"),
+              //   onPressed: () async {
+              //     final x =
+              //         await EcoTagAPI().getProductFromBarcode(barcode: "zxcv");
+              //     debugPrint(x.toString());
+              //   },
+              // ),
               TextButton(
                 child: const Text("getManufacturers"),
                 onPressed: () async {
@@ -46,12 +53,43 @@ class APITestScreen extends StatelessWidget {
                 },
               ),
               TextButton(
-                child: const Text("getSupplierDetails"),
+                  child: const Text("getAllRoutes"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                ReverseLogisticsScreen()));
+                  }
+                  // () async {
+                  //   final x = await EcoTagAPI().getAllRoutes(
+                  //       fromAddress: "Mathikere, Bangalore",
+                  //       toAddress: "NIT Silchar, Silchar, Assam");
+                  //   debugPrint(x.toString());
+                  // },
+                  ),
+              TextButton(
+                  child: const Text("getSupplierDetails"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                SupplierFinder()));
+                  }
+                  // () async {
+                  //   final x = await EcoTagAPI().getSupplierDetails(
+                  //       searchTerm: "Mixed Fruit Jam",
+                  //       latitude: 19.462,
+                  //       longitude: 1412.594566);
+                  //   debugPrint(x.toString());
+                  // },
+                  ),
+              TextButton(
+                child: const Text("getProductsByCategory"),
                 onPressed: () async {
-                  final x = await EcoTagAPI().getSupplierDetails(
-                      searchTerm: "Mixed Fruit Jam",
-                      latitude: 19.462,
-                      longitude: 1412.594566);
+                  final x = await EcoTagAPI().getProductsByCategory(
+                      categories: ["Plastic Material", "Leaf Water"]);
                   debugPrint(x.toString());
                 },
               ),
