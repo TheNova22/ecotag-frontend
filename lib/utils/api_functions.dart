@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/model/manufacturer.dart';
 import 'package:sih_frontend/model/product.dart';
+import 'package:sih_frontend/model/result.dart';
+import 'package:sih_frontend/model/route.dart' as rt;
 import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/model/supplier.dart';
 import 'package:sih_frontend/utils/authentication.dart';
@@ -43,14 +45,14 @@ class EcoTagAPI {
         .toList();
   }
 
-  Future<List<dynamic>> getSupplierDetails(
+  Future<List<Supplier>> getSupplierDetails(
       {required String searchTerm,
       required double latitude,
       required double longitude}) async {
     Response userData = await _dio.get(
         '${_baseUrl}getSuppliers?searchTerm=$searchTerm&latitude=$latitude&longitude=$longitude');
     debugPrint(' ${userData.data}');
-    showToast('${userData.data}');
+    // showToast('${userData.data}');
 
     return jsonDecode(userData.data)
         .map<Supplier>((e) => Supplier.fromMap(e))
@@ -68,6 +70,15 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<Product> getProductDetailsByBarcode({required String barcode}) async {
+    Response userData = await _dio
+        .get('${_baseUrl}getProductDetailsByBarcode?barcode=$barcode');
+    debugPrint(' ${userData.data}');
+    // showToast('${userData.data}');
+
+    return Product.fromMap(jsonDecode(userData.data));
+  }
+
   Future<List<Shipment>> getShipments({required String manufacturer}) async {
     Response userData =
         await _dio.get('${_baseUrl}getShipments?manufacturer=$manufacturer');
@@ -78,6 +89,17 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<List<Product>> getProductsByCategory(
+      {required List<String> categories}) async {
+    Response userData = await _dio.get(
+        '${_baseUrl}getProductsByCategory?categories=${categories.join(",")}');
+    debugPrint(' ${userData.data}');
+    showToast('${userData.data}');
+    return jsonDecode(userData.data)
+        .map<Product>((e) => Product.fromMap(e))
+        .toList();
+  }
+
   Future<List<dynamic>> getCategoriesByName({required String name}) async {
     Response userData =
         await _dio.get('${_baseUrl}getCategories?searchTerm=$name');
@@ -85,6 +107,13 @@ class EcoTagAPI {
     showToast('${userData.data}');
 
     return List<String>.from(jsonDecode(userData.data));
+  }
+
+  Future<rt.Route> getAllRoutes(
+      {required String fromAddress, required String toAddress}) async {
+    Response userData = await _dio.get(
+        '${_baseUrl}getAllRoutes?fromAddress=$fromAddress&toAddress=$toAddress');
+    return rt.Route.fromMap(jsonDecode(userData.data));
   }
 
   Future<Map<String, dynamic>> addShipment(

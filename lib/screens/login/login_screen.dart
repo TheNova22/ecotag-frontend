@@ -54,6 +54,30 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
     );
+    TextFormField emailForm1 = TextFormField(
+      onFieldSubmitted: _submitEmail,
+      decoration: InputDecoration(
+        labelText: "Enter Email",
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+        //fillColor: Colors.green
+      ),
+      // TODO : enable this when production
+      validator: (val) {
+        if (val?.length == 0) {
+          return "Email cannot be empty";
+        } else {
+          return null;
+        }
+      },
+      keyboardType: TextInputType.emailAddress,
+      style: const TextStyle(
+        fontFamily: "Poppins",
+      ),
+    );
     TextFormField pwdForm = TextFormField(
       style: textStyle.copyWith(fontSize: width * 0.05),
       key: const ValueKey('pwd'),
@@ -63,6 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         labelText: "Password",
         labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+        //fillColor: Colors.green
       ),
       validator: (value) {
         if (register && value! != pwdConfirmController.text) {
@@ -89,6 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         labelText: "Confirm your password",
         labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
       ),
     );
     TextFormField nameForm = TextFormField(
@@ -99,6 +134,11 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         labelText: "Name",
         labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
       ),
       validator: (value) {
         if (value!.isEmpty) {
@@ -127,11 +167,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50,
                         ),
                         const Text(
-                          "ECOTAG",
+                          "Ecotag",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 40,
-                              fontFamily: 'Comfortaa'),
+                              fontSize: 60,
+                              fontFamily: 'Lobster'),
                         ),
                         Form(
                           key: _formKey,
@@ -139,31 +179,31 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0, right: 50.0),
-                                child: emailForm,
+                                    left: 30.0, right: 30.0, top: 20.0),
+                                child: emailForm1,
                               ),
                               if (register)
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 50.0, right: 50.0),
+                                      left: 30.0, right: 30.0, top: 20.0),
                                   child: nameForm,
                                 ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0, right: 50.0),
+                                    left: 30.0, right: 30.0, top: 20.0),
                                 child: pwdForm,
                               ),
                               if (register)
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 50.0, right: 50.0),
+                                      left: 30.0, right: 30.0, top: 20.0),
                                   child: pwdConfirmForm,
                                 ),
                             ],
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
                         isPressed
                             ? const CircularProgressIndicator()
@@ -171,6 +211,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: const Size(100, 50),
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 255, 255, 255),
+                                      elevation: 4,
+                                      // shape: const CircleBorder(),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            22), // <-- Radius
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 60,
+                                          right: 60,
+                                          top: 15,
+                                          bottom: 15),
+                                    ),
                                     child: Text(
                                       register ? "Register" : "Log in",
                                       style: const TextStyle(
@@ -244,30 +301,35 @@ class _LoginScreenState extends State<LoginScreen> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
-                                    register
-                                        ? "Already a user ?"
-                                        : "Dont have an account?",
-                                    style: textStyle,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        register
+                                            ? "Already a user ?"
+                                            : "Dont have an account?",
+                                        style: textStyle,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextButton(
+                                        child: Text(
+                                          register ? "Sign-in" : "Register",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontFamily: 'Comfortaa'),
+                                        ),
+                                        onPressed: () async {
+                                          setState(() {
+                                            register = !register;
+                                          });
+                                        },
+                                      ) // Login
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextButton(
-                                    child: Text(
-                                      register ? "Sign-in" : "Register",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontFamily: 'Comfortaa'),
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        register = !register;
-                                      });
-                                    },
-                                  ) // Login
                                 ],
                               )
                       ]),
