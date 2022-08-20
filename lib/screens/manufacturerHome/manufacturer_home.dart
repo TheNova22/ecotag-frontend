@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -67,6 +68,11 @@ class _ManufacturerHomeState extends State<ManufacturerHome> {
                           "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
                         ),
                       ),
+                      IconButton(
+                          onPressed: () async {
+                            FirebaseAuth.instance.signOut();
+                          },
+                          icon: const Icon(Icons.logout)),
                     ],
                   ),
                 ),
