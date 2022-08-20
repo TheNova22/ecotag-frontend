@@ -210,7 +210,7 @@ class _ManufacturerHomeState extends State<ManufacturerHome> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Text(

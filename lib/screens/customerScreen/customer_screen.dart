@@ -31,6 +31,17 @@ class CustomerScreen extends StatefulWidget {
 
 class _CustomerScreenState extends State<CustomerScreen> {
   String barcode = "";
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Morning';
+    }
+    if (hour < 17) {
+      return 'Afternoon';
+    }
+    return 'Evening';
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -64,11 +75,17 @@ class _CustomerScreenState extends State<CustomerScreen> {
                   padding: const EdgeInsets.only(left: 30.0, top: 10),
                   child: Row(
                     children: [
-                      Text("Good morning!",
-                          style: GoogleFonts.openSans(
-                              fontSize: 28,
-                              color: Color(0xff464646),
-                              fontWeight: FontWeight.w600)),
+                      Text(
+                        "Good ${greeting()}!",
+                        style: TextStyle(
+                          fontSize: 40.0,
+                          fontFamily: "Lobster",
+                        ),
+                        // GoogleFonts.openSans(
+                        //     fontSize: 28,
+                        //     color: Color(0xff464646),
+                        //     fontWeight: FontWeight.w600)
+                      ),
                     ],
                   ),
                 ),
@@ -81,18 +98,22 @@ class _CustomerScreenState extends State<CustomerScreen> {
                   onTap: () async {
                     String barcodeScanRes =
                         await FlutterBarcodeScanner.scanBarcode(
-                            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                            "#ff6666", 'Cancel', true, ScanMode.BARCODE);
                     debugPrint(barcodeScanRes);
+                    debugPrint("above is gay");
                     // final x = await EcoTagAPI().getProductDetailsByBarcode(
                     //     barcode: barcodeScanRes.trim());
                     // print(x.toString());
-                    Navigator.of(context).push(HeroDialogRoute(
-                      builder: (context) {
-                        return _ProductCard(
-                          barcode: barcodeScanRes,
-                        );
-                      },
-                    ));
+
+                    if (barcodeScanRes.isNotEmpty && barcodeScanRes != "-1") {
+                      Navigator.of(context).push(HeroDialogRoute(
+                        builder: (context) {
+                          return _ProductCard(
+                            barcode: barcodeScanRes,
+                          );
+                        },
+                      ));
+                    }
                   },
                   child: Container(
                     width: 200,
@@ -102,8 +123,17 @@ class _CustomerScreenState extends State<CustomerScreen> {
                       borderRadius: BorderRadius.circular(200),
                       // ignore: prefer_const_literals_to_create_immutables
 
-                      color: Color(0xffD2DFC8),
-
+                      // color: Color(0xffD2DFC8),
+                      gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        // Add one stop for each color. Stops should increase from 0 to 1
+                        stops: const [0.1, 0.9],
+                        colors: const [
+                          Color.fromARGB(255, 0, 152, 155),
+                          Color.fromARGB(255, 0, 94, 120),
+                        ],
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -155,7 +185,19 @@ class _CustomerScreenState extends State<CustomerScreen> {
                           scrollDirection: Axis.horizontal,
                           children: data.keys.map((e) {
                             Product s = Product.fromJson(data[e]);
-                            return Text(s.name);
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 100,
+                                width: 90,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image:
+                                            AssetImage("assets/cotton.jpeg"))),
+                              ),
+                            );
                           }).toList());
                     },
                   ),
@@ -236,6 +278,7 @@ class _ProductCard extends StatelessWidget {
         child: Hero(
           tag: _heroAddTodo,
           child: Material(
+            // color: Colors.white,
             elevation: 2,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
