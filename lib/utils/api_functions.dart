@@ -152,7 +152,7 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return Map<String, dynamic>.from(userData.data);
+    return Map<String, dynamic>.from(jsonDecode(userData.data));
   }
 
   Future<Map<String, dynamic>> addManufacturer(
