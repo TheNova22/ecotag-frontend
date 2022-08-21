@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/screens/api_test.dart';
+import 'package:sih_frontend/screens/homePage/home_page.dart';
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
+import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 // to build web app
@@ -48,9 +50,9 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return const ManufacturerHome();
+          return HomePage();
         }
-        return const LoginScreen();
+        return HomePage();
       },
     );
     return MaterialApp(
