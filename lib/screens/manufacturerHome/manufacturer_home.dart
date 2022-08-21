@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/x_not_used_color_container.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
+import 'package:sih_frontend/screens/settingsScreen/settings_screen.dart';
 
 class ManufacturerHome extends StatefulWidget {
   const ManufacturerHome({super.key});
@@ -81,11 +82,20 @@ class _ManufacturerHomeState extends State<ManufacturerHome> {
                         ],
                       ),
                       const SizedBox(width: 15),
-                      const CircleAvatar(
-                        radius: 36.0,
-                        backgroundImage: NetworkImage(
-                          "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
+                      GestureDetector(
+                        child: const CircleAvatar(
+                          radius: 36.0,
+                          backgroundImage: NetworkImage(
+                            "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
+                          ),
                         ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SettingsPage()));
+                        },
                       ),
                     ],
                   ),
