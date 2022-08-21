@@ -1,8 +1,13 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/x_not_used_color_container.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
@@ -40,23 +45,38 @@ class _ManufacturerHomeState extends State<ManufacturerHome> {
                         children: [
                           Text(
                             "Hi, $name",
-                            style: const TextStyle(
-                              fontSize: 40.0,
-                              fontFamily: "Lobster",
-                            ),
+                            style: GoogleFonts.openSans(
+                                color: Color(0xff464646),
+                                fontSize: 32,
+                                fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(
                             height: 3,
                           ),
-                          Text(
-                            place,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              color: Color.fromARGB(215, 48, 48, 47),
-                              // fontFamily: "Acme",
-                              fontWeight: FontWeight.w400,
-                              // fontFamily: "OleoScript",
-                            ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_pin,
+                                color: Color.fromARGB(255, 219, 125, 118),
+                                size: 24,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: w / 2.2,
+                                child: AutoSizeText(
+                                  place,
+                                  minFontSize: 9,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: GoogleFonts.openSans(
+                                      color: Color(0xff464646),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -71,183 +91,209 @@ class _ManufacturerHomeState extends State<ManufacturerHome> {
                   ),
                 ),
                 const MonthlyStat(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: 2 * w / 5,
-                      margin: const EdgeInsets.only(top: 20.0),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 30),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          // Add one stop for each color. Stops should increase from 0 to 1
-                          stops: [0, 0.9],
-                          colors: [
-                            Color.fromARGB(255, 255, 101, 155),
-                            Color.fromARGB(255, 254, 147, 177),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 2.1 * w / 5,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 2),
+                              blurRadius: 2,
+                              color: Color.fromRGBO(0, 0, 0, 0.16),
+                            )
+                          ],
+                          color: Color.fromARGB(255, 255, 165, 165),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10.0, left: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/cloud.png",
+                                    scale: 0.75,
+                                  ),
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  Text(
+                                    "High",
+                                    style: GoogleFonts.openSans(
+                                        color: Color.fromARGB(255, 239, 33, 33),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "CO\u2082 Emission",
+                              style: GoogleFonts.openSans(
+                                  color: Color.fromARGB(255, 0, 93, 29),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              "- Improve now",
+                              style: GoogleFonts.openSans(
+                                  color: Color.fromARGB(255, 0, 93, 29),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            )
                           ],
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                "assets/cloud.png",
-                                // color: Color.fromARGB(255, 0, 0, 0),
-                                // width: 50.0,
-                                // height: 50.0,
+                      Container(
+                        height: 150,
+                        width: 2.1 * w / 5,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 2),
+                              blurRadius: 2,
+                              color: Color.fromRGBO(0, 0, 0, 0.16),
+                            )
+                          ],
+                          color: Color.fromARGB(255, 201, 233, 193),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10.0, left: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/leaf.png",
+                                    scale: 0.65,
+                                  ),
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  Text(
+                                    "4.45",
+                                    style: GoogleFonts.openSans(
+                                        color: Color.fromARGB(255, 2, 115, 49),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                ],
                               ),
-                              const Text(
-                                "High",
-                                style: TextStyle(
-                                    // color: Colors.white,
-                                    fontFamily: "Acme",
-                                    fontSize: 30,
-                                    color: Color.fromARGB(255, 194, 19, 19)),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            "CO2 Emission",
-                            style: TextStyle(
-                                // color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                          ),
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          const Text(
-                            "Improve now",
-                            style: TextStyle(
-                                // color: Colors.white,
-                                // fontFamily: "Acme",
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 2 * w / 5,
-                      margin: const EdgeInsets.only(top: 20.0),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 30),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          // Add one stop for each color. Stops should increase from 0 to 1
-                          stops: [0.1, 0.95],
-                          colors: [
-                            Color.fromARGB(255, 199, 255, 233),
-                            Color.fromARGB(255, 146, 222, 200),
-                            // Color.fromARGB(255, 23, 183, 137),
-                            // Color.fromARGB(255, 123, 230, 189),
-                            // Color.fromARGB(255, 93, 182, 157),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Global Rating",
+                              style: GoogleFonts.openSans(
+                                  color: Color.fromARGB(255, 0, 93, 29),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              "- Compare now",
+                              style: GoogleFonts.openSans(
+                                  color: Color.fromARGB(255, 0, 93, 29),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            )
                           ],
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                "assets/leaf.png",
-                                // color: Color.fromARGB(255, 0, 0, 0),
-                                // width: 50.0,
-                                // height: 50.0,
-                              ),
-                              const Text(
-                                "4.4",
-                                style: TextStyle(
-                                    // color: Colors.white,
-                                    fontFamily: "Acme",
-                                    fontSize: 30,
-                                    color: Color.fromARGB(255, 90, 167, 133)
-
-                                    // color: Color.fromARGB(255, 0, 225, 128)
-                                    ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            "Global Rating",
-                            style: TextStyle(
-                                // color: Colors.white,
-                                fontFamily: "Acme",
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 106, 188, 152)),
-                          ),
-                          const SizedBox(
-                            height: 3,
-                          ),
-                          const Text(
-                            "Compare now",
-                            style: TextStyle(
-                                // color: Colors.white,
-                                // fontFamily: "Acme",
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 106, 188, 152)),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                const Text(
-                  "Your Shipments",
-                  style: TextStyle(
-                    fontFamily: "Acme",
-                    fontSize: 28,
+                    ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "In Transit",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromARGB(105, 0, 0, 0),
-                        fontFamily: "Acme",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ShipmentItem(),
-                    ShipmentItem()
-                  ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Your Shipments",
+                  style: GoogleFonts.openSans(
+                      color: Color(0xff464646),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "In Transit".toUpperCase(),
+                  style: GoogleFonts.openSans(
+                      color: Color(0xff464646),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Delivered",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromARGB(105, 0, 0, 0),
-                        fontFamily: "Acme",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ShipmentItem(),
-                    ShipmentItem()
+                  children: [
+                    ShipmentItem(
+                        name:
+                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                        weight: 25,
+                        emission: 1456.4531441,
+                        status: "TRAVEL",
+                        enroute_to: "Hubli"),
+                    ShipmentItem(
+                        name:
+                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                        weight: 25,
+                        emission: 1456.4531441,
+                        status: "PROCESSING",
+                        enroute_to: "-"),
+                  ],
+                ),
+                Text(
+                  "Delivered".toUpperCase(),
+                  style: GoogleFonts.openSans(
+                      color: Color(0xff464646),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShipmentItem(
+                        name:
+                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                        weight: 25,
+                        emission: 1456.4531441,
+                        status: "OUT FOR DELIVERY/DELIVERED",
+                        enroute_to: "Hubli"),
+                    ShipmentItem(
+                        name:
+                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                        weight: 25,
+                        emission: 1456.4531441,
+                        status: "OUT FOR DELIVERY/DELIVERED",
+                        enroute_to: "Hubli"),
                   ],
                 )
               ],

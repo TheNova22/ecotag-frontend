@@ -1,16 +1,27 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ShipmentItem extends StatefulWidget {
-  const ShipmentItem({super.key});
+class ShipmentItem extends StatelessWidget {
+  const ShipmentItem({
+    Key? key,
+    required this.name,
+    required this.weight,
+    required this.emission,
+    required this.status,
+    required this.enroute_to,
+  }) : super(key: key);
 
-  @override
-  State<ShipmentItem> createState() => _ShipmentItemState();
-}
+  final double weight;
+  final double emission;
+  final String name;
+  final String status;
+  final String enroute_to;
 
-class _ShipmentItemState extends State<ShipmentItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +32,7 @@ class _ShipmentItemState extends State<ShipmentItem> {
           color: Color.fromARGB(255, 248, 248, 248),
           boxShadow: const [
             BoxShadow(
-                color: Colors.grey, blurRadius: 2.0, offset: Offset(2.0, 2.0))
+                color: Colors.grey, blurRadius: 2.0, offset: Offset(0.0, 2.0))
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,52 +51,55 @@ class _ShipmentItemState extends State<ShipmentItem> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   // "Hi, $name",
-                  "25 Kgs | 60 units | 7 boxes",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    // fontFamily: "Lobster",
-                  ),
+                  weight.toString() +
+                      " Kg | " +
+                      emission.toStringAsFixed(2) +
+                      " kg CO" "\u2082",
+                  style: GoogleFonts.openSans(
+                      color: Color(0xff464646),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 3,
                 ),
-                const Text(
+                Text(
                   // place,
-                  "Birdie Superfoods -100% Pure A2 Gir Cow Milk ",
+                  name,
 
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   // "Enroute CA, USA"
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color.fromARGB(215, 48, 48, 47),
-                    fontFamily: "Acme",
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: GoogleFonts.openSans(
+                      color: Color(0xff464646),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Icon(Icons.airport_shuttle_rounded),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
                       // place,
-                      "Enroute CA, USA",
+                      status == "TRAVEL"
+                          ? "Enroute $enroute_to"
+                          : status == "OUT FOR DELIVERY/DELIVERED"
+                              ? "Delivered"
+                              : "Processing",
 
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
 
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color.fromARGB(135, 65, 65, 65),
-                        // fontFamily: "Acme",
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: GoogleFonts.openSans(
+                          color: Color.fromARGB(255, 4, 67, 28),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
