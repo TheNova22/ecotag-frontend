@@ -29,7 +29,7 @@ class ShipmentItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
-          color: Color.fromARGB(255, 248, 248, 248),
+          color: const Color.fromARGB(255, 248, 248, 248),
           boxShadow: const [
             BoxShadow(
                 color: Colors.grey, blurRadius: 2.0, offset: Offset(0.0, 2.0))
@@ -53,12 +53,9 @@ class ShipmentItem extends StatelessWidget {
               children: [
                 Text(
                   // "Hi, $name",
-                  weight.toString() +
-                      " Kg | " +
-                      emission.toStringAsFixed(2) +
-                      " kg CO" "\u2082",
+                  "$weight Kg | ${emission.toStringAsFixed(2)} kg CO\u2082",
                   style: GoogleFonts.openSans(
-                      color: Color(0xff464646),
+                      color: const Color(0xff464646),
                       fontSize: 14,
                       fontWeight: FontWeight.w400),
                 ),
@@ -74,14 +71,14 @@ class ShipmentItem extends StatelessWidget {
                   softWrap: false,
                   // "Enroute CA, USA"
                   style: GoogleFonts.openSans(
-                      color: Color(0xff464646),
+                      color: const Color(0xff464646),
                       fontSize: 16,
                       fontWeight: FontWeight.w700),
                 ),
                 Row(
                   children: [
-                    Icon(Icons.airport_shuttle_rounded),
-                    SizedBox(
+                    const Icon(Icons.airport_shuttle_rounded),
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
@@ -97,7 +94,7 @@ class ShipmentItem extends StatelessWidget {
                       softWrap: false,
 
                       style: GoogleFonts.openSans(
-                          color: Color.fromARGB(255, 4, 67, 28),
+                          color: const Color.fromARGB(255, 4, 67, 28),
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                     ),

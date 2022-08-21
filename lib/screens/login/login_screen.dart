@@ -20,10 +20,18 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController pwdController = TextEditingController();
   TextEditingController pwdConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController cmpController = TextEditingController();
+  TextEditingController addController = TextEditingController();
+  TextEditingController phnoController = TextEditingController();
 
   FocusNode passwordFocus = FocusNode();
   FocusNode nameFocus = FocusNode();
   FocusNode passwordConfirmFocus = FocusNode();
+
+  FocusNode cmpFocus = FocusNode();
+  FocusNode addFocus = FocusNode();
+  FocusNode phnoFocus = FocusNode();
+
   bool register = false;
 
   // void _submit() {}
@@ -42,18 +50,18 @@ class _LoginScreenState extends State<LoginScreen> {
     final width = size.width;
     final height = size.height;
 
-    TextFormField emailForm = TextFormField(
-      style: textStyle.copyWith(fontSize: width * 0.05),
-      cursorHeight: 30, // autofocus: true,
-      controller: emailController,
-      key: const ValueKey('email'),
-      onFieldSubmitted: _submitEmail,
-      decoration: InputDecoration(labelText: "Email", labelStyle: textStyle),
-      // TODO : enable this when production
-      validator: (value) {
-        return null;
-      },
-    );
+    // TextFormField emailForm = TextFormField(
+    //   style: textStyle.copyWith(fontSize: width * 0.05),
+    //   cursorHeight: 30, // autofocus: true,
+    //   controller: emailController,
+    //   key: const ValueKey('email'),
+    //   onFieldSubmitted: _submitEmail,
+    //   decoration: InputDecoration(labelText: "Email", labelStyle: textStyle),
+    //   // TODO : enable this when production
+    //   validator: (value) {
+    //     return null;
+    //   },
+    // );
     TextFormField emailForm1 = TextFormField(
       // style: textStyle.copyWith(fontSize: width * 0.05),
       cursorHeight: 30, // autofocus: true,
@@ -154,6 +162,79 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
     );
+    TextFormField cmpForm = TextFormField(
+      style: textStyle.copyWith(fontSize: width * 0.05),
+      key: const ValueKey('pwd'),
+      controller: cmpController,
+      focusNode: cmpFocus,
+      decoration: InputDecoration(
+        labelText: "Company Name",
+        labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          setState(() {
+            isPressed = false;
+          });
+          return "Enter Company name ";
+        }
+        return null;
+      },
+    );
+    TextFormField addForm = TextFormField(
+      style: textStyle.copyWith(fontSize: width * 0.05),
+      key: const ValueKey('pwd'),
+      controller: addController,
+      focusNode: addFocus,
+      decoration: InputDecoration(
+        labelText: "Address",
+        labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          setState(() {
+            isPressed = false;
+          });
+          return "Enter Address ";
+        }
+        return null;
+      },
+    );
+    TextFormField phnoForm = TextFormField(
+      keyboardType: TextInputType.number,
+      style: textStyle.copyWith(fontSize: width * 0.05),
+      key: const ValueKey('pwd'),
+      controller: phnoController,
+      focusNode: phnoFocus,
+      decoration: InputDecoration(
+        labelText: "Phone Number",
+        labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          setState(() {
+            isPressed = false;
+          });
+          return "Enter Phone Number";
+        }
+        return null;
+      },
+    );
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -202,6 +283,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 30.0, right: 30.0, top: 20.0),
                                   child: pwdConfirmForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: addForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: cmpForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: phnoForm,
                                 ),
                             ],
                           ),
