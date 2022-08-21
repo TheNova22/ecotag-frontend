@@ -193,11 +193,13 @@ class _Session4State extends State<Session4> {
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             List answers = [];
-            for (int i = 0; i < controllersSession4.length; i += 2) {
-              answers.add([
-                controllersSession4[i].text,
-                double.parse(controllersSession4[i + 1].text)
-              ]);
+            if (controllersSession4.length > 0) {
+              for (int i = 0; i < controllersSession4.length; i += 2) {
+                answers.add([
+                  controllersSession4[i].text,
+                  double.parse(controllersSession4[i + 1].text)
+                ]);
+              }
             }
             widget.onNext(1, answers);
           },

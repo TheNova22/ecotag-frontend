@@ -13,7 +13,6 @@ class Product {
   final double rating;
   final double totalEmission;
   final int totalManufacturers;
-  final double score;
   final double weight;
   final double price;
   Product({
@@ -26,7 +25,6 @@ class Product {
     required this.rating,
     required this.totalEmission,
     required this.totalManufacturers,
-    required this.score,
     required this.weight,
     required this.price,
   });
@@ -41,7 +39,6 @@ class Product {
     double? rating,
     double? totalEmission,
     int? totalManufacturers,
-    double? score,
     double? weight,
     double? price,
   }) {
@@ -55,7 +52,6 @@ class Product {
       rating: rating ?? this.rating,
       totalEmission: totalEmission ?? this.totalEmission,
       totalManufacturers: totalManufacturers ?? this.totalManufacturers,
-      score: score ?? this.score,
       weight: weight ?? this.weight,
       price: price ?? this.price,
     );
@@ -72,7 +68,6 @@ class Product {
       'rating': rating,
       'totalEmission': totalEmission,
       'totalManufacturers': totalManufacturers,
-      'score': score,
       'weight': weight,
       'price': price,
     };
@@ -89,7 +84,6 @@ class Product {
       rating: map['rating']?.toDouble() ?? 0.0,
       totalEmission: map['totalEmission']?.toDouble() ?? 0.0,
       totalManufacturers: map['totalManufacturers']?.toInt() ?? 0,
-      score: map['score']?.toDouble() ?? 0.0,
       weight: map['weight']?.toDouble() ?? 0.0,
       price: map['price']?.toDouble() ?? 0.0,
     );
@@ -102,7 +96,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, image_url: $image_url, category: $category, categoryID: $categoryID, manufacturer: $manufacturer, name: $name, rating: $rating, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers, score: $score, weight: $weight, price: $price)';
+    return 'Product(id: $id, image_url: $image_url, category: $category, categoryID: $categoryID, manufacturer: $manufacturer, name: $name, rating: $rating, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers, weight: $weight, price: $price)';
   }
 
   @override
@@ -119,7 +113,6 @@ class Product {
         other.rating == rating &&
         other.totalEmission == totalEmission &&
         other.totalManufacturers == totalManufacturers &&
-        other.score == score &&
         other.weight == weight &&
         other.price == price;
   }
@@ -135,7 +128,6 @@ class Product {
         rating.hashCode ^
         totalEmission.hashCode ^
         totalManufacturers.hashCode ^
-        score.hashCode ^
         weight.hashCode ^
         price.hashCode;
   }

@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,7 @@ import 'package:sih_frontend/screens/manufacturerHome/widgets/x_not_used_color_c
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
 import 'package:sih_frontend/screens/settingsScreen/settings_screen.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 
 class ManufacturerHome extends StatefulWidget {
@@ -26,7 +28,36 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
   @override
   bool get wantKeepAlive => true;
 
-  var address = globals.man!.address;
+  var address = "Searching";
+
+  Future<String> getUser() async {
+    await Firebase.initializeApp();
+
+    FirebaseAuth auth = await FirebaseAuth.instance;
+
+    return auth.currentUser!.uid;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getUser().then((value) {
+      globals.uid = value;
+
+      EcoTagAPI().getManufacturer(mid: value).then((res) {
+        globals.man = res;
+
+        globals.found = true;
+
+        debugPrint(res.toString());
+
+        setState(() {
+          address = globals.man!.address;
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -51,7 +51,11 @@ class _HomePageState extends State<HomePage> {
       EcoTagAPI().getManufacturer(mid: value).then((res) {
         globals.man = res;
 
+        globals.found = true;
+
         debugPrint(res.toString());
+
+        setState(() {});
       });
     });
 
