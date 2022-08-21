@@ -7,7 +7,6 @@ class Manufacturer {
   final String phone;
   final double lat;
   final double lng;
-  final double score;
   Manufacturer({
     required this.id,
     required this.company,
@@ -15,7 +14,6 @@ class Manufacturer {
     required this.phone,
     required this.lat,
     required this.lng,
-    required this.score,
   });
 
   Manufacturer copyWith({
@@ -25,7 +23,6 @@ class Manufacturer {
     String? phone,
     double? lat,
     double? lng,
-    double? score,
   }) {
     return Manufacturer(
       id: id ?? this.id,
@@ -34,7 +31,6 @@ class Manufacturer {
       phone: phone ?? this.phone,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
-      score: score ?? this.score,
     );
   }
 
@@ -46,7 +42,6 @@ class Manufacturer {
       'phone': phone,
       'lat': lat,
       'lng': lng,
-      'score': score,
     };
   }
 
@@ -58,7 +53,6 @@ class Manufacturer {
       phone: map['phone'] ?? '',
       lat: map['lat']?.toDouble() ?? 0.0,
       lng: map['lng']?.toDouble() ?? 0.0,
-      score: map['score']?.toDouble() ?? 0.0,
     );
   }
 
@@ -69,7 +63,7 @@ class Manufacturer {
 
   @override
   String toString() {
-    return 'Manufacturer(id: $id, company: $company, address: $address, phone: $phone, lat: $lat, lng: $lng, score: $score)';
+    return 'Manufacturer(id: $id, company: $company, address: $address, phone: $phone, lat: $lat, lng: $lng)';
   }
 
   @override
@@ -82,8 +76,7 @@ class Manufacturer {
         other.address == address &&
         other.phone == phone &&
         other.lat == lat &&
-        other.lng == lng &&
-        other.score == score;
+        other.lng == lng;
   }
 
   @override
@@ -93,8 +86,7 @@ class Manufacturer {
         address.hashCode ^
         phone.hashCode ^
         lat.hashCode ^
-        lng.hashCode ^
-        score.hashCode;
+        lng.hashCode;
   }
 }
 

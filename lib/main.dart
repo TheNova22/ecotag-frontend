@@ -1,18 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_frontend/screens/api_test.dart';
-import 'package:sih_frontend/screens/homePage/home_page.dart';
-import 'package:sih_frontend/screens/customerScreen/customer_screen.dart';
+
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/services.dart';
-import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
-import 'package:sih_frontend/screens/productsScreen/add_product.dart';
-import 'package:sih_frontend/screens/productsScreen/productsList.dart';
-import 'package:sih_frontend/screens/shipment_create_screen/CreateShipment.dart';
-import 'package:sih_frontend/screens/shipment_update_screen/UpdateShipment.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+
+import 'screens/shipment_update_screen/UpdateShipment.dart';
 
 // to build web app
 // flutter build web --web-renderer canvaskit --no-sound-null-safety --release
@@ -56,6 +49,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.hasData) {
           return UpdateShipment();
           // return UpdateShipment();
+
         }
         return LoginScreen();
       },

@@ -12,6 +12,7 @@ import 'package:sih_frontend/screens/manufacturerHome/widgets/x_not_used_color_c
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
 import 'package:sih_frontend/screens/settingsScreen/settings_screen.dart';
+import 'package:sih_frontend/utils/globals.dart' as globals;
 
 class ManufacturerHome extends StatefulWidget {
   const ManufacturerHome({super.key});
@@ -25,8 +26,8 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
   @override
   bool get wantKeepAlive => true;
 
-  var name = "User";
-  var place = "Central Cambodia, Africa";
+  var address = globals.man!.address;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -50,10 +51,10 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi, $name",
+                            "Good Morning",
                             style: GoogleFonts.openSans(
                                 color: Color(0xff464646),
-                                fontSize: 32,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(
@@ -72,7 +73,7 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
                               Container(
                                 width: w / 2.2,
                                 child: AutoSizeText(
-                                  place,
+                                  address,
                                   minFontSize: 9,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
