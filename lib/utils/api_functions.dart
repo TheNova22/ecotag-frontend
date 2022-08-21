@@ -45,6 +45,14 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<Manufacturer> getManufacturer({required String mid}) async {
+    Response userData = await _dio.get('${_baseUrl}getManufacturer?mid=$mid');
+    debugPrint(' ${userData.data}');
+    showToast('${userData.data}');
+
+    return Manufacturer.fromMap(jsonDecode(userData.data));
+  }
+
   Future<List<Supplier>> getSupplierDetails(
       {required String searchTerm,
       required double latitude,
