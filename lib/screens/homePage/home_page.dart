@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
+import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,95 +14,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int pageIndex = 1;
-
-  final pages = [
+  var _selectedPageIndex = 0;
+  List<Widget> _pages = [
     ManufacturerHome(),
     ProductsList(),
-    SupplierFinder(),
+    ReverseLogisticsScreen(),
   ];
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _selectedPageIndex = 0;
+
+    _pageController = PageController(initialPage: _selectedPageIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffC4DFCB),
-      body: pages[pageIndex],
-      bottomNavigationBar: buildMyNavBar(context),
-    );
-  }
-
-  Container buildMyNavBar(BuildContext context) {
-    return Container(
-      height: 60,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+        body: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: _pages,
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                pageIndex = 0;
-              });
-            },
-            icon: pageIndex == 0
-                ? const Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.home_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-          ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                pageIndex = 1;
-              });
-            },
-            icon: pageIndex == 1
-                ? const Icon(
-                    Icons.work_rounded,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.work_outline_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-          ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                pageIndex = 2;
-              });
-            },
-            icon: pageIndex == 2
-                ? const Icon(
-                    Icons.widgets_rounded,
-                    color: Colors.white,
-                    size: 35,
-                  )
-                : const Icon(
-                    Icons.widgets_outlined,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-          ),
-        ],
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined, size: 28),
+                activeIcon: Icon(Icons.home, size: 28),
+                label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.work_outline_outlined, size: 28),
+                activeIcon: Icon(Icons.work_rounded, size: 28),
+                label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.widgets_outlined, size: 28),
+                activeIcon: Icon(Icons.widgets_rounded, size: 28),
+                label: "Home"),
+          ],
+          currentIndex: _selectedPageIndex,
+          onTap: (selectedPageIndex) {
+            setState(() {
+              _selectedPageIndex = selectedPageIndex;
+              _pageController.jumpToPage(selectedPageIndex);
+            });
+          },
+        ));
   }
 }

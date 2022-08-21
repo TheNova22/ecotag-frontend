@@ -10,9 +10,14 @@ class ProductsList extends StatefulWidget {
   State<ProductsList> createState() => _ProductsListState();
 }
 
-class _ProductsListState extends State<ProductsList> {
+class _ProductsListState extends State<ProductsList>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

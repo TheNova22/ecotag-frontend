@@ -20,11 +20,16 @@ class ManufacturerHome extends StatefulWidget {
   State<ManufacturerHome> createState() => _ManufacturerHomeState();
 }
 
-class _ManufacturerHomeState extends State<ManufacturerHome> {
+class _ManufacturerHomeState extends State<ManufacturerHome>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   var name = "User";
   var place = "Central Cambodia, Africa";
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
