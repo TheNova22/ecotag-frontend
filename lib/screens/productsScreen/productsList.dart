@@ -51,7 +51,15 @@ class _ProductsListState extends State<ProductsList> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: 10,
-                    itemBuilder: (context, index) => const ProductListItem()),
+                    itemBuilder: (context, index) => ProductListItem(
+                          name:
+                              "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                          imgUrl:
+                              "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
+                          carbonEmission: 945.68,
+                          rating: 3.4,
+                          numOfManufacturers: 745,
+                        )),
               ],
             ),
           ),

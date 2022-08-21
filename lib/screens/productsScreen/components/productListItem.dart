@@ -6,16 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductListItem extends StatelessWidget {
-  const ProductListItem({Key? key}) : super(key: key);
-
+  const ProductListItem({
+    Key? key,
+    required this.name,
+    required this.imgUrl,
+    required this.carbonEmission,
+    required this.rating,
+    required this.numOfManufacturers,
+  }) : super(key: key);
+  final String name;
+  final String imgUrl;
+  final double carbonEmission;
+  final double rating;
+  final int numOfManufacturers;
   @override
   Widget build(BuildContext context) {
-    String name =
-        "Birdie Superfoods - 100% Pure A2 Gir Cow Ghee Through Vedic Bilona Method";
-    double carbonEmission = 257;
-    double rank = 3.4;
-    double distance = 745;
-
     return Container(
       padding: EdgeInsets.only(bottom: 13),
       margin: EdgeInsets.only(top: 13),
@@ -28,9 +33,7 @@ class ProductListItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30.0,
-            backgroundImage: NetworkImage(
-              "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
-            ),
+            backgroundImage: NetworkImage(imgUrl),
           ),
           SizedBox(
             width: 10,
@@ -61,7 +64,9 @@ class ProductListItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: Color.fromARGB(255, 166, 55, 55),
+                              color: carbonEmission > 750
+                                  ? Color.fromARGB(255, 166, 55, 55)
+                                  : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
@@ -80,13 +85,15 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          rank.toString(),
+                          rating.toString(),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: Color.fromARGB(255, 166, 55, 55),
+                              color: rating < 2.5
+                                  ? Color.fromARGB(255, 166, 55, 55)
+                                  : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
@@ -105,17 +112,19 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          distance.toString() + "k",
+                          numOfManufacturers.toString(),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: Color.fromARGB(255, 166, 55, 55),
+                              color: numOfManufacturers < 3
+                                  ? Color.fromARGB(255, 166, 55, 55)
+                                  : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
-                          "Kilometers",
+                          "Manufacturers",
                           minFontSize: 7,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
