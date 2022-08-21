@@ -1,15 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session1.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session2.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session3.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session4.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session5.dart';
-import 'package:sih_frontend/screens/productsScreen/productsList.dart';
-import 'package:survey_kit/survey_kit.dart';
 import 'package:flutter/material.dart';
 
 class AddProduct extends StatefulWidget {

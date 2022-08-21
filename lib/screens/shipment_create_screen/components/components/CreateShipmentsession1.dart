@@ -1,25 +1,24 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Session1 extends StatelessWidget {
+class CreateShipmentSession1 extends StatelessWidget {
   final Function(int, String, String, String) onNext;
-
+// {"manufacturer" : "aaa", "startLocation" : "ABC Speaker Maker, Bangalore", "pid" : "zxcv", "totalWeight" : 50.4, "currentLat" : 128.35, "currentLong" : 74.45}
+// {"shipmentID" : "62fbba53bad3f183e0f6fb00", "location" :"DESTINATION WAREHOUSE", "currentLat" : 192.35, "currentLong" : 80.45, "transportMode" : "-", "enroute_to" : "DESTINATION", "status" : "OUT FOR DELIVERY/DELIVERED"}
   List<String> questions = [
-    "What is the name of the product?",
-    "What is the registered barcode of the product?",
-    "What is the maximum retail price of the product?",
-    "How many products are created per batch?",
-    "What is the weight(in Kg) of the product?",
-    "What sort of packaging do you opt for?",
-    "Enter the Raw Materials used in making the product.",
-    "Enter the barcode of other products used in making the product.",
-    "What is the total waste(in kg) for these categories."
+    "Start Location",
+    "Destination Location",
+    "Barcode of the product you are shipping",
+    "Your current location co-ordinates",
+    "What is the total weight(in Kg) of the product being Shipped?",
+    "Transport mode",
   ];
   TextEditingController question1TextController = TextEditingController();
   TextEditingController question2TextController = TextEditingController();
   TextEditingController question3TextController = TextEditingController();
-  Session1({Key? key, required this.onNext}) : super(key: key);
+  CreateShipmentSession1({Key? key, required this.onNext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class Session1 extends StatelessWidget {
               children: [
                 const Center(
                   child: AutoSizeText(
-                    "New Product",
+                    "New Shipment",
                     minFontSize: 9,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -133,21 +132,31 @@ class Session1 extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextField(
-            controller: question3TextController,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.black,
+          controller: question3TextController,
+          style: const TextStyle(
+            fontSize: 18.0,
+            color: Colors.black,
+          ),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+            border: OutlineInputBorder(
+                borderSide: const BorderSide(),
+                borderRadius: BorderRadius.circular(15.0)),
+            focusedBorder: OutlineInputBorder(
+              // borderSide: const BorderSide(
+              //     color: Color.fromARGB(255, 243, 235, 171), width: 32.0),
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(),
-                    borderRadius: BorderRadius.circular(15.0)),
-                focusedBorder: OutlineInputBorder(
-                    // borderSide: const BorderSide(
-                    //     color: Color.fromARGB(255, 243, 235, 171), width: 32.0),
-                    borderRadius: BorderRadius.circular(15.0)))),
+            suffixIcon: IconButton(
+              icon: Icon(Icons.camera_outlined),
+              onPressed: () async {
+                String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                    "#ff6666", 'Cancel', true, ScanMode.BARCODE);
+                question3TextController.text = barcodeScanRes;
+              },
+            ),
+          ),
+        ),
       ],
     );
   }
