@@ -11,6 +11,7 @@ import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/add_product.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/screens/shipment_create_screen/CreateShipment.dart';
+import 'package:sih_frontend/screens/shipment_update_screen/UpdateShipment.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 // to build web app
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return CreateShipment();
+          return UpdateShipment();
+          // return UpdateShipment();
         }
         return LoginScreen();
       },
