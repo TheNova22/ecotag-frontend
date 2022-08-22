@@ -328,158 +328,279 @@ class _ProductCard extends StatelessWidget {
       {super.key, required this.barcode, this.product, this.statechange});
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Hero(
-        tag: _heroAddTodo,
-        child: Material(
-          // color: Colors.white,
-          color: Palette.white,
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-          child: SingleChildScrollView(
-            child: product != null
-                ? SizedBox(
-                    height: 400,
-                    child: Flex(
-                      direction: Axis.vertical,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(product!.name),
-                        CachedNetworkImage(
-                          imageUrl: product!.image_url,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                        RatingBarIndicator(
-                          rating: product!.rating,
-                          itemBuilder: (context, index) => Icon(
-                            Icons.star,
-                            color: Colors.green,
-                          ),
-                          itemCount: 5,
-                          itemSize: 50.0,
-                          direction: Axis.horizontal,
-                        ),
-                      ],
-                    ),
-                  )
-                : FutureBuilder(
-                    future: EcoTagAPI()
-                        .getProductDetailsByBarcode(barcode: barcode.trim()),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                            child: Column(
-                          children: const [
+    return Container(
+      margin: EdgeInsets.all(30),
+      child: Center(
+        child: Hero(
+          tag: _heroAddTodo,
+          child: Material(
+            // color: Colors.white,
+            color: Palette.white,
+            elevation: 2,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+            child: SingleChildScrollView(
+              child: product != null
+                  ? Container(
+                      padding: EdgeInsets.all(25),
+                      child: Flex(
+                          direction: Axis.vertical,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            //Text(a.name),
+                            AutoSizeText(
+                              product!.name,
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 20),
                             SizedBox(
-                              height: 100,
+                              height: 150,
+                              child: CachedNetworkImage(
+                                imageUrl: product!.image_url,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
-                            Center(
-                              child: CircularProgressIndicator.adaptive(),
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Categories: " +
+                                  product!.category.reduce((value, element) =>
+                                      element = value + ", " + element),
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
-                              height: 100,
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Ecotag rating: " +
+                                  product!.rating.toString() +
+                                  "/5",
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
                             ),
-                          ],
-                        ));
-                      }
-                      if (snapshot.error != null) {
-                        debugPrint(snapshot.error.toString());
-                        return Column(
-                          children: const [
-                            SizedBox(
-                              height: 40,
+                            SizedBox(height: 10),
+                            RatingBarIndicator(
+                              rating: product!.rating,
+                              unratedColor: Color.fromARGB(255, 204, 206, 209),
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Color(0xffba0c822),
+                                //color: Color(0xff8bbb87),
+                              ),
+                              itemCount: 5,
+                              itemSize: 40.0,
+                              direction: Axis.horizontal,
                             ),
-                            Center(
-                              child: Text('Could Not find Product in database'),
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                          ],
-                        );
-                      } else {
-                        final Product a = snapshot.data as Product;
-                        SharedPreferences.getInstance().then((value) {
-                          Map<String, dynamic> data = {};
 
-                          final s = value.getString("scannedProducts") ?? "";
-                          print("hello i am nana" + s);
-                          if (s != "") data = jsonDecode(s);
-                          if (!data.containsKey(a.name)) {
-                            print("ADDING TO THE PREFS");
-                            data.addEntries(
-                                [MapEntry(a.name, a.toJson() as dynamic)]);
-                            value.setString(
-                                'scannedProducts', jsonEncode(data));
-                            statechange!(data);
-                          }
-                        });
-                        return Container(
-                          padding: EdgeInsets.all(25),
-                          child: Flex(
-                            direction: Axis.vertical,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              //Text(a.name),
-                              AutoSizeText(
-                                a.name,
-                                minFontSize: 8,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.openSans(
-                                    color: Palette.primaryDarkGreen,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(height: 20),
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Similar Products:",
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 10),
+                            SizedBox(
+                                height: 70,
+                                child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      SimilarProduct(),
+                                      SimilarProduct(),
+                                      SimilarProduct(),
+                                      SimilarProduct(),
+                                    ])),
+                          ]))
+                  : FutureBuilder(
+                      future: EcoTagAPI()
+                          .getProductDetailsByBarcode(barcode: barcode.trim()),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child: Column(
+                            children: const [
                               SizedBox(
-                                height: 200,
-                                child: CachedNetworkImage(
-                                  imageUrl: a.image_url,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
+                                height: 100,
                               ),
-                              SizedBox(height: 20),
-                              AutoSizeText(
-                                "Ecotag rating: " + a.rating.toString() + "/5",
-                                minFontSize: 8,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.openSans(
-                                    color: Palette.primaryDarkGreen,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
+                              Center(
+                                child: CircularProgressIndicator.adaptive(),
                               ),
-                              SizedBox(height: 10),
-                              RatingBarIndicator(
-                                rating: a.rating,
-                                unratedColor:
-                                    Color.fromARGB(255, 204, 206, 209),
-                                itemBuilder: (context, index) => Icon(
-                                  Icons.star,
-                                  color: Color(0xffba0c822),
-                                  //color: Color(0xff8bbb87),
-                                ),
-                                itemCount: 5,
-                                itemSize: 40.0,
-                                direction: Axis.horizontal,
+                              SizedBox(
+                                height: 100,
                               ),
                             ],
-                          ),
-                        );
-                      }
-                    },
-                  ),
+                          ));
+                        }
+                        if (snapshot.error != null) {
+                          debugPrint(snapshot.error.toString());
+                          return Column(
+                            children: const [
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Center(
+                                child:
+                                    Text('Could Not find Product in database'),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                            ],
+                          );
+                        } else {
+                          final Product a = snapshot.data as Product;
+                          SharedPreferences.getInstance().then((value) {
+                            Map<String, dynamic> data = {};
+
+                            final s = value.getString("scannedProducts") ?? "";
+                            print("hello i am nana" + s);
+                            if (s != "") data = jsonDecode(s);
+                            if (!data.containsKey(a.name)) {
+                              print("ADDING TO THE PREFS");
+                              data.addEntries(
+                                  [MapEntry(a.name, a.toJson() as dynamic)]);
+                              value.setString(
+                                  'scannedProducts', jsonEncode(data));
+                              statechange!(data);
+                            }
+                          });
+                          return Container(
+                              padding: EdgeInsets.all(25),
+                              child: Flex(
+                                  direction: Axis.vertical,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    //Text(a.name),
+                                    AutoSizeText(
+                                      a.name,
+                                      minFontSize: 8,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.openSans(
+                                          color: Palette.primaryDarkGreen,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(height: 20),
+                                    SizedBox(
+                                      height: 150,
+                                      child: CachedNetworkImage(
+                                        imageUrl: a.image_url,
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+                                    AutoSizeText(
+                                      "Categories: " +
+                                          a.category.reduce((value, element) =>
+                                              element = value + ", " + element),
+                                      minFontSize: 8,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.openSans(
+                                          color: Palette.primaryDarkGreen,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(height: 20),
+                                    AutoSizeText(
+                                      "Ecotag rating: " +
+                                          a.rating.toString() +
+                                          "/5",
+                                      minFontSize: 8,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.openSans(
+                                          color: Palette.primaryDarkGreen,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(height: 10),
+                                    RatingBarIndicator(
+                                      rating: a.rating,
+                                      unratedColor:
+                                          Color.fromARGB(255, 204, 206, 209),
+                                      itemBuilder: (context, index) => Icon(
+                                        Icons.star,
+                                        color: Color(0xffba0c822),
+                                        //color: Color(0xff8bbb87),
+                                      ),
+                                      itemCount: 5,
+                                      itemSize: 40.0,
+                                      direction: Axis.horizontal,
+                                    ),
+
+                                    SizedBox(height: 20),
+                                    AutoSizeText(
+                                      "Similar Products:",
+                                      minFontSize: 8,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.openSans(
+                                          color: Palette.primaryDarkGreen,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(height: 10),
+                                    SizedBox(
+                                        height: 70,
+                                        child: ListView(
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
+                                              SimilarProduct(),
+                                              SimilarProduct(),
+                                              SimilarProduct(),
+                                              SimilarProduct(),
+                                            ])),
+                                  ]));
+                        }
+                      },
+                    ),
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget SimilarProduct() {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+          //height: 40,
+          width: 70,
+          padding: EdgeInsets.all(5),
+          margin: EdgeInsets.only(right: 10),
+          decoration: BoxDecoration(
+            color: Palette.lightOcar,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Image.asset("assets/logo.png", fit: BoxFit.cover)),
     );
   }
 }
