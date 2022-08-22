@@ -24,14 +24,14 @@ import '../../model/product.dart';
 // if not present,
 // get productNameByBarcode n then display the name and category also (This will take 10 seconds)
 
-class CustomerScreen2 extends StatefulWidget {
-  CustomerScreen2({Key? key}) : super(key: key);
+class CustomerScreen extends StatefulWidget {
+  CustomerScreen({Key? key}) : super(key: key);
 
   @override
-  State<CustomerScreen2> createState() => _CustomerScreenState();
+  State<CustomerScreen> createState() => _CustomerScreenState();
 }
 
-class _CustomerScreenState extends State<CustomerScreen2> {
+class _CustomerScreenState extends State<CustomerScreen> {
   String barcode = "";
   Map<String, dynamic> data = {};
   String greeting() {
