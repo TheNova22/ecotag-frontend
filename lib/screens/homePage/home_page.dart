@@ -45,19 +45,19 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    getUser().then((value) {
-      globals.uid = value;
+    // getUser().then((value) {
+    //   globals.uid = value;
 
-      EcoTagAPI().getManufacturer(mid: value).then((res) {
-        globals.man = res;
+    //   EcoTagAPI().getManufacturer(mid: value).then((res) {
+    //     globals.man = res;
 
-        globals.found = true;
+    //     globals.found = true;
 
-        debugPrint(res.toString());
+    //     debugPrint(res.toString());
 
-        setState(() {});
-      });
-    });
+    //     setState(() {});
+    //   });
+    // });
 
     getLoc();
 

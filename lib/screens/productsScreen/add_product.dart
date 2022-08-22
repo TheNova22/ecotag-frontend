@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session1.dart';
@@ -8,6 +8,7 @@ import 'package:sih_frontend/screens/productsScreen/components/session4.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session5.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/authentication.dart';
 import 'package:sih_frontend/utils/climatiq.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 
@@ -33,7 +34,6 @@ class _AddProductState extends State<AddProduct> {
     "Sweets",
     "Spices"
   ];
-  List<String> selectedCats = [];
   double emission = 0;
   double perBatch = 0;
   double weight = 0;
@@ -79,22 +79,50 @@ class _AddProductState extends State<AddProduct> {
     }
   }
 
+  int countSelects() {
+    int ct = 0;
+    for (int i = 0; i < selects.length; i++) {
+      if (selects[i]) {
+        ct += 1;
+      }
+    }
+    return ct;
+  }
+
   // TODO: Complete submitAnswers
   //answers example
   // [uncle chips, 123456789, 30.0, 100, 20.0, Plastic, [[potato, 70.0], [salt, 10.0]], [[987654321, 10.0], [135798642, 20.5]], [10.0, 20.4, 78.0, 12.0, 67.0]]
   Future submitAnswers() async {
     print("-----------------------");
     print(answers);
-    await EcoTagAPI().addProduct(
-        name: answers[0],
-        category: cats,
-        weight: weight,
-        price: answers[2],
-        emission: emission,
-        manufacturer: globals.uid,
-        barcode: answers[1],
-        rawMaterials: answers[6],
-        components: answers[7]);
+    if (countSelects() != 5) {
+      showToast("Select 5 categories");
+      return;
+    }
+
+    List<String> selectedCats = [];
+
+    for (int i = 0; i < selects.length; i++) {
+      if (selects[i]) {
+        selectedCats.add(cats[i]);
+      }
+    }
+
+    selectedCats.sort();
+    await EcoTagAPI()
+        .addProduct(
+            name: answers[0],
+            category: selectedCats,
+            weight: weight,
+            price: answers[2],
+            emission: emission,
+            manufacturer: globals.uid,
+            barcode: answers[1],
+            rawMaterials: answers[6],
+            components: answers[7])
+        .then((value) {
+      Navigator.of(context).pop();
+    });
   }
 
   @override
@@ -176,43 +204,55 @@ class _AddProductState extends State<AddProduct> {
                                     backgroundColor: const Color.fromARGB(
                                         255, 159, 205, 243)),
                                 body: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                          "Select 5 categories that best define your product"),
-                                      Container(
-                                        height: 300,
-                                        width: 250,
-                                        child: GridView.count(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 3,
-                                          crossAxisSpacing: 5,
-                                          mainAxisSpacing: 5,
-                                          children: cats.map((e) {
-                                            return Container(
-                                              width: 10,
-                                              height: 10,
-                                              child: GestureDetector(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              "Select 5 categories that best define your product"),
+                                          GridView.count(
+                                            shrinkWrap: true,
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 3,
+                                            crossAxisSpacing: 10,
+                                            mainAxisSpacing: 10,
+                                            children: cats.map((e) {
+                                              return GestureDetector(
                                                 onTap: () {
                                                   updateI(cats.indexOf(e));
                                                 },
                                                 child: Container(
-                                                    color: selects[
-                                                            cats.indexOf(e)]
-                                                        ? Color.fromARGB(
-                                                            255, 57, 244, 54)
-                                                        : Color.fromARGB(
-                                                            255, 217, 246, 239),
+                                                    width: 20,
+                                                    alignment: Alignment.center,
+                                                    // padding: EdgeInsets.only(
+                                                    //     top: 10, bottom: 10),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              106,
+                                                              182,
+                                                              244)),
+                                                      color: selects[
+                                                              cats.indexOf(e)]
+                                                          ? Color.fromARGB(255,
+                                                              188, 233, 187)
+                                                          : Color.fromARGB(255,
+                                                              217, 246, 239),
+                                                    ),
                                                     child: Text(
                                                       e,
                                                     )),
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
-                                    ],
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               )
