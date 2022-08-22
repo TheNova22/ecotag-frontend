@@ -20,14 +20,21 @@ class _MonthlyStatState extends State<MonthlyStat> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 2),
+            blurRadius: 2,
+            color: Color.fromRGBO(0, 0, 0, 0.16),
+          )
+        ],
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           // Add one stop for each color. Stops should increase from 0 to 1
-          stops: [0.1, 0.9],
+          // stops: [0.1, 0.9],
           colors: [
-            Color.fromARGB(255, 0, 152, 155),
-            Color.fromARGB(255, 0, 94, 120),
+            Color.fromARGB(255, 160, 226, 244),
+            Color.fromARGB(255, 110, 149, 227),
           ],
         ),
       ),

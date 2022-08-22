@@ -45,9 +45,14 @@ dependencies:
   timelines: ^0.1.0
   auto_size_text: ^3.0.0
   flutter_svg: ^1.1.4
+  curved_navigation_bar: ^1.0.3
+  custom_navigation_bar: ^0.8.2
   flutter_barcode_scanner: ^2.0.0
   flutter_rating_bar: ^4.0.1
   cached_network_image: ^3.2.1
+  survey_kit: ^0.1.1
+  geolocator: ^9.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

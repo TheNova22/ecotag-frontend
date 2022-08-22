@@ -30,6 +30,23 @@ class Climatiq {
 
     return jsonDecode(fin.body);
   }
+
+  Future<Map<String, dynamic>> getEmissionsFromId(
+      String activityId, double itemWeight) async {
+    Map<String, String> header = {"Authorization": "Bearer: $API_KEY"};
+
+    // ignore: prefer_interpolation_to_compose_strings
+
+    Map bodyMap = {
+      "emission_factor": {"activity_id": activityId},
+      "parameters": {"weight": itemWeight, "weight_unit": "kg"}
+    };
+
+    var fin = await http.post(Uri.parse("${baseURL}estimate"),
+        body: jsonEncode(bodyMap), headers: header);
+
+    return jsonDecode(fin.body);
+  }
 }
 // USAGE
 // await Climatiq().getEmissions("Iron", 45).then((value) {

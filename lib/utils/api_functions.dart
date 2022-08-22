@@ -45,6 +45,14 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<Manufacturer> getManufacturer({required String mid}) async {
+    Response userData = await _dio.get('${_baseUrl}getManufacturer?mid=$mid');
+    debugPrint(' ${userData.data}');
+    showToast('${userData.data}');
+
+    return Manufacturer.fromMap(jsonDecode(userData.data));
+  }
+
   Future<List<Supplier>> getSupplierDetails(
       {required String searchTerm,
       required double latitude,
@@ -77,6 +85,15 @@ class EcoTagAPI {
     // showToast('${userData.data}');
 
     return Product.fromMap(jsonDecode(userData.data));
+  }
+
+  Future<List<String>> predictCategories({required String searchTerm}) async {
+    Response userData =
+        await _dio.get('${_baseUrl}getCategories?searchTerm=$searchTerm');
+    debugPrint(' ${userData.data}');
+    // showToast('${userData.data}');
+
+    return jsonDecode(userData.data).map<String>((e) => e.toString()).toList();
   }
 
   Future<List<Shipment>> getShipments({required String manufacturer}) async {
@@ -135,7 +152,7 @@ class EcoTagAPI {
     debugPrint(' ${userData.data}');
     showToast('${userData.data}');
 
-    return Map<String, dynamic>.from(userData.data);
+    return Map<String, dynamic>.from(jsonDecode(userData.data));
   }
 
   Future<Map<String, dynamic>> addManufacturer(
@@ -180,18 +197,21 @@ class EcoTagAPI {
     return Map<String, dynamic>.from(userData.data);
   }
 
-  Future<Map<String, dynamic>> addProduct({
-    name,
-    category,
-    emission,
-    manufacturer,
-    barcode,
-    rawMaterials,
-    components,
-  }) async {
+  Future<Map<String, dynamic>> addProduct(
+      {name,
+      category,
+      emission,
+      manufacturer,
+      barcode,
+      rawMaterials,
+      components,
+      weight,
+      price}) async {
     Response userData = await _dio.post('${_baseUrl}addProduct',
         data: json.encode({
           "name": name,
+          "weight": weight,
+          "price": price,
           "category": category,
           "emission": emission,
           "manufacturer": manufacturer,

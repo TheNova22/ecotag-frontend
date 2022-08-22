@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 
 import 'package:sih_frontend/utils/authentication.dart';
 
@@ -20,10 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController pwdController = TextEditingController();
   TextEditingController pwdConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController cmpController = TextEditingController();
+  TextEditingController addController = TextEditingController();
+  TextEditingController phnoController = TextEditingController();
 
   FocusNode passwordFocus = FocusNode();
-  FocusNode nameFocus = FocusNode();
   FocusNode passwordConfirmFocus = FocusNode();
+
+  FocusNode cmpFocus = FocusNode();
+  FocusNode addFocus = FocusNode();
+  FocusNode phnoFocus = FocusNode();
+
   bool register = false;
 
   // void _submit() {}
@@ -41,20 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-
-    TextFormField emailForm = TextFormField(
-      style: textStyle.copyWith(fontSize: width * 0.05),
+    TextFormField emailForm1 = TextFormField(
+      // style: textStyle.copyWith(fontSize: width * 0.05),
       cursorHeight: 30, // autofocus: true,
       controller: emailController,
       key: const ValueKey('email'),
-      onFieldSubmitted: _submitEmail,
-      decoration: InputDecoration(labelText: "Email", labelStyle: textStyle),
-      // TODO : enable this when production
-      validator: (value) {
-        return null;
-      },
-    );
-    TextFormField emailForm1 = TextFormField(
       onFieldSubmitted: _submitEmail,
       decoration: InputDecoration(
         labelText: "Enter Email",
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     TextFormField pwdConfirmForm = TextFormField(
       style: textStyle.copyWith(fontSize: width * 0.05),
-      key: const ValueKey('pwd'),
+      key: const ValueKey('pwdc'),
       controller: pwdConfirmController,
       focusNode: passwordConfirmFocus,
       obscureText: true,
@@ -126,13 +126,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-    TextFormField nameForm = TextFormField(
+    TextFormField cmpForm = TextFormField(
       style: textStyle.copyWith(fontSize: width * 0.05),
-      key: const ValueKey('pwd'),
-      controller: nameController,
-      focusNode: nameFocus,
+      key: const ValueKey('cmp'),
+      controller: cmpController,
+      focusNode: cmpFocus,
       decoration: InputDecoration(
-        labelText: "Name",
+        labelText: "Company Name",
         labelStyle: textStyle,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -145,7 +145,56 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() {
             isPressed = false;
           });
-          return "Enter name ";
+          return "Enter Company name ";
+        }
+        return null;
+      },
+    );
+    TextFormField addForm = TextFormField(
+      style: textStyle.copyWith(fontSize: width * 0.05),
+      key: const ValueKey('add'),
+      controller: addController,
+      focusNode: addFocus,
+      decoration: InputDecoration(
+        labelText: "Address",
+        labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          setState(() {
+            isPressed = false;
+          });
+          return "Enter Address ";
+        }
+        return null;
+      },
+    );
+    TextFormField phnoForm = TextFormField(
+      keyboardType: TextInputType.number,
+      style: textStyle.copyWith(fontSize: width * 0.05),
+      key: const ValueKey('ph'),
+      controller: phnoController,
+      focusNode: phnoFocus,
+      decoration: InputDecoration(
+        labelText: "Phone Number",
+        labelStyle: textStyle,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          setState(() {
+            isPressed = false;
+          });
+          return "Enter Phone Number";
         }
         return null;
       },
@@ -182,12 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     left: 30.0, right: 30.0, top: 20.0),
                                 child: emailForm1,
                               ),
-                              if (register)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30.0, right: 30.0, top: 20.0),
-                                  child: nameForm,
-                                ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 30.0, right: 30.0, top: 20.0),
@@ -198,6 +241,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 30.0, right: 30.0, top: 20.0),
                                   child: pwdConfirmForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: addForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: cmpForm,
+                                ),
+                              if (register)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30.0, top: 20.0),
+                                  child: phnoForm,
                                 ),
                             ],
                           ),
@@ -213,7 +274,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextButton(
                                     style: TextButton.styleFrom(
                                       minimumSize: const Size(100, 50),
-                                      //foregroundColor: Colors.white,
                                       backgroundColor: const Color.fromARGB(
                                           255, 255, 255, 255),
                                       elevation: 4,
@@ -254,6 +314,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                               final s = await SharedPreferences
                                                   .getInstance();
                                               s.setBool("logged_in", true);
+
+                                              Position position =
+                                                  await Geolocator
+                                                      .getCurrentPosition(
+                                                desiredAccuracy:
+                                                    LocationAccuracy.medium,
+                                              );
+
+                                              EcoTagAPI().addManufacturer(
+                                                  id: result.uid,
+                                                  company: cmpController.text,
+                                                  lat: position.latitude,
+                                                  long: position.longitude,
+                                                  address: addController.text,
+                                                  phone: phnoController.text);
                                             }
                                           }).catchError((error) {
                                             debugPrint(
@@ -293,9 +368,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           }
                                         }
                                       }
-                                      setState(() {
-                                        isPressed = false;
-                                      });
                                     },
                                   ), //Register
                                   const SizedBox(
