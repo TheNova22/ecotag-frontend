@@ -14,12 +14,19 @@ class ShipmentsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "Your Shipments",
-          style: GoogleFonts.openSans(
-              color: const Color(0xff464646),
-              fontSize: 24,
-              fontWeight: FontWeight.w800),
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Row(
+            children: [
+              Text(
+                "Your Shipments",
+                style: GoogleFonts.openSans(
+                    color: const Color(0xff464646),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 10,
@@ -55,89 +62,99 @@ class ShipmentsList extends StatelessWidget {
                 .toList();
             List<Widget> ret = [];
             if (processing.isNotEmpty) {
-              ret.add(Text(
-                "Processing".toUpperCase(),
-                style: GoogleFonts.openSans(
-                    color: const Color(0xff464646),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
+              ret.add(Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Processing".toUpperCase(),
+                      style: GoogleFonts.openSans(
+                          color: const Color(0xff464646),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ));
               ret.add(const SizedBox(
                 height: 10,
               ));
               for (Shipment shipment in processing) {
                 ret.add(ShipmentItem(
-                  name: shipment.pid,
-                  weight: shipment.totalWeight,
-                  emission: shipment.emission,
-                  status: shipment.status,
-                  enroute_to: shipment.enroute_to,
-                  shipmentId: shipment.id["\$oid"] ?? "",
+                  shipment: shipment,
                 ));
               }
             }
             if (inTransit.isNotEmpty) {
-              ret.add(Text(
-                "In Transit".toUpperCase(),
-                style: GoogleFonts.openSans(
-                    color: const Color(0xff464646),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
+              ret.add(Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "In Transit".toUpperCase(),
+                      style: GoogleFonts.openSans(
+                          color: const Color(0xff464646),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ));
               ret.add(const SizedBox(
                 height: 10,
               ));
               for (Shipment shipment in inTransit) {
                 ret.add(ShipmentItem(
-                  name: "Name of item",
-                  weight: shipment.totalWeight,
-                  emission: shipment.emission,
-                  status: shipment.status,
-                  enroute_to: shipment.enroute_to,
-                  shipmentId: shipment.id["\$oid"] ?? "",
+                  shipment: shipment,
                 ));
               }
             }
             if (outForDelivery.isNotEmpty) {
-              ret.add(Text(
-                "Out for Delivery".toUpperCase(),
-                style: GoogleFonts.openSans(
-                    color: const Color(0xff464646),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
+              ret.add(Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Out for Delivery".toUpperCase(),
+                      style: GoogleFonts.openSans(
+                          color: const Color(0xff464646),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ));
               ret.add(const SizedBox(
                 height: 10,
               ));
               for (Shipment shipment in outForDelivery) {
                 ret.add(ShipmentItem(
-                    shipmentId: shipment.id["\$oid"] ?? "",
-                    name: "Name of item",
-                    weight: shipment.totalWeight,
-                    emission: shipment.emission,
-                    status: shipment.status,
-                    enroute_to: shipment.enroute_to));
+                  shipment: shipment,
+                ));
               }
             }
             if (delivered.isNotEmpty) {
-              ret.add(Text(
-                "Delivered".toUpperCase(),
-                style: GoogleFonts.openSans(
-                    color: const Color(0xff464646),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
+              ret.add(Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Delivered".toUpperCase(),
+                      style: GoogleFonts.openSans(
+                          color: const Color(0xff464646),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ));
               ret.add(const SizedBox(
                 height: 10,
               ));
               for (Shipment shipment in delivered) {
                 ret.add(ShipmentItem(
-                    shipmentId: shipment.id["\$oid"] ?? "",
-                    name: "Name of item",
-                    weight: shipment.totalWeight,
-                    emission: shipment.emission,
-                    status: shipment.status,
-                    enroute_to: shipment.enroute_to));
+                  shipment: shipment,
+                ));
               }
             }
             return Column(

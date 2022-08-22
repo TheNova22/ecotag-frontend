@@ -5,27 +5,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sih_frontend/model/product.dart';
+import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 import '../../shipment_update_screen/UpdateShipment.dart';
 
-class ShipmentItem extends StatelessWidget {
-  const ShipmentItem({
-    Key? key,
-    required this.name,
-    required this.weight,
-    required this.emission,
-    required this.status,
-    required this.enroute_to,
-    required this.shipmentId,
-  }) : super(key: key);
+class ShipmentItem extends StatefulWidget {
+  const ShipmentItem({Key? key, required this.shipment}) : super(key: key);
 
-  final double weight;
-  final double emission;
-  final String name;
-  final String status;
-  final String enroute_to;
-  final String shipmentId;
+  final Shipment shipment;
+
+  @override
+  State<ShipmentItem> createState() => _ShipmentItemState();
+}
+
+class _ShipmentItemState extends State<ShipmentItem> {
+  String imgUrl =
+      "https://www.vuescript.com/wp-content/uploads/2018/11/Show-Loader-During-Image-Loading-vue-load-image.png";
+  String name = "";
+
+  Future<List> getDetails() async {
+    Product res = await EcoTagAPI()
+        .getProductDetailsByBarcode(barcode: widget.shipment.pid);
+
+    return [res.image_url, res.name];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getDetails().then((value) {
+      print(value);
+      setState(() {
+        imgUrl = value[0];
+        name = value[1];
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +52,7 @@ class ShipmentItem extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => UpdateShipment(
-            shipmentIDWhenUpdate: shipmentId,
+            shipmentIDWhenUpdate: widget.shipment.id["\$oid"] ?? "",
           ),
         ),
       ),
@@ -53,10 +71,10 @@ class ShipmentItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 36.0,
               backgroundImage: NetworkImage(
-                "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
+                imgUrl,
               ),
             ),
             const SizedBox(
@@ -67,7 +85,7 @@ class ShipmentItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$weight Kg | ${emission.toStringAsFixed(2)} kg CO\u2082",
+                    "${widget.shipment.totalWeight} Kg | ${widget.shipment.emission.toStringAsFixed(2)} kg CO\u2082",
                     style: GoogleFonts.openSans(
                         color: const Color(0xff464646),
                         fontSize: 14,
@@ -76,42 +94,18 @@ class ShipmentItem extends StatelessWidget {
                   const SizedBox(
                     height: 3,
                   ),
-                  FutureBuilder(
-                    future: EcoTagAPI().getProductNameByBarcode(barcode: name),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError ||
-                          snapshot.connectionState == ConnectionState.waiting ||
-                          (snapshot.data as Map<String, dynamic>)["status"] !=
-                              "Passed") {
-                        return Text(
-                          // place,
-                          name,
+                  Text(
+                    // place,
+                    name,
 
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                          // "Enroute CA, USA"
-                          style: GoogleFonts.openSans(
-                              color: const Color(0xff464646),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        );
-                      }
-                      return Text(
-                        // place,
-                        (snapshot.data as Map<String, String>)["productName"] ??
-                            name,
-
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        // "Enroute CA, USA"
-                        style: GoogleFonts.openSans(
-                            color: const Color(0xff464646),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      );
-                    },
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    // "Enroute CA, USA"
+                    style: GoogleFonts.openSans(
+                        color: const Color(0xff464646),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700),
                   ),
                   Row(
                     children: [
@@ -121,11 +115,11 @@ class ShipmentItem extends StatelessWidget {
                       ),
                       Text(
                         // place,
-                        status == "TRAVEL"
-                            ? "Enroute $enroute_to"
-                            : (status == "OUT FOR DELIVERY")
+                        widget.shipment.status == "TRAVEL"
+                            ? "Enroute ${widget.shipment.enroute_to}"
+                            : (widget.shipment.status == "OUT FOR DELIVERY")
                                 ? "Out for delivery"
-                                : (status == "DELIVERED")
+                                : (widget.shipment.status == "DELIVERED")
                                     ? "Delivered"
                                     : "Processing",
 

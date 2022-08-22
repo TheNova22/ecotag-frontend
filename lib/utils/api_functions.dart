@@ -21,7 +21,14 @@ class EcoTagAPI {
         await _dio.get('${_baseUrl}getProductNameByBarcode?barcode=$barcode');
     debugPrint('${userData.data}');
     showToast('${userData.data}');
-    return jsonDecode(userData.data);
+    var res = userData.data;
+
+    return res;
+    // if (res["status"] == "Failed") {
+    //   return {"productName": "Searching"};
+    // } else {
+    //   return {"productName": res["productName"].toString()};
+    // }
   }
 
   Future<Map<String, dynamic>> getProductFromBarcode(
