@@ -4,21 +4,14 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sih_frontend/model/product.dart';
 
 class ProductListItem extends StatelessWidget {
   const ProductListItem({
     Key? key,
-    required this.name,
-    required this.imgUrl,
-    required this.carbonEmission,
-    required this.rating,
-    required this.numOfManufacturers,
+    required this.product,
   }) : super(key: key);
-  final String name;
-  final String imgUrl;
-  final double carbonEmission;
-  final double rating;
-  final int numOfManufacturers;
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +26,7 @@ class ProductListItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30.0,
-            backgroundImage: NetworkImage(imgUrl),
+            backgroundImage: NetworkImage(product.image_url),
           ),
           SizedBox(
             width: 10,
@@ -42,7 +35,7 @@ class ProductListItem extends StatelessWidget {
             child: Column(
               children: [
                 AutoSizeText(
-                  name,
+                  product.name,
                   minFontSize: 9,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
@@ -58,13 +51,13 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          carbonEmission.toString(),
+                          product.totalEmission.toStringAsFixed(2),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: carbonEmission > 750
+                              color: product.totalEmission > 750
                                   ? Color.fromARGB(255, 166, 55, 55)
                                   : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
@@ -85,13 +78,13 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          rating.toString(),
+                          product.rating.toString(),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: rating < 2.5
+                              color: product.rating < 2.5
                                   ? Color.fromARGB(255, 166, 55, 55)
                                   : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
@@ -112,13 +105,13 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          numOfManufacturers.toString(),
+                          product.totalManufacturers.toString(),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
-                              color: numOfManufacturers < 3
+                              color: product.totalManufacturers < 3
                                   ? Color.fromARGB(255, 166, 55, 55)
                                   : Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),

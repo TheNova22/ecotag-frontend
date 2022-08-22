@@ -117,6 +117,16 @@ class EcoTagAPI {
         .toList();
   }
 
+  Future<List<Product>> getProductsByManufacturer({required String mid}) async {
+    Response userData =
+        await _dio.get("${_baseUrl}getProductFromManufacturer?mid=$mid");
+    debugPrint(' ${userData.data}');
+    // showToast('${userData.data}');
+    return jsonDecode(userData.data)
+        .map<Product>((e) => Product.fromMap(e))
+        .toList();
+  }
+
   Future<List<dynamic>> getCategoriesByName({required String name}) async {
     Response userData =
         await _dio.get('${_baseUrl}getCategories?searchTerm=$name');

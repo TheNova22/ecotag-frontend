@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/screens/productsScreen/add_product.dart';
 import 'package:sih_frontend/screens/productsScreen/components/productListItem.dart';
+import 'package:sih_frontend/utils/api_functions.dart';
 import 'package:sih_frontend/widgets/common_navigation_bar.dart';
+import 'package:sih_frontend/utils/globals.dart' as globals;
 
 class ProductsList extends StatefulWidget {
   ProductsList({Key? key}) : super(key: key);
@@ -14,6 +17,25 @@ class _ProductsListState extends State<ProductsList>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
+  List<Product> prods = [];
+
+  Future<List<Product>> listOfProducts() async {
+    return await EcoTagAPI().getProductsByManufacturer(mid: globals.uid);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    listOfProducts().then((finalArray) {
+      setState(() {
+        prods = finalArray;
+        print(prods.length);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +77,9 @@ class _ProductsListState extends State<ProductsList>
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: 10,
+                    itemCount: prods.length,
                     itemBuilder: (context, index) => ProductListItem(
-                          name:
-                              "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
-                          imgUrl:
-                              "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses-green-hair_23-2149436201.jpg?w=740&t=st=1660905781~exp=1660906381~hmac=7f04bebb70269c0dc8034da7a85c164b5004455b80ecf477e774d8f47cb8cd82",
-                          carbonEmission: 945.68,
-                          rating: 3.4,
-                          numOfManufacturers: 745,
+                          product: prods[index],
                         )),
               ],
             ),

@@ -7,6 +7,7 @@ import 'package:sih_frontend/screens/homePage/home_page.dart';
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'screens/homePage/home_page.dart';
 import 'screens/shipment_update_screen/UpdateShipment.dart';
 
 // to build web app
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return CustomerScreen();
+          return HomePage();
           // return UpdateShipment();
 
         }
