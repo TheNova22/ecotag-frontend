@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UpdateShipmentSession1 extends StatelessWidget {
   final Function(int, String, String, String) onNext;
+  final String? shipmentId;
 // {"manufacturer" : "aaa", "startLocation" : "ABC Speaker Maker, Bangalore", "pid" : "zxcv", "totalWeight" : 50.4, "currentLat" : 128.35, "currentLong" : 74.45}
 // {"shipmentID" : "62fbba53bad3f183e0f6fb00", "location" :"DESTINATION WAREHOUSE", "currentLat" : 192.35, "currentLong" : 80.45, "transportMode" : "-", "enroute_to" : "DESTINATION", "status" : "OUT FOR DELIVERY/DELIVERED"}
   List<String> questions = [
@@ -18,7 +19,10 @@ class UpdateShipmentSession1 extends StatelessWidget {
   TextEditingController question1TextController = TextEditingController();
   TextEditingController question2TextController = TextEditingController();
   TextEditingController question3TextController = TextEditingController();
-  UpdateShipmentSession1({Key? key, required this.onNext}) : super(key: key);
+
+  UpdateShipmentSession1({super.key, required this.onNext, this.shipmentId}) {
+    question1TextController.text = shipmentId ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +80,7 @@ class UpdateShipmentSession1 extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextField(
+            readOnly: shipmentId == null,
             controller: question1TextController,
             style: const TextStyle(
               fontSize: 18.0,
