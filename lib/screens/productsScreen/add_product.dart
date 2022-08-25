@@ -56,6 +56,16 @@ class _AddProductState extends State<AddProduct> {
     });
   }
 
+  Future getEmissionOfProduct(List arr) async {
+    for (int i = 0; i < arr.length; i++) {
+      await EcoTagAPI()
+          .getProductDetailsByBarcode(barcode: arr[i][0])
+          .then((value) {
+        emission += value.totalEmission * double.parse(arr[i][1]);
+      });
+    }
+  }
+
   Future updateEmission(List arr) async {
     for (int i = 0; i < arr.length; i++) {
       await Climatiq().getEmissions(arr[i][0], arr[i][1]).then((value) {
@@ -181,6 +191,7 @@ class _AddProductState extends State<AddProduct> {
                         setState(() {
                           sessionNumber += addNum;
                           answers.add(ans);
+                          getEmissionOfProduct(ans);
                         });
                       })
                     : (sessionNumber == 5
