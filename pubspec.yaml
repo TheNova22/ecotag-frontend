@@ -52,6 +52,7 @@ dependencies:
   cached_network_image: ^3.2.1
   survey_kit: ^0.1.1
   geolocator: ^9.0.1
+  flutter_custom_clippers: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +114,10 @@ flutter:
     - family: Lobster
       fonts:
         - asset: assets/fonts/Lobster-Regular.ttf
+
+    - family: MyFlutterApp
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf
 
   #   - family: Trajan Pro
   #     fonts:
