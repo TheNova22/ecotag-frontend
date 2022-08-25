@@ -1,12 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session1.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session2.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session3.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session4.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session5.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/utils/ecotag_functions.dart';
 import 'package:sih_frontend/utils/authentication.dart';
@@ -34,23 +29,17 @@ class _CreateShipmentState extends State<CreateShipment> {
       enroute_to,
       status;
   late double currentLat, currentLong, totalWeight;
-  // startLocation, location and enroute_to
-// {"shipmentID" : "62fbba53bad3f183e0f6fb00", "location" :"DESTINATION WAREHOUSE", "currentLat" : 192.35, "currentLong" : 80.45, "transportMode" : "-", "enroute_to" : "DESTINATION", "status" : "OUT FOR DELIVERY/DELIVERED"}
-// {"manufacturer" : "aaa", "startLocation" : "ABC Speaker Maker, Bangalore", "pid" : "zxcv", "totalWeight" : 50.4, "currentLat" : 128.35, "currentLong" : 74.45}
-  // TODO: Complete submitAnswers
-  //answers example
-  // [uncle chips, 123456789, 30.0, 100, 20.0, Plastic, [[potato, 70.0], [salt, 10.0]], [[987654321, 10.0], [135798642, 20.5]], [10.0, 20.4, 78.0, 12.0, 67.0]]
   Widget submitAnswers() {
-    print("-----------------------");
-    print(answers);
+    debugPrint("-----------------------");
+    debugPrint(answers.toString());
 
-    return HomePage();
+    return const HomePage();
   }
 
 // [indi, america, 8901138511470, 13.033653,77.5635221, 45, Rail]
   @override
   Widget build(BuildContext context) {
-    print(FirebaseAuth.instance.currentUser!.uid);
+    // debugPrint(FirebaseAuth.instance.currentUser!.uid);
     return sessionNumber == 1
         ? CreateShipmentSession1(
             onNext: (int addNum, String q1, String q2, String q3) {
@@ -91,7 +80,7 @@ class _CreateShipmentState extends State<CreateShipment> {
                         enroute_to: enroute_to,
                         status: "PROCESSING");
                 if (result["status"]) {
-                  showToast("Added Shipment with id" + shipmentId);
+                  showToast("Added Shipment with id $shipmentId");
                 }
                 setState(() {
                   sessionNumber += addNum;

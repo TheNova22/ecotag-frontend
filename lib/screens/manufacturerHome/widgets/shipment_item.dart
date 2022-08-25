@@ -1,9 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/model/shipment.dart';
@@ -37,7 +34,7 @@ class _ShipmentItemState extends State<ShipmentItem> {
     super.initState();
 
     getDetails().then((value) {
-      print(value);
+      debugPrint(value.toString());
       setState(() {
         imgUrl = value[0];
         name = value[1];

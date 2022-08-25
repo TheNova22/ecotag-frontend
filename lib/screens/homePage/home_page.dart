@@ -7,14 +7,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
-import 'package:sih_frontend/utils/ecotag_functions.dart';
-import 'package:sih_frontend/utils/globals.dart' as globals;
-import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -30,12 +28,13 @@ class _HomePageState extends State<HomePage> {
   Future<String> getUser() async {
     await Firebase.initializeApp();
 
-    FirebaseAuth auth = await FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     return auth.currentUser!.uid;
   }
 
   void getLoc() async {
+    // ignore: unused_local_variable
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: [
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined, size: 28),
                 activeIcon: Icon(Icons.home, size: 28),

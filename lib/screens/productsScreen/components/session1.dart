@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Session1 extends StatelessWidget {
   final Function(int, String, String, String) onNext;
 
-  List<String> questions = [
+  static const List<String> questions = [
     "What is the name of the product?",
     "What is the registered barcode of the product?",
     "What is the maximum retail price of the product?",
@@ -19,7 +21,10 @@ class Session1 extends StatelessWidget {
   TextEditingController question1TextController = TextEditingController();
   TextEditingController question2TextController = TextEditingController();
   TextEditingController question3TextController = TextEditingController();
-  Session1({Key? key, required this.onNext}) : super(key: key);
+  Session1({
+    Key? key,
+    required this.onNext,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

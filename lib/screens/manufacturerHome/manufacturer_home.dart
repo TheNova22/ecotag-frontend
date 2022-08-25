@@ -5,9 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
-import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipments_list.dart';
 import 'package:sih_frontend/screens/settingsScreen/settings_screen.dart';
 import 'package:sih_frontend/screens/shipment_create_screen/CreateShipment.dart';
@@ -111,7 +109,7 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
                               SizedBox(
                                 width: 5,
                               ),
-                              Container(
+                              SizedBox(
                                 width: w / 2.2,
                                 child: AutoSizeText(
                                   address,

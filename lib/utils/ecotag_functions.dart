@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'dart:convert';
 
@@ -301,4 +303,15 @@ class EcoTagAPI {
       "Old plastic wraps can be used as packing material"
     ]
   };
+  static const List<String> tips = [
+    "Reduce, reuse, and recycle. Cut down on what you throw away. Follow the three \"R's\" to conserve natural resources and landfill space.",
+    "Volunteer. Volunteer for cleanups in your community. You can get involved in protecting your watershed, too.",
+    "Educate. When you further your own education, you can help others understand the importance and value of our natural resources.",
+    "Conserve water. The less water you use, the less runoff and wastewater that eventually end up in the ocean.",
+    "Shop wisely. Buy less plastic and bring a reusable shopping bag.",
+    "Use long-lasting light bulbs. Energy efficient light bulbs reduce greenhouse gas emissions. Also flip the light switch off when you leave the room!",
+    "Plant a tree. Trees provide food and oxygen. They help save energy, clean the air, and help combat climate change.",
+    "Don't send chemicals into our waterways. Choose non-toxic chemicals in the home and office.",
+    "Bike more. Drive less.",
+  ];
 }

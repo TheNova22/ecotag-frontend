@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 // NOT USED, CAN BE DELETED LATER
 
@@ -15,7 +13,7 @@ class _ColoredContainerState extends State<ColoredContainer> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    // double h = MediaQuery.of(context).size.height;
 
     return Container(
       width: w / 2,

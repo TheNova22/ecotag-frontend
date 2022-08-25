@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import
 
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session1.dart';
@@ -13,7 +13,7 @@ import 'package:sih_frontend/utils/climatiq.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 
 class AddProduct extends StatefulWidget {
-  AddProduct({Key? key}) : super(key: key);
+  const AddProduct({Key? key}) : super(key: key);
 
   @override
   State<AddProduct> createState() => _AddProductState();
@@ -99,12 +99,11 @@ class _AddProductState extends State<AddProduct> {
     return ct;
   }
 
-  // TODO: Complete submitAnswers
   //answers example
   // [uncle chips, 123456789, 30.0, 100, 20.0, Plastic, [[potato, 70.0], [salt, 10.0]], [[987654321, 10.0], [135798642, 20.5]], [10.0, 20.4, 78.0, 12.0, 67.0]]
   Future submitAnswers() async {
-    print("-----------------------");
-    print(answers);
+    debugPrint("-----------------------");
+    debugPrint(answers.toString());
     if (countSelects() != 5) {
       showToast("Select 5 categories");
       return;
@@ -200,8 +199,8 @@ class _AddProductState extends State<AddProduct> {
                               sessionNumber += addNum;
                               answers.add(ans);
                               updateWaste(ans);
-                              print("--------------------------------");
-                              print(answers);
+                              debugPrint("--------------------------------");
+                              debugPrint(answers.toString());
                             });
                           })
                         : (sessionNumber == 6
@@ -211,10 +210,10 @@ class _AddProductState extends State<AddProduct> {
                                     onPressed: () {
                                       submitAnswers();
                                     },
-                                    child: const Icon(Icons.arrow_right_alt),
                                     foregroundColor: Colors.black87,
                                     backgroundColor: const Color.fromARGB(
-                                        255, 159, 205, 243)),
+                                        255, 159, 205, 243),
+                                    child: const Icon(Icons.arrow_right_alt)),
                                 body: Center(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),

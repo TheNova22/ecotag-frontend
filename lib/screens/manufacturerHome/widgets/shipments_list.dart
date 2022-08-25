@@ -35,9 +35,10 @@ class ShipmentsList extends StatelessWidget {
           future: EcoTagAPI().getShipments(
               manufacturer: FirebaseAuth.instance.currentUser!.uid),
           builder: (context, snapshot) {
-            if (snapshot.hasError ||
-                snapshot.connectionState == ConnectionState.waiting ||
-                (snapshot.data as List).isEmpty) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator.adaptive();
+            }
+            if (snapshot.hasError || (snapshot.data as List).isEmpty) {
               return SizedBox(
                 height: 30,
                 child: AutoSizeText(

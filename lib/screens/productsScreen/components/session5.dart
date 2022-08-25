@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Session5 extends StatefulWidget {
   final Function(int, List) onNext;
 
-  Session5({Key? key, required this.onNext}) : super(key: key);
+  const Session5({Key? key, required this.onNext}) : super(key: key);
 
   @override
   State<Session5> createState() => _Session5State();
@@ -32,7 +34,6 @@ class _Session5State extends State<Session5> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -46,8 +47,8 @@ class _Session5State extends State<Session5> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: const AutoSizeText(
+                const Center(
+                  child: AutoSizeText(
                     "New Product",
                     minFontSize: 9,
                     maxLines: 3,
@@ -76,16 +77,16 @@ class _Session5State extends State<Session5> {
             totalWaste.add(double.parse(question84TextController.text));
             widget.onNext(1, totalWaste);
           },
-          child: const Icon(Icons.arrow_right_alt),
           foregroundColor: Colors.black87,
-          backgroundColor: const Color.fromARGB(255, 159, 205, 243)),
+          backgroundColor: const Color.fromARGB(255, 159, 205, 243),
+          child: const Icon(Icons.arrow_right_alt)),
     );
   }
 
   Widget Survey5() {
     return Column(
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         //question 4
         AutoSizeText(
           questions[8],
@@ -110,7 +111,7 @@ class _Session5State extends State<Session5> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             flex: 1,
             child: TextField(
@@ -131,7 +132,7 @@ class _Session5State extends State<Session5> {
                         borderRadius: BorderRadius.circular(15.0)))),
           ),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(children: [
           Expanded(
             flex: 1,
@@ -145,7 +146,7 @@ class _Session5State extends State<Session5> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             flex: 1,
             child: TextField(
@@ -166,7 +167,7 @@ class _Session5State extends State<Session5> {
                         borderRadius: BorderRadius.circular(15.0)))),
           ),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(children: [
           Expanded(
             flex: 1,
@@ -180,7 +181,7 @@ class _Session5State extends State<Session5> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             flex: 1,
             child: TextField(
@@ -201,7 +202,7 @@ class _Session5State extends State<Session5> {
                         borderRadius: BorderRadius.circular(15.0)))),
           ),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(children: [
           Expanded(
             flex: 1,
@@ -215,7 +216,7 @@ class _Session5State extends State<Session5> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             flex: 1,
             child: TextField(
@@ -236,7 +237,7 @@ class _Session5State extends State<Session5> {
                         borderRadius: BorderRadius.circular(15.0)))),
           ),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(children: [
           Expanded(
             flex: 1,
@@ -250,7 +251,7 @@ class _Session5State extends State<Session5> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             flex: 1,
             child: TextField(
