@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route_2.dart';
@@ -34,6 +38,41 @@ class CustomerScreen extends StatefulWidget {
 class _CustomerScreenState extends State<CustomerScreen> {
   String barcode = "";
   Map<String, dynamic> data = {};
+
+  Future<String> req(String path) async {
+    // path = value.path;
+    var formData = FormData();
+    formData.files.add(MapEntry(
+      "Picture",
+      await MultipartFile.fromFile(path, filename: "pic-name.png"),
+    ));
+    String val = "";
+    await Dio()
+        .post('http://cantin.centralindia.cloudapp.azure.com/detectImage',
+            data: formData)
+        .then((value) {
+      print(value);
+      val = value.data["object"];
+    });
+    print("1");
+    print(val);
+    return val;
+    // print(response.data.runtimeType);
+  }
+
+  Future<String> _getImage() async {
+    String res = "";
+    final ImagePicker _picker = ImagePicker();
+    var image =
+        await _picker.pickImage(source: ImageSource.camera).then((value) async {
+      await req(value!.path).then((value) {
+        res = value;
+      });
+    });
+
+    return res;
+  }
+
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -142,31 +181,104 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         ),
                         SizedBox(height: 25),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                              keyboardType: TextInputType.text,
-                              onSubmitted: (String val) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SearchProducts(searchTerm: val)));
-                              },
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                color: Colors.black,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                    onSubmitted: (String val) {
+                                      print(val);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  SearchProducts(
+                                                      searchTerm: val)));
+                                    },
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                          20.0, 15.0, 20.0, 15.0),
+                                      suffixIcon: Container(
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                            borderRadius: BorderRadius.only(
+                                                bottomRight:
+                                                    Radius.circular(15),
+                                                topRight: Radius.circular(15))),
+                                        child: IconButton(
+                                            color: Colors.black,
+                                            onPressed: () {},
+                                            icon: Icon(Icons.search)),
+                                      ),
+                                      hintText: "Search",
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Colors.black54, width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black54,
+                                              width: 1.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      // focusedBorder: OutlineInputBorder(
+                                      //     borderSide: BorderSide(
+                                      //         color: Colors.black, width: 32.0),
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(15.0))
+                                    )),
+                                // child: TextField(
+                                //     keyboardType: TextInputType.text,
+                                //     onSubmitted: (String val) {
+                                //       print(val);
+                                //       Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (BuildContext context) =>
+                                //                   SearchProducts(
+                                //                       searchTerm: val)));
+                                //     },
+                                //     style: TextStyle(
+                                //       fontSize: 15.0,
+                                //       color: Colors.black,
+                                //     ),
+                                //     decoration: InputDecoration(
+                                //       contentPadding: EdgeInsets.fromLTRB(
+                                //           20.0, 15.0, 20.0, 15.0),
+                                //       suffixIcon: IconButton(
+                                //           onPressed: () {},
+                                //           icon: Icon(Icons.search)),
+                                //       hintText: "Search",
+                                //       border: OutlineInputBorder(
+                                //           borderSide: BorderSide(
+                                //               color: Colors.black, width: 32.0),
+                                //           borderRadius:
+                                //               BorderRadius.circular(15.0)),
+                                //     )),
                               ),
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                suffixIcon: IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.search)),
-                                hintText: "Search",
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black, width: 32.0),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                              )),
+                              SizedBox(width: 5),
+                              IconButton(
+                                  onPressed: () {
+                                    _getImage().then((value) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  SearchProducts(
+                                                      searchTerm: value)));
+                                    });
+                                  },
+                                  icon: Icon(Icons.camera_alt, size: 30),
+                                  color: Palette.primaryDarkGreen),
+                            ],
+                          ),
                         ),
                       ],
                     ),
