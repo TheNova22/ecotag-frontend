@@ -18,15 +18,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // if (kIsWeb) {
   await Firebase.initializeApp(
-      // Replace with actual values
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyDfyw5imlf334KAgveGqVM_VkHTRs8yZiA",
-          authDomain: "ecotag-211c8.firebaseapp.com",
-          projectId: "ecotag-211c8",
-          storageBucket: "ecotag-211c8.appspot.com",
-          messagingSenderId: "645746490811",
-          appId: "1:645746490811:web:4823527c73bf0d8618989e",
-          measurementId: "G-KWHSSV8FMV"));
+    // Replace with actual values
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyDfyw5imlf334KAgveGqVM_VkHTRs8yZiA",
+      authDomain: "ecotag-211c8.firebaseapp.com",
+      projectId: "ecotag-211c8",
+      storageBucket: "ecotag-211c8.appspot.com",
+      messagingSenderId: "645746490811",
+      appId: "1:645746490811:web:4823527c73bf0d8618989e",
+      measurementId: "G-KWHSSV8FMV",
+    ),
+  );
   // }
 
   if (!kIsWeb) {
@@ -49,7 +51,8 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          return CustomerScreen();
+          print(FirebaseAuth.instance.currentUser!.uid);
+          return HomePage();
           // return CustomerScreen();
           // return UpdateShipment();
 

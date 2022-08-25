@@ -15,11 +15,11 @@ class ProductListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 13),
-      margin: EdgeInsets.only(top: 13),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(bottom: 13),
+      margin: const EdgeInsets.only(top: 13),
+      decoration: const BoxDecoration(
           border: Border(
-              bottom: BorderSide(
+              bottom: const BorderSide(
         color: Color.fromARGB(255, 113, 113, 113),
       ))),
       child: Row(
@@ -28,7 +28,7 @@ class ProductListItem extends StatelessWidget {
             radius: 30.0,
             backgroundImage: NetworkImage(product.image_url),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
@@ -41,10 +41,10 @@ class ProductListItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.openSans(
                       fontSize: 13,
-                      color: Color(0xff464646),
+                      color: const Color(0xff464646),
                       fontWeight: FontWeight.w600),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -58,8 +58,8 @@ class ProductListItem extends StatelessWidget {
                           style: GoogleFonts.openSans(
                               fontSize: 20,
                               color: product.totalEmission > 750
-                                  ? Color.fromARGB(255, 166, 55, 55)
-                                  : Color.fromARGB(255, 5, 120, 60),
+                                  ? const Color.fromARGB(255, 166, 55, 55)
+                                  : const Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
@@ -69,7 +69,7 @@ class ProductListItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 10,
-                              color: Color(0xff464646),
+                              color: const Color(0xff464646),
                               fontWeight: FontWeight.w600),
                         ),
                       ],
@@ -78,15 +78,15 @@ class ProductListItem extends StatelessWidget {
                     Column(
                       children: [
                         AutoSizeText(
-                          product.rating.toString(),
+                          product.rating.toStringAsFixed(2),
                           minFontSize: 15,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 20,
                               color: product.rating < 2.5
-                                  ? Color.fromARGB(255, 166, 55, 55)
-                                  : Color.fromARGB(255, 5, 120, 60),
+                                  ? const Color.fromARGB(255, 166, 55, 55)
+                                  : const Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
@@ -96,7 +96,7 @@ class ProductListItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 10,
-                              color: Color(0xff464646),
+                              color: const Color(0xff464646),
                               fontWeight: FontWeight.w600),
                         ),
                       ],
@@ -112,8 +112,8 @@ class ProductListItem extends StatelessWidget {
                           style: GoogleFonts.openSans(
                               fontSize: 20,
                               color: product.totalManufacturers < 3
-                                  ? Color.fromARGB(255, 166, 55, 55)
-                                  : Color.fromARGB(255, 5, 120, 60),
+                                  ? const Color.fromARGB(255, 166, 55, 55)
+                                  : const Color.fromARGB(255, 5, 120, 60),
                               fontWeight: FontWeight.bold),
                         ),
                         AutoSizeText(
@@ -123,7 +123,7 @@ class ProductListItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
                               fontSize: 10,
-                              color: Color(0xff464646),
+                              color: const Color(0xff464646),
                               fontWeight: FontWeight.w600),
                         ),
                       ],
