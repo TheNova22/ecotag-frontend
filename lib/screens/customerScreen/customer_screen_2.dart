@@ -13,6 +13,7 @@ import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route_2.dart';
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile_2.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:sih_frontend/screens/customerScreen/searchProductScreen/search_products_screen.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 
 import '../../model/product.dart';
@@ -144,27 +145,29 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextField(
+                              keyboardType: TextInputType.text,
+                              onSubmitted: (String val) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            SearchProducts(searchTerm: val)));
+                              },
                               style: TextStyle(
                                 fontSize: 15.0,
                                 color: Colors.black,
                               ),
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 15.0, 20.0, 15.0),
-                                  suffixIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.search)),
-                                  hintText: "Search",
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 32.0),
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 32.0),
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)))),
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                                suffixIcon: IconButton(
+                                    onPressed: () {}, icon: Icon(Icons.search)),
+                                hintText: "Search",
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 32.0),
+                                    borderRadius: BorderRadius.circular(15.0)),
+                              )),
                         ),
                       ],
                     ),
