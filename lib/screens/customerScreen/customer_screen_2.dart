@@ -74,27 +74,13 @@ class _CustomerScreenState extends State<CustomerScreen> {
                     padding: EdgeInsets.only(top: 20, bottom: 30),
                     child: Column(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.camera_alt, size: 30),
-                                color: Colors.transparent),
-                            Container(
-                              child: Text("EcoTag Scanner",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.openSans(
-                                      fontSize: 30,
-                                      color: Palette.primaryDarkGreen,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.camera_alt, size: 30),
-                                color: Palette.primaryDarkGreen),
-                          ],
+                        Container(
+                          child: Text("EcoTag Scanner",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.openSans(
+                                  fontSize: 30,
+                                  color: Palette.primaryDarkGreen,
+                                  fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(
                           height: 25,
@@ -161,7 +147,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             children: [
                               Expanded(
                                 child: TextField(
-                                    keyboardType: TextInputType.text,
                                     onSubmitted: (String val) {
                                       print(val);
                                       Navigator.push(
@@ -178,16 +163,66 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.fromLTRB(
                                           20.0, 15.0, 20.0, 15.0),
-                                      suffixIcon: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.search)),
+                                      suffixIcon: Container(
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                            borderRadius: BorderRadius.only(
+                                                bottomRight:
+                                                    Radius.circular(15),
+                                                topRight: Radius.circular(15))),
+                                        child: IconButton(
+                                            color: Colors.black,
+                                            onPressed: () {},
+                                            icon: Icon(Icons.search)),
+                                      ),
                                       hintText: "Search",
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Colors.black54, width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.black, width: 32.0),
+                                              color: Colors.black54,
+                                              width: 1.0),
                                           borderRadius:
                                               BorderRadius.circular(15.0)),
+                                      // focusedBorder: OutlineInputBorder(
+                                      //     borderSide: BorderSide(
+                                      //         color: Colors.black, width: 32.0),
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(15.0))
                                     )),
+                                // child: TextField(
+                                //     keyboardType: TextInputType.text,
+                                //     onSubmitted: (String val) {
+                                //       print(val);
+                                //       Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (BuildContext context) =>
+                                //                   SearchProducts(
+                                //                       searchTerm: val)));
+                                //     },
+                                //     style: TextStyle(
+                                //       fontSize: 15.0,
+                                //       color: Colors.black,
+                                //     ),
+                                //     decoration: InputDecoration(
+                                //       contentPadding: EdgeInsets.fromLTRB(
+                                //           20.0, 15.0, 20.0, 15.0),
+                                //       suffixIcon: IconButton(
+                                //           onPressed: () {},
+                                //           icon: Icon(Icons.search)),
+                                //       hintText: "Search",
+                                //       border: OutlineInputBorder(
+                                //           borderSide: BorderSide(
+                                //               color: Colors.black, width: 32.0),
+                                //           borderRadius:
+                                //               BorderRadius.circular(15.0)),
+                                //     )),
                               ),
                               SizedBox(width: 5),
                               IconButton(
