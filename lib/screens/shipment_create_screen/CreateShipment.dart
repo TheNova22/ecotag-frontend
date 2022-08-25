@@ -8,7 +8,7 @@ import 'package:sih_frontend/screens/productsScreen/components/session3.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session4.dart';
 import 'package:sih_frontend/screens/productsScreen/components/session5.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 import 'package:sih_frontend/utils/authentication.dart';
 import 'components/components/CreateShipmentsession1.dart';
 import 'components/components/CreateShipmentsession2.dart';

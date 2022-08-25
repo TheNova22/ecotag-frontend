@@ -6,6 +6,7 @@ import 'package:sih_frontend/screens/homePage/home_page.dart';
 
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 
 import 'screens/shipment_update_screen/UpdateShipment.dart';
 
@@ -52,8 +53,8 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           // print(FirebaseAuth.instance.currentUser!.uid);
-          //return HomePage();
-          return CustomerScreen();
+          return HomePage();
+          // return CustomerScreen();
           // return UpdateShipment();
 
         }

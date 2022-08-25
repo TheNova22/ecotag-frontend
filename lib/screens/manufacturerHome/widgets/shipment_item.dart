@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/model/shipment.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 import '../../shipment_update_screen/UpdateShipment.dart';
 

@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,7 +13,7 @@ import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile_2.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sih_frontend/screens/customerScreen/searchProductScreen/search_products_screen.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 import '../../model/product.dart';
 
@@ -75,7 +74,8 @@ class _CustomerScreenState extends State<CustomerScreen> {
                     child: Column(
                       children: [
                         Container(
-                          child: Text("EcoTag Scanner",
+                          width: double.infinity,
+                          child: Text("Ecotag Scanner",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.openSans(
                                   fontSize: 30,
@@ -142,95 +142,31 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         ),
                         SizedBox(height: 25),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                    onSubmitted: (String val) {
-                                      print(val);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  SearchProducts(
-                                                      searchTerm: val)));
-                                    },
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.black,
-                                    ),
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.fromLTRB(
-                                          20.0, 15.0, 20.0, 15.0),
-                                      suffixIcon: Container(
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Colors.white.withOpacity(0.6),
-                                            borderRadius: BorderRadius.only(
-                                                bottomRight:
-                                                    Radius.circular(15),
-                                                topRight: Radius.circular(15))),
-                                        child: IconButton(
-                                            color: Colors.black,
-                                            onPressed: () {},
-                                            icon: Icon(Icons.search)),
-                                      ),
-                                      hintText: "Search",
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.black54, width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      // focusedBorder: OutlineInputBorder(
-                                      //     borderSide: BorderSide(
-                                      //         color: Colors.black, width: 32.0),
-                                      //     borderRadius:
-                                      //         BorderRadius.circular(15.0))
-                                    )),
-                                // child: TextField(
-                                //     keyboardType: TextInputType.text,
-                                //     onSubmitted: (String val) {
-                                //       print(val);
-                                //       Navigator.push(
-                                //           context,
-                                //           MaterialPageRoute(
-                                //               builder: (BuildContext context) =>
-                                //                   SearchProducts(
-                                //                       searchTerm: val)));
-                                //     },
-                                //     style: TextStyle(
-                                //       fontSize: 15.0,
-                                //       color: Colors.black,
-                                //     ),
-                                //     decoration: InputDecoration(
-                                //       contentPadding: EdgeInsets.fromLTRB(
-                                //           20.0, 15.0, 20.0, 15.0),
-                                //       suffixIcon: IconButton(
-                                //           onPressed: () {},
-                                //           icon: Icon(Icons.search)),
-                                //       hintText: "Search",
-                                //       border: OutlineInputBorder(
-                                //           borderSide: BorderSide(
-                                //               color: Colors.black, width: 32.0),
-                                //           borderRadius:
-                                //               BorderRadius.circular(15.0)),
-                                //     )),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                              keyboardType: TextInputType.text,
+                              onSubmitted: (String val) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            SearchProducts(searchTerm: val)));
+                              },
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
                               ),
-                              SizedBox(width: 5),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.camera_alt, size: 30),
-                                  color: Palette.primaryDarkGreen),
-                            ],
-                          ),
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                                suffixIcon: IconButton(
+                                    onPressed: () {}, icon: Icon(Icons.search)),
+                                hintText: "Search",
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 32.0),
+                                    borderRadius: BorderRadius.circular(15.0)),
+                              )),
                         ),
                       ],
                     ),
@@ -473,7 +409,7 @@ class _ProductCard extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             AutoSizeText(
-                              "EcoTag rating: " +
+                              "Ecotag rating: " +
                                   product!.rating.toString() +
                                   "/5",
                               minFontSize: 8,
@@ -520,30 +456,6 @@ class _ProductCard extends StatelessWidget {
                                       SimilarProduct(),
                                       SimilarProduct(),
                                     ])),
-                            SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 5),
-                                    decoration: BoxDecoration(
-                                        color: Palette.primaryOcar,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.location_pin, size: 25),
-                                        SizedBox(width: 5),
-                                        Text("Nearby Suppliers")
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ]))
                   : FutureBuilder(
                       future: EcoTagAPI()

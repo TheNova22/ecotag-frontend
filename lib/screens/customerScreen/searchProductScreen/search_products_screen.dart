@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/screens/productsScreen/components/productListItem.dart';
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 class SearchProducts extends StatefulWidget {
   SearchProducts({Key? key, required this.searchTerm}) : super(key: key);

@@ -241,4 +241,64 @@ class EcoTagAPI {
 
     return Map<String, dynamic>.from(userData.data);
   }
+
+  static const Map<String, dynamic> recyclingLocations = {
+    "Assam": {
+      "paper": [
+        "A.U. Barlaskar & Co",
+        "24.770735367483493,92.81920223983637",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=24.770735367483493,92.81920223983637&locations=24.770735367483493,92.81920223983637&size=@2x"
+      ],
+      "cardboard": [
+        "UNITED GLOBAL TRUST",
+        "26.11164061193119,91.75026524480703",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=26.11164061193119,91.75026524480703&locations=26.11164061193119,91.75026524480703&size=@2x"
+      ],
+      "plastic": [
+        "MIDUL PLASTIC",
+        "26.783128161014755,94.58019646877123",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=26.783128161014755,94.58019646877123&locations=26.783128161014755,94.58019646877123&size=@2x"
+      ]
+    },
+    "Karnataka": {
+      "paper": [
+        "Kgn Recyclers",
+        "13.037787143075223,77.60570683972125",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=13.037787143075223,77.60570683972125&locations=13.037787143075223,77.60570683972125&size=@2x"
+      ],
+      "cardboard": [
+        "RETURNLAB RECYCLERS PVT LTD",
+        "12.981177047257525,77.60710099679426",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=12.981177047257525,77.60710099679426&locations=12.981177047257525,77.60710099679426&size=@2x"
+      ],
+      "plastic": [
+        "Khalibottle - Dry waste Management Service,Karnataka",
+        "13.018830837762412,77.63250768390013",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=13.018830837762412,77.63250768390013&locations=13.018830837762412,77.63250768390013&size=@2x"
+      ]
+    }
+  };
+  static const Map<String, dynamic> recycleMaterials = {
+    "paper": [
+      "Waste paper is a vital ingredient of a healthy compost heap.",
+      "An excellent packing material can be made with waste Paper",
+      "You can use old newspapers to clean smooth surfaces like glass windows",
+      "Use old papers as wrapping paper",
+      "Old paper can be used also in arts and crafts projects"
+    ],
+    "cardboard": [
+      "You can reuse cardboard boxes to store dry ingredients like sugar, salt and spices!",
+      "Cardboard is an exellent material to make arts and crafts projects like photo frames and models",
+      "Cardboard can easily be added to a compost pile and used for mulch and gardening.",
+      "You can use Cardboard as dividers for objects in shelves and drawers",
+      "Cardboard boxes make for excellent toys for pets like cats"
+    ],
+    "plastic": [
+      "You can reuse plastic bags! even plastic packaging can be reused to store food",
+      "Plastic waste can be used as a filler for concrete and cement buildings",
+      "You can reuse plastic bottles to store water",
+      "Instead of throwing out pens, you can opt for fountain pens",
+      "Old plastic wraps can be used as packing material"
+    ]
+  };
 }

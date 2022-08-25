@@ -9,7 +9,7 @@ import 'package:sih_frontend/model/route.dart' as rt;
 import 'package:sih_frontend/screens/reverseLogistics/components/custom_tfield.dart';
 import 'package:sih_frontend/screens/reverseLogistics/components/mode_details.dart';
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 import 'package:timelines/timelines.dart';
 
 class ReverseLogisticsScreen extends StatefulWidget {

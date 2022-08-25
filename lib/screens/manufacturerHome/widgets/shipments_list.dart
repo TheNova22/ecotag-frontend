@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
 
 import '../../../model/shipment.dart';
-import '../../../utils/api_functions.dart';
+import '../../../utils/ecotag_functions.dart';
 
 class ShipmentsList extends StatelessWidget {
   const ShipmentsList({Key? key}) : super(key: key);

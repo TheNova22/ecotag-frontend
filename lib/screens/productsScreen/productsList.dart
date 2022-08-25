@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/screens/productsScreen/add_product.dart';
 import 'package:sih_frontend/screens/productsScreen/components/productListItem.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 import 'package:sih_frontend/widgets/common_navigation_bar.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 

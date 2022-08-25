@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
 
