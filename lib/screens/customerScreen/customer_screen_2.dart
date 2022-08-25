@@ -74,14 +74,27 @@ class _CustomerScreenState extends State<CustomerScreen> {
                     padding: EdgeInsets.only(top: 20, bottom: 30),
                     child: Column(
                       children: [
-                        Container(
-                          width: double.infinity,
-                          child: Text("Ecotag Scanner",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.openSans(
-                                  fontSize: 30,
-                                  color: Palette.primaryDarkGreen,
-                                  fontWeight: FontWeight.bold)),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.camera_alt, size: 30),
+                                color: Colors.transparent),
+                            Container(
+                              child: Text("EcoTag Scanner",
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 30,
+                                      color: Palette.primaryDarkGreen,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.camera_alt, size: 30),
+                                color: Palette.primaryDarkGreen),
+                          ],
                         ),
                         SizedBox(
                           height: 25,
@@ -143,31 +156,46 @@ class _CustomerScreenState extends State<CustomerScreen> {
                         ),
                         SizedBox(height: 25),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                              keyboardType: TextInputType.text,
-                              onSubmitted: (String val) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SearchProducts(searchTerm: val)));
-                              },
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                color: Colors.black,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                    keyboardType: TextInputType.text,
+                                    onSubmitted: (String val) {
+                                      print(val);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  SearchProducts(
+                                                      searchTerm: val)));
+                                    },
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                          20.0, 15.0, 20.0, 15.0),
+                                      suffixIcon: IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.search)),
+                                      hintText: "Search",
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 32.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                    )),
                               ),
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                suffixIcon: IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.search)),
-                                hintText: "Search",
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black, width: 32.0),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                              )),
+                              SizedBox(width: 5),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.camera_alt, size: 30),
+                                  color: Palette.primaryDarkGreen),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -410,7 +438,7 @@ class _ProductCard extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             AutoSizeText(
-                              "Ecotag rating: " +
+                              "EcoTag rating: " +
                                   product!.rating.toString() +
                                   "/5",
                               minFontSize: 8,
@@ -457,6 +485,30 @@ class _ProductCard extends StatelessWidget {
                                       SimilarProduct(),
                                       SimilarProduct(),
                                     ])),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: Palette.primaryOcar,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.location_pin, size: 25),
+                                        SizedBox(width: 5),
+                                        Text("Nearby Suppliers")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ]))
                   : FutureBuilder(
                       future: EcoTagAPI()

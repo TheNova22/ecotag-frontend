@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           print(FirebaseAuth.instance.currentUser!.uid);
-          return HomePage();
+          return CustomerScreen();
           // return CustomerScreen();
           // return UpdateShipment();
 
