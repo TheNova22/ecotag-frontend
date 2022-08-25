@@ -11,6 +11,7 @@ class Supplier {
   final double distance;
   final double lat;
   final double lng;
+  final String price;
   Supplier({
     required this.image_url,
     required this.product_title,
@@ -20,6 +21,7 @@ class Supplier {
     required this.distance,
     required this.lat,
     required this.lng,
+    required this.price,
   });
 
   Supplier copyWith({
@@ -31,6 +33,7 @@ class Supplier {
     double? distance,
     double? lat,
     double? lng,
+    String? price,
   }) {
     return Supplier(
       image_url: image_url ?? this.image_url,
@@ -41,6 +44,7 @@ class Supplier {
       distance: distance ?? this.distance,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
+      price: price ?? this.price,
     );
   }
 
@@ -54,6 +58,7 @@ class Supplier {
       'distance': distance,
       'lat': lat,
       'lng': lng,
+      'price': price,
     };
   }
 
@@ -67,6 +72,7 @@ class Supplier {
       distance: map['distance']?.toDouble() ?? 0.0,
       lat: map['lat']?.toDouble() ?? 0.0,
       lng: map['lng']?.toDouble() ?? 0.0,
+      price: map['price'] ?? '',
     );
   }
 
@@ -77,7 +83,7 @@ class Supplier {
 
   @override
   String toString() {
-    return 'Supplier(image_url: $image_url, product_title: $product_title, manufacturer_name: $manufacturer_name, manufacturer_address: $manufacturer_address, product_link: $product_link, distance: $distance, lat: $lat, lng: $lng)';
+    return 'Supplier(image_url: $image_url, product_title: $product_title, manufacturer_name: $manufacturer_name, manufacturer_address: $manufacturer_address, product_link: $product_link, distance: $distance, lat: $lat, lng: $lng, price: $price)';
   }
 
   @override
@@ -92,7 +98,8 @@ class Supplier {
         other.product_link == product_link &&
         other.distance == distance &&
         other.lat == lat &&
-        other.lng == lng;
+        other.lng == lng &&
+        other.price == price;
   }
 
   @override
@@ -104,11 +111,7 @@ class Supplier {
         product_link.hashCode ^
         distance.hashCode ^
         lat.hashCode ^
-        lng.hashCode;
+        lng.hashCode ^
+        price.hashCode;
   }
 }
-
-// "image_url": "https://cpimg.tistatic.com/07416202/b/4/Mixed-Fruit-Jam-w250.jpg", "product_title": "Mixed Fruit Jam By
-// Guruji Products Pvt. Ltd.", "manufacturer_name": "Guruji Products Pvt. Ltd.", "manufacturer_address": "Indore, India ",
-// "product_link": "https://www.tradeindia.com//products/mixed-fruit-jam-c7416202.html", "osm": {"lat": 22.7203616, "lng":
-// 75.8681996}, "distance": 10460.253345533176
