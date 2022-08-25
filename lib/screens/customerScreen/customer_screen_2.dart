@@ -2,12 +2,16 @@
 
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route_2.dart';
@@ -35,6 +39,41 @@ class CustomerScreen extends StatefulWidget {
 class _CustomerScreenState extends State<CustomerScreen> {
   String barcode = "";
   Map<String, dynamic> data = {};
+
+  Future<String> req(String path) async {
+    // path = value.path;
+    var formData = FormData();
+    formData.files.add(MapEntry(
+      "Picture",
+      await MultipartFile.fromFile(path, filename: "pic-name.png"),
+    ));
+    String val = "";
+    await Dio()
+        .post('http://cantin.centralindia.cloudapp.azure.com/detectImage',
+            data: formData)
+        .then((value) {
+      print(value);
+      val = value.data["object"];
+    });
+    print("1");
+    print(val);
+    return val;
+    // print(response.data.runtimeType);
+  }
+
+  Future<String> _getImage() async {
+    String res = "";
+    final ImagePicker _picker = ImagePicker();
+    var image =
+        await _picker.pickImage(source: ImageSource.camera).then((value) async {
+      await req(value!.path).then((value) {
+        res = value;
+      });
+    });
+
+    return res;
+  }
+
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -226,7 +265,16 @@ class _CustomerScreenState extends State<CustomerScreen> {
                               ),
                               SizedBox(width: 5),
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _getImage().then((value) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  SearchProducts(
+                                                      searchTerm: value)));
+                                    });
+                                  },
                                   icon: Icon(Icons.camera_alt, size: 30),
                                   color: Palette.primaryDarkGreen),
                             ],
