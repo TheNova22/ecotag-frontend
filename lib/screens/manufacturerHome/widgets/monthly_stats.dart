@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/dropdown.dart';
 
 class MonthlyStat extends StatefulWidget {
@@ -27,6 +28,7 @@ class _MonthlyStatState extends State<MonthlyStat> {
             color: Color.fromRGBO(0, 0, 0, 0.16),
           )
         ],
+        //color: Palette.lightPurple,
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,

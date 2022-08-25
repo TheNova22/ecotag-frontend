@@ -8,4 +8,10 @@ class Palette {
   static const secondaryGreen = Color(0xffdce8d4);
   static const primaryOcar = Color(0xffbfac5d);
   static const lightOcar = Color(0xfff1f1e7);
+  static const dullGreen = Color(0xff78937A);
+  static const forestGreen = Color(0xff2f4a51);
+  static const lightForestGreen = Color(0xffADC9AE);
+
+  static const lightPink = Color(0xffedada8);
+  static const lightPurple = Color(0xff6C7698);
 }

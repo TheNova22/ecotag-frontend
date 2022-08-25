@@ -28,12 +28,15 @@ class ShipmentItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10, top: 15),
       margin: const EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
-          color: const Color.fromARGB(255, 248, 248, 248),
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.grey, blurRadius: 2.0, offset: Offset(0.0, 2.0))
-          ]),
+        borderRadius: BorderRadius.circular(15.0),
+        color: Color(0xffF3FCF4),
+        //color: Color(0xffDEDFCC),
+        //color: const Color.fromARGB(255, 248, 248, 248),
+        // boxShadow: const [
+        //   BoxShadow(
+        //       color: Colors.grey, blurRadius: 2.0, offset: Offset(0.0, 2.0))
+        // ]
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

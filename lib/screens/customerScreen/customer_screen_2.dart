@@ -83,7 +83,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                   fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 25,
                         ),
                         InkWell(
                           hoverColor: Colors.transparent,
@@ -140,11 +140,34 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 25),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 15.0, 20.0, 15.0),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.search)),
+                                  hintText: "Search",
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 32.0),
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 32.0),
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)))),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 30, left: 20, right: 20),
