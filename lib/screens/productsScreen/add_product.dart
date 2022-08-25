@@ -196,6 +196,7 @@ class _AddProductState extends State<AddProduct> {
                         : (sessionNumber == 6
                             ? Scaffold(
                                 floatingActionButton: FloatingActionButton(
+                                    heroTag: "s6",
                                     onPressed: () {
                                       submitAnswers();
                                     },

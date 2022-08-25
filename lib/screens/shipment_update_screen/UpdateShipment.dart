@@ -14,8 +14,8 @@ import 'components/components/UpdateShipmentsession1.dart';
 import 'components/components/UpdateShipmentsession2.dart';
 
 class UpdateShipment extends StatefulWidget {
-  const UpdateShipment({Key? key}) : super(key: key);
-
+  const UpdateShipment({Key? key, this.shipmentIDWhenUpdate}) : super(key: key);
+  final String? shipmentIDWhenUpdate;
   @override
   State<UpdateShipment> createState() => _UpdateShipmentState();
 }
@@ -25,32 +25,32 @@ class _UpdateShipmentState extends State<UpdateShipment> {
   List answers = [];
   late String shipmentID, curlocation, transportMode, enroute_to, status;
   late double currentLat, currentLong;
-  // startLocation, location and enroute_to
-// {"shipmentID" : "62fbba53bad3f183e0f6fb00", "location" :"DESTINATION WAREHOUSE", "currentLat" : 192.35, "currentLong" : 80.45, "transportMode" : "-", "enroute_to" : "DESTINATION", "status" : "OUT FOR DELIVERY/DELIVERED"}
-  // TODO: Complete submitAnswers
-  //answers example
-  // [uncle chips, 123456789, 30.0, 100, 20.0, Plastic, [[potato, 70.0], [salt, 10.0]], [[987654321, 10.0], [135798642, 20.5]], [10.0, 20.4, 78.0, 12.0, 67.0]]
   Widget submitAnswers() {
-    print("-----------------------");
-    print(answers);
+    debugPrint("-----------------------");
+    debugPrint(answers.toString());
     return HomePage();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.shipmentIDWhenUpdate != null) {
+      shipmentID = widget.shipmentIDWhenUpdate ?? "";
+    }
     return sessionNumber == 1
         ? UpdateShipmentSession1(
             onNext: (int addNum, String q1, String q2, String q3) {
-            setState(() {
-              sessionNumber += addNum;
-              shipmentID = q1;
-              curlocation = q2;
-              enroute_to = q3;
-              answers.add(q1);
-              answers.add(q2);
-              answers.add(q3);
-            });
-          })
+              setState(() {
+                sessionNumber += addNum;
+                shipmentID = q1;
+                curlocation = q2;
+                enroute_to = q3;
+                answers.add(q1);
+                answers.add(q2);
+                answers.add(q3);
+              });
+            },
+            shipmentId: shipmentID,
+          )
         : (sessionNumber == 2
             ? UpdateShipmentSession2(
                 onNext: (int addNum, String q1, String q2, String q3) async {

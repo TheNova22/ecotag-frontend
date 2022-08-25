@@ -70,6 +70,7 @@ class _Session2State extends State<Session2> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s2",
           onPressed: () {
             widget.onNext(1, question4TextController.text,
                 question5TextController.text, _chosenValue);

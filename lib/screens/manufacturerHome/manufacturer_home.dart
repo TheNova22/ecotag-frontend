@@ -1,18 +1,16 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'dart:ui';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sih_frontend/screens/manufacturerHome/widgets/x_not_used_color_container.dart';
+import 'package:sih_frontend/model/shipment.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/monthly_stats.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
+import 'package:sih_frontend/screens/manufacturerHome/widgets/shipments_list.dart';
 import 'package:sih_frontend/screens/settingsScreen/settings_screen.dart';
+import 'package:sih_frontend/screens/shipment_create_screen/CreateShipment.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
 import 'package:sih_frontend/utils/globals.dart' as globals;
 
@@ -33,7 +31,7 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
   Future<String> getUser() async {
     await Firebase.initializeApp();
 
-    FirebaseAuth auth = await FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     return auth.currentUser!.uid;
   }
@@ -64,6 +62,18 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
     super.build(context);
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        heroTag: "addShipment",
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => CreateShipment(),
+            ),
+          );
+        },
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -275,74 +285,55 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "Your Shipments",
-                  style: GoogleFonts.openSans(
-                      color: Color(0xff464646),
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "In Transit".toUpperCase(),
-                  style: GoogleFonts.openSans(
-                      color: Color(0xff464646),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ShipmentItem(
-                        name:
-                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
-                        weight: 25,
-                        emission: 1456.4531441,
-                        status: "TRAVEL",
-                        enroute_to: "Hubli"),
-                    ShipmentItem(
-                        name:
-                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
-                        weight: 25,
-                        emission: 1456.4531441,
-                        status: "PROCESSING",
-                        enroute_to: "-"),
-                  ],
-                ),
-                Text(
-                  "Delivered".toUpperCase(),
-                  style: GoogleFonts.openSans(
-                      color: Color(0xff464646),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ShipmentItem(
-                        name:
-                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
-                        weight: 25,
-                        emission: 1456.4531441,
-                        status: "OUT FOR DELIVERY/DELIVERED",
-                        enroute_to: "Hubli"),
-                    ShipmentItem(
-                        name:
-                            "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
-                        weight: 25,
-                        emission: 1456.4531441,
-                        status: "OUT FOR DELIVERY/DELIVERED",
-                        enroute_to: "Hubli"),
-                  ],
-                )
+                ShipmentsList()
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     ShipmentItem(
+                //         name:
+                //             "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                //         weight: 25,
+                //         emission: 1456.4531441,
+                //         status: "TRAVEL",
+                //         enroute_to: "Hubli"),
+                //     ShipmentItem(
+                //         name:
+                //             "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                //         weight: 25,
+                //         emission: 1456.4531441,
+                //         status: "PROCESSING",
+                //         enroute_to: "-"),
+                //   ],
+                // ),
+                // Text(
+                //   "Delivered".toUpperCase(),
+                //   style: GoogleFonts.openSans(
+                //       color: Color(0xff464646),
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w400),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     ShipmentItem(
+                //         name:
+                //             "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                //         weight: 25,
+                //         emission: 1456.4531441,
+                //         status: "OUT FOR DELIVERY/DELIVERED",
+                //         enroute_to: "Hubli"),
+                //     ShipmentItem(
+                //         name:
+                //             "Birdie Superfoods -100% Pure A2 Gir Cow Desi Ghee Through Vedic Bilona Method ",
+                //         weight: 25,
+                //         emission: 1456.4531441,
+                //         status: "OUT FOR DELIVERY/DELIVERED",
+                //         enroute_to: "Hubli"),
+                //   ],
+                // )
               ],
             ),
           ),

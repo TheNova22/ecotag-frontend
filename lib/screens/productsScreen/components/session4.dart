@@ -69,7 +69,7 @@ class _Session4State extends State<Session4> {
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      hintText: "Weight (in kg)",
+                      hintText: "Quantity",
                       border: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.blueAccent, width: 32.0),
@@ -131,7 +131,7 @@ class _Session4State extends State<Session4> {
                   decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      hintText: "Weight (in kg)",
+                      hintText: "Quantity",
                       border: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.blueAccent, width: 32.0),
@@ -191,6 +191,7 @@ class _Session4State extends State<Session4> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s4",
           onPressed: () {
             List answers = [];
             if (controllersSession4.length > 0) {

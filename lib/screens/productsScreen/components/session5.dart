@@ -66,6 +66,7 @@ class _Session5State extends State<Session5> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s5",
           onPressed: () {
             List totalWaste = [];
             totalWaste.add(double.parse(question80TextController.text));
