@@ -1,19 +1,15 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sih_frontend/model/result.dart';
 import 'package:sih_frontend/model/route.dart' as rt;
 import 'package:sih_frontend/screens/reverseLogistics/components/custom_tfield.dart';
 import 'package:sih_frontend/screens/reverseLogistics/components/mode_details.dart';
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
-import 'package:timelines/timelines.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 class ReverseLogisticsScreen extends StatefulWidget {
-  ReverseLogisticsScreen({Key? key}) : super(key: key);
+  const ReverseLogisticsScreen({Key? key}) : super(key: key);
 
   @override
   State<ReverseLogisticsScreen> createState() => _ReverseLogisticsScreenState();

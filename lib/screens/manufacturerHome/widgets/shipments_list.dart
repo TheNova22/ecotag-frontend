@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/screens/manufacturerHome/widgets/shipment_item.dart';
 
 import '../../../model/shipment.dart';
-import '../../../utils/api_functions.dart';
+import '../../../utils/ecotag_functions.dart';
 
 class ShipmentsList extends StatelessWidget {
   const ShipmentsList({Key? key}) : super(key: key);
@@ -35,9 +35,10 @@ class ShipmentsList extends StatelessWidget {
           future: EcoTagAPI().getShipments(
               manufacturer: FirebaseAuth.instance.currentUser!.uid),
           builder: (context, snapshot) {
-            if (snapshot.hasError ||
-                snapshot.connectionState == ConnectionState.waiting ||
-                (snapshot.data as List).isEmpty) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator.adaptive();
+            }
+            if (snapshot.hasError || (snapshot.data as List).isEmpty) {
               return SizedBox(
                 height: 30,
                 child: AutoSizeText(

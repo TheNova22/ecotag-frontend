@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
+// ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_build_context_synchronously, unused_element
 
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,14 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime_type/mime_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route_2.dart';
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile_2.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sih_frontend/screens/customerScreen/searchProductScreen/search_products_screen.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 import '../../model/product.dart';
 
@@ -30,7 +27,7 @@ import '../../model/product.dart';
 // get productNameByBarcode n then display the name and category also (This will take 10 seconds)
 
 class CustomerScreen extends StatefulWidget {
-  CustomerScreen({Key? key}) : super(key: key);
+  const CustomerScreen({Key? key}) : super(key: key);
 
   @override
   State<CustomerScreen> createState() => _CustomerScreenState();
@@ -52,20 +49,20 @@ class _CustomerScreenState extends State<CustomerScreen> {
         .post('http://cantin.centralindia.cloudapp.azure.com/detectImage',
             data: formData)
         .then((value) {
-      print(value);
+      debugPrint(value.toString());
       val = value.data["object"];
     });
-    print("1");
-    print(val);
+    debugPrint("1");
+    debugPrint(val);
     return val;
     // print(response.data.runtimeType);
   }
 
   Future<String> _getImage() async {
     String res = "";
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     var image =
-        await _picker.pickImage(source: ImageSource.camera).then((value) async {
+        await picker.pickImage(source: ImageSource.camera).then((value) async {
       await req(value!.path).then((value) {
         res = value;
       });
@@ -113,8 +110,9 @@ class _CustomerScreenState extends State<CustomerScreen> {
                     padding: EdgeInsets.only(top: 20, bottom: 30),
                     child: Column(
                       children: [
-                        Container(
-                          child: Text("EcoTag Scanner",
+                        SizedBox(
+                          width: double.infinity,
+                          child: Text("Ecotag Scanner",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.openSans(
                                   fontSize: 30,
@@ -187,7 +185,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                               Expanded(
                                 child: TextField(
                                     onSubmitted: (String val) {
-                                      print(val);
+                                      debugPrint(val);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -508,9 +506,7 @@ class _ProductCard extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             AutoSizeText(
-                              "Categories: " +
-                                  product!.category.reduce((value, element) =>
-                                      element = value + ", " + element),
+                              "Categories: ${product!.category.reduce((value, element) => element = "$value, $element")}",
                               minFontSize: 8,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
@@ -521,9 +517,7 @@ class _ProductCard extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             AutoSizeText(
-                              "EcoTag rating: " +
-                                  product!.rating.toString() +
-                                  "/5",
+                              "Ecotag rating: ${product!.rating}/5",
                               minFontSize: 8,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
@@ -568,30 +562,6 @@ class _ProductCard extends StatelessWidget {
                                       SimilarProduct(),
                                       SimilarProduct(),
                                     ])),
-                            SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 5),
-                                    decoration: BoxDecoration(
-                                        color: Palette.primaryOcar,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.location_pin, size: 25),
-                                        SizedBox(width: 5),
-                                        Text("Nearby Suppliers")
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ]))
                   : FutureBuilder(
                       future: EcoTagAPI()
@@ -636,10 +606,10 @@ class _ProductCard extends StatelessWidget {
                             Map<String, dynamic> data = {};
 
                             final s = value.getString("scannedProducts") ?? "";
-                            print("hello i am nana" + s);
+                            debugPrint("hello i am nana$s");
                             if (s != "") data = jsonDecode(s);
                             if (!data.containsKey(a.name)) {
-                              print("ADDING TO THE PREFS");
+                              debugPrint("ADDING TO THE PREFS");
                               data.addEntries(
                                   [MapEntry(a.name, a.toJson() as dynamic)]);
                               value.setString(
@@ -677,9 +647,7 @@ class _ProductCard extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20),
                                     AutoSizeText(
-                                      "Categories: " +
-                                          a.category.reduce((value, element) =>
-                                              element = value + ", " + element),
+                                      "Categories: ${a.category.reduce((value, element) => element = "$value, $element")}",
                                       minFontSize: 8,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
@@ -690,9 +658,7 @@ class _ProductCard extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20),
                                     AutoSizeText(
-                                      "Ecotag rating: " +
-                                          a.rating.toString() +
-                                          "/5",
+                                      "Ecotag rating: ${a.rating}/5",
                                       minFontSize: 8,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'dart:math';
 
@@ -40,7 +40,7 @@ class OrganisationTile extends StatelessWidget {
                     SizedBox(
                       height: 2,
                     ),
-                    Container(
+                    SizedBox(
                       width: w / 1.6,
                       child: AutoSizeText(
                         "Reduce What You Can, Offset What You Can’t",

@@ -1,14 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session1.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session2.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session3.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session4.dart';
-import 'package:sih_frontend/screens/productsScreen/components/session5.dart';
 import 'package:flutter/material.dart';
-import '../../utils/api_functions.dart';
+import '../../utils/ecotag_functions.dart';
 import '../../utils/authentication.dart';
 import 'components/components/UpdateShipmentsession1.dart';
 import 'components/components/UpdateShipmentsession2.dart';
@@ -28,7 +22,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
   Widget submitAnswers() {
     debugPrint("-----------------------");
     debugPrint(answers.toString());
-    return HomePage();
+    return const HomePage();
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 import 'package:sih_frontend/utils/authentication.dart';
 
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         fontFamily: 'Comfortaa');
     final size = MediaQuery.of(context).size;
     final width = size.width;
-    final height = size.height;
+    // final height = size.height;
     TextFormField emailForm1 = TextFormField(
       // style: textStyle.copyWith(fontSize: width * 0.05),
       cursorHeight: 30, // autofocus: true,
@@ -65,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         //fillColor: Colors.green
       ),
-      // TODO : enable this when production
       validator: (val) {
+        // ignore: prefer_is_empty
         if (val?.length == 0) {
           return "Email cannot be empty";
         } else {

@@ -5,9 +5,10 @@ import 'package:sih_frontend/screens/settingsScreen/components/settings_title.da
 
 class SettingsPage extends StatelessWidget {
   static const routeName = "/SettingsPage";
+
+  const SettingsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -21,23 +22,23 @@ class SettingsPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios),
-          color: Color(0xff464646),
+          icon: const Icon(Icons.arrow_back_ios),
+          color: const Color(0xff464646),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SettingsTitle(title: "Account"),
+            const SettingsTitle(title: "Account"),
             SettingsButton(
               title: "Edit Details",
               onTap: () {},
-              leading: Icon(Icons.keyboard_arrow_right),
+              leading: const Icon(Icons.keyboard_arrow_right),
             ),
             SettingsButton(
               title: "Change Password",
               onTap: () {},
-              leading: Icon(Icons.lock_outline),
+              leading: const Icon(Icons.lock_outline),
             ),
             SettingsButton(
               title: "Log Out",
@@ -46,26 +47,24 @@ class SettingsPage extends StatelessWidget {
                   Navigator.of(context).pop();
                 });
               },
-              leading: Icon(Icons.logout, color: Colors.red),
+              leading: const Icon(Icons.logout, color: Colors.red),
             ),
-            SettingsTitle(title: "Preferences"),
+            const SettingsTitle(title: "Preferences"),
             SettingsButton(
               title: "Dark Mode",
               onTap: () {},
-              leading: Container(
-                  child: Switch.adaptive(value: false, onChanged: (val) {})),
+              leading: Switch.adaptive(value: false, onChanged: (val) {}),
             ),
             SettingsButton(
               title: "Notifications",
               onTap: () {},
-              leading: Container(
-                  child: Switch.adaptive(value: false, onChanged: (val) {})),
+              leading: Switch.adaptive(value: false, onChanged: (val) {}),
             ),
             SettingsButton(
               title: "Text Size",
               onTap: () {},
-              leading: Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+              leading: const Padding(
+                padding: EdgeInsets.only(right: 5.0),
                 child: Text(
                   "Medium",
                   style: TextStyle(
@@ -77,8 +76,8 @@ class SettingsPage extends StatelessWidget {
             SettingsButton(
               title: "Language",
               onTap: () {},
-              leading: Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+              leading: const Padding(
+                padding: EdgeInsets.only(right: 5.0),
                 child: Text(
                   "English",
                   style: TextStyle(
@@ -87,32 +86,32 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            SettingsTitle(
+            const SettingsTitle(
               title: "EcoTag",
             ),
             SettingsButton(
               title: "Help",
               onTap: () {},
-              leading: Icon(
+              leading: const Icon(
                 Icons.help_outline,
               ),
             ),
             SettingsButton(
               title: "Contact Us",
               onTap: () {},
-              leading: Icon(
+              leading: const Icon(
                 Icons.mail_outline,
               ),
             ),
             SettingsButton(
               title: "About Us",
               onTap: () {},
-              leading: Icon(
+              leading: const Icon(
                 Icons.info_outline,
                 color: Colors.black87,
               ),
             ),
-            SizedBox(height: 10)
+            const SizedBox(height: 10)
           ],
         ),
       ),
