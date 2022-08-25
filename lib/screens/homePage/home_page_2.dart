@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sih_frontend/configs/palette.dart';
-import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home_2.dart';
+import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
 import 'package:sih_frontend/utils/api_functions.dart';
@@ -31,9 +31,12 @@ class _HomePageState extends State<HomePage> {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData youtube_searched_for = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData dashboard = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData playlist_add = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData youtube_searched_for =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData dashboard =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData playlist_add =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 
   Future<String> getUser() async {
     await Firebase.initializeApp();
