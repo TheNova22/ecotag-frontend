@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
-          print(FirebaseAuth.instance.currentUser!.uid);
+          // print(FirebaseAuth.instance.currentUser!.uid);
           return HomePage();
           // return CustomerScreen();
           // return UpdateShipment();

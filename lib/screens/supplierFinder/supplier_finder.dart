@@ -152,7 +152,7 @@ class SupplierCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, right: 15),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             child: Row(
               children: [
