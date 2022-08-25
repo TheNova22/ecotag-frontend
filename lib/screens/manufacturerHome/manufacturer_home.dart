@@ -63,6 +63,7 @@ class _ManufacturerHomeState extends State<ManufacturerHome>
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: "addShipment",
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(

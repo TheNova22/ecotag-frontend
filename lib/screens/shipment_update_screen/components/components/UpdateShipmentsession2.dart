@@ -76,6 +76,7 @@ class _UpdateShipmentSession2State extends State<UpdateShipmentSession2> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s2",
           onPressed: () {
             widget.onNext(
                 1, _chosenValue2, question5TextController.text, _chosenValue);

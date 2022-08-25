@@ -191,6 +191,7 @@ class _Session3State extends State<Session3> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s3",
           onPressed: () {
             List answers = [];
             for (int i = 0; i < controllersSession3.length; i += 2) {

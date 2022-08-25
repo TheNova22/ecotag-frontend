@@ -87,6 +87,7 @@ class _ProductsListState extends State<ProductsList>
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "productList",
           onPressed: () {
             Navigator.push(
                 context,

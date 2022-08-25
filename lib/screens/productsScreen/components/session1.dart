@@ -51,6 +51,7 @@ class Session1 extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          heroTag: "s1",
           onPressed: () {
             onNext(1, question1TextController.text,
                 question2TextController.text, question3TextController.text);
