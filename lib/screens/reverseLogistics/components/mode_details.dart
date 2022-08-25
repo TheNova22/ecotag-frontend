@@ -21,6 +21,16 @@ class ModeDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double cost = 1;
+    if (selectedIndex == 0) {
+      cost = 6;
+    } else if (selectedIndex == 1) {
+      cost = 0.58;
+    } else if (selectedIndex == 2) {
+      cost = 1.16;
+    } else if (selectedIndex == 3) {
+      cost = 3.24;
+    }
     return Column(
       children: [
         Padding(
@@ -124,6 +134,44 @@ class ModeDetails extends StatelessWidget {
                             color: Color(0xff464646),
                             fontWeight: FontWeight.w600),
                       )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 3,
+                      ),
+                      Text(
+                        "₹",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 26,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      AutoSizeText(
+                        (cost *
+                                (res.result[selectedIndex]
+                                        .initalToPort1_distance +
+                                    res.result[selectedIndex]
+                                        .port1ToPort2_distance +
+                                    res.result[selectedIndex]
+                                        .port2ToFinal_distance))
+                            .toStringAsFixed(2),
+                        minFontSize: 11,
+                        maxLines: 1,
+                        style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            color: res.result[selectedIndex].emission > 75000.0
+                                ? Color.fromARGB(255, 197, 15, 15)
+                                : Color.fromARGB(255, 15, 197, 61),
+                            fontWeight: FontWeight.w800),
+                      ),
                     ],
                   )
                 ],
