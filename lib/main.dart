@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_frontend/screens/customerScreen/customer_screen_2.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 
 import 'package:sih_frontend/screens/login/login_screen.dart';

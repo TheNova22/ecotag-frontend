@@ -475,6 +475,7 @@ class _ProductCard extends StatelessWidget {
       {super.key, required this.barcode, this.product, this.statechange});
   @override
   Widget build(BuildContext context) {
+    print(product);
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
