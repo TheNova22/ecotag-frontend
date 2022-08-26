@@ -55,6 +55,7 @@ dependencies:
   survey_kit: ^0.1.1
   geolocator: ^9.0.1
   flutter_custom_clippers: ^2.0.0
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:

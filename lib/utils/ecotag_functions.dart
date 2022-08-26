@@ -280,7 +280,12 @@ class EcoTagAPI {
       ]
     }
   };
-  static const Map<String, dynamic> recycleMaterials = {
+  static const List<String> recycleMaterials = [
+    "paper",
+    "cardboard",
+    "plastic"
+  ];
+  static const Map<String, dynamic> recycleMaterialsInfo = {
     "paper": [
       "Waste paper is a vital ingredient of a healthy compost heap.",
       "An excellent packing material can be made with waste Paper",
@@ -296,7 +301,7 @@ class EcoTagAPI {
       "Cardboard boxes make for excellent toys for pets like cats"
     ],
     "plastic": [
-      "You can reuse plastic bags! even plastic packaging can be reused to store food",
+      "You can reuse plastic bags. Even plastic packaging can be reused to store food",
       "Plastic waste can be used as a filler for concrete and cement buildings",
       "You can reuse plastic bottles to store water",
       "Instead of throwing out pens, you can opt for fountain pens",

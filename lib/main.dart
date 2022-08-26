@@ -51,14 +51,9 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           // print(FirebaseAuth.instance.currentUser!.uid);
-          // return const HomePage();
-<<<<<<< HEAD
+          //return const HomePage();
           return CustomerScreen();
-          //return LoginScreen();
-=======
-          // return CustomerScreen();
-          return const CustomerScreen();
->>>>>>> ae0316111b394cb939ed49708ab29b7683b617b8
+          // return const CustomerScreen();
           // return UpdateShipment();
 
         }
