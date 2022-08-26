@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/product.dart';
 import 'package:sih_frontend/screens/productsScreen/components/productListItem.dart';
-import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 class SearchProducts extends StatefulWidget {
-  SearchProducts({Key? key, required this.searchTerm}) : super(key: key);
+  const SearchProducts({Key? key, required this.searchTerm}) : super(key: key);
 
   final String searchTerm;
   @override
@@ -39,7 +38,7 @@ class _SearchProductsState extends State<SearchProducts> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    // double h = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,11 +49,11 @@ class _SearchProductsState extends State<SearchProducts> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios),
-          color: Color(0xff464646),
+          icon: const Icon(Icons.arrow_back_ios),
+          color: const Color(0xff464646),
         ),
       ),
-      backgroundColor: Color(0xffECF0F1),
+      backgroundColor: const Color(0xffECF0F1),
       body: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overScroll) {
             overScroll.disallowIndicator();
@@ -74,19 +73,19 @@ class _SearchProductsState extends State<SearchProducts> {
                             horizontal: 25, vertical: 30.0),
                         child: TextField(
                           controller: searchController,
-                          cursorColor: Color.fromARGB(255, 152, 152, 152),
+                          cursorColor: const Color.fromARGB(255, 152, 152, 152),
                           keyboardType: TextInputType.text,
                           onSubmitted: (val) {
                             searcher(val);
                           },
                           style: GoogleFonts.openSans(
-                              color: Color(0xff464646),
+                              color: const Color(0xff464646),
                               fontSize: 17,
                               fontWeight: FontWeight.w500),
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 1),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
                                 borderRadius: BorderRadius.circular(22.0)),
                             // enabledBorder: const UnderlineInputBorder(
                             //     borderSide:
@@ -99,7 +98,7 @@ class _SearchProductsState extends State<SearchProducts> {
                             ),
                             border: const OutlineInputBorder(),
                             prefixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.search,
                                 size: 30,
                                 color: Colors.grey,
@@ -115,7 +114,7 @@ class _SearchProductsState extends State<SearchProducts> {
                           ),
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.filter_alt,
                         size: 45,
                         color: Color.fromARGB(255, 171, 171, 171),

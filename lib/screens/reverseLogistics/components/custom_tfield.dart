@@ -26,7 +26,7 @@ class CustomTextField extends StatelessWidget {
         Icon(
           prefixIcon,
           size: 35,
-          color: Color.fromARGB(255, 88, 83, 138),
+          color: const Color.fromARGB(255, 88, 83, 138),
         ),
         Container(
           width: width,
@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            color: Color.fromARGB(255, 244, 244, 244),
+            color: const Color.fromARGB(255, 244, 244, 244),
             border: Border.all(
               color: const Color.fromRGBO(189, 189, 189, 1),
               width: 1,
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10),
           child: TextField(
             controller: controller,
-            style: TextStyle(fontSize: 15),
+            style: const TextStyle(fontSize: 15),
             cursorColor: const Color.fromARGB(255, 83, 82, 82),
             decoration: InputDecoration(
                 hintText: hint,

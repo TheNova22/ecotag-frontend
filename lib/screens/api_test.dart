@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sih_frontend/screens/customerScreen/customer_screen.dart';
 import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
 import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 class APITestScreen extends StatelessWidget {
   const APITestScreen({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class APITestScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                CustomerScreen()));
+                                const CustomerScreen()));
                     // EcoTagAPI()
                     //     .getProductNameByBarcode(barcode: "8901138511470");
                   },
@@ -59,7 +59,7 @@ class APITestScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                ReverseLogisticsScreen()));
+                                const ReverseLogisticsScreen()));
                   }
                   // () async {
                   //   final x = await EcoTagAPI().getAllRoutes(
@@ -75,7 +75,7 @@ class APITestScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                SupplierFinder()));
+                                const SupplierFinder()));
                   }
                   // () async {
                   //   final x = await EcoTagAPI().getSupplierDetails(

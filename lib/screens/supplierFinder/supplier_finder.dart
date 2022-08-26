@@ -4,10 +4,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sih_frontend/model/supplier.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 class SupplierFinder extends StatefulWidget {
-  SupplierFinder({Key? key}) : super(key: key);
+  const SupplierFinder({Key? key}) : super(key: key);
 
   @override
   State<SupplierFinder> createState() => _SupplierFinderState();
@@ -21,7 +21,7 @@ class _SupplierFinderState extends State<SupplierFinder> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    // double h = MediaQuery.of(context).size.height;
 
     Future getSuppliers() async {
       await EcoTagAPI()

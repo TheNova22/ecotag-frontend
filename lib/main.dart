@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_frontend/screens/customerScreen/customer_screen_2.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 
 import 'package:sih_frontend/screens/login/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-
-import 'screens/shipment_update_screen/UpdateShipment.dart';
 
 // to build web app
 // flutter build web --web-renderer canvaskit --no-sound-null-safety --release
@@ -52,12 +49,12 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           // print(FirebaseAuth.instance.currentUser!.uid);
-          //   return HomePage();
-          return CustomerScreen();
+          return const HomePage();
+          // return CustomerScreen();
           // return UpdateShipment();
 
         }
-        return LoginScreen();
+        return const LoginScreen();
       },
     );
     return MaterialApp(

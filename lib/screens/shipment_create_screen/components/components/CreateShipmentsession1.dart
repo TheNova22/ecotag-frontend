@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -148,7 +150,7 @@ class CreateShipmentSession1 extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
             ),
             suffixIcon: IconButton(
-              icon: Icon(Icons.camera_outlined),
+              icon: const Icon(Icons.camera_outlined),
               onPressed: () async {
                 String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
                     "#ff6666", 'Cancel', true, ScanMode.BARCODE);

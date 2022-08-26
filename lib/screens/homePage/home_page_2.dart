@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, constant_identifier_names, unused_field
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,14 +8,12 @@ import 'package:sih_frontend/configs/palette.dart';
 import 'package:sih_frontend/screens/manufacturerHome/manufacturer_home.dart';
 import 'package:sih_frontend/screens/productsScreen/productsList.dart';
 import 'package:sih_frontend/screens/reverseLogistics/reverse_logistics.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
-import 'package:sih_frontend/utils/globals.dart' as globals;
-import 'package:sih_frontend/screens/supplierFinder/supplier_finder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -41,12 +39,13 @@ class _HomePageState extends State<HomePage> {
   Future<String> getUser() async {
     await Firebase.initializeApp();
 
-    FirebaseAuth auth = await FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     return auth.currentUser!.uid;
   }
 
   void getLoc() async {
+    // ignore: unused_local_variable
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Colors.black38, spreadRadius: 0, blurRadius: 10),
                   ],
@@ -114,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Palette.dullGreen,
                     showSelectedLabels: false,
                     showUnselectedLabels: false,
-                    items: [
+                    items: const [
                       BottomNavigationBarItem(
                           icon: Icon(Icons.home_outlined,
                               size: 28, color: Colors.white),

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
@@ -26,10 +28,9 @@ class _DropDownState extends State<DropDown> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    var current_month = DateTime.now().month;
-    _chosenValue = items[current_month - 1];
+    var currentMonth = DateTime.now().month;
+    _chosenValue = items[currentMonth - 1];
   }
 
   @override
@@ -43,7 +44,7 @@ class _DropDownState extends State<DropDown> {
         ),
         value: _chosenValue,
         //elevation: 5,
-        dropdownColor: Color.fromARGB(255, 0, 152, 155),
+        dropdownColor: const Color.fromARGB(255, 0, 152, 155),
         style: const TextStyle(
             color: Colors.white, fontSize: 16, fontFamily: "Acme"),
 

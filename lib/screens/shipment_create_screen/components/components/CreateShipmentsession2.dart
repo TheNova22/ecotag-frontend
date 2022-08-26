@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -6,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 class CreateShipmentSession2 extends StatefulWidget {
   final Function(int, String, String, String) onNext;
 
-  CreateShipmentSession2({Key? key, required this.onNext}) : super(key: key);
+  const CreateShipmentSession2({Key? key, required this.onNext})
+      : super(key: key);
 
   @override
   State<CreateShipmentSession2> createState() => _CreateShipmentSession2State();
@@ -47,8 +50,8 @@ class _CreateShipmentSession2State extends State<CreateShipmentSession2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: const AutoSizeText(
+                const Center(
+                  child: AutoSizeText(
                     "New Shipment",
                     minFontSize: 9,
                     maxLines: 3,
@@ -71,16 +74,16 @@ class _CreateShipmentSession2State extends State<CreateShipmentSession2> {
             widget.onNext(1, question4TextController.text,
                 question5TextController.text, _chosenValue);
           },
-          child: const Icon(Icons.arrow_right_alt),
           foregroundColor: Colors.black87,
-          backgroundColor: const Color.fromARGB(255, 159, 205, 243)),
+          backgroundColor: const Color.fromARGB(255, 159, 205, 243),
+          child: const Icon(Icons.arrow_right_alt)),
     );
   }
 
   Widget Survey2() {
     return Column(
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         //question 4
         AutoSizeText(
           questions[3],
@@ -144,7 +147,7 @@ class _CreateShipmentSession2State extends State<CreateShipmentSession2> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         // question 5
         AutoSizeText(
           questions[4],

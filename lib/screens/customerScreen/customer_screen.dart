@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
+// ignore_for_file: prefer_const_constructors, unused_local_variable, unused_element, use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route.dart';
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:sih_frontend/utils/api_functions.dart';
+import 'package:sih_frontend/utils/ecotag_functions.dart';
 
 import '../../model/product.dart';
 
@@ -24,7 +23,7 @@ import '../../model/product.dart';
 // get productNameByBarcode n then display the name and category also (This will take 10 seconds)
 
 class CustomerScreen extends StatefulWidget {
-  CustomerScreen({Key? key}) : super(key: key);
+  const CustomerScreen({Key? key}) : super(key: key);
 
   @override
   State<CustomerScreen> createState() => _CustomerScreenState();
@@ -208,7 +207,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                     },
                                   ));
                                 },
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   width: 90,
                                   child: CachedNetworkImage(
@@ -368,10 +367,10 @@ class _ProductCard extends StatelessWidget {
                             Map<String, dynamic> data = {};
 
                             final s = value.getString("scannedProducts") ?? "";
-                            print("hello i am nana" + s);
+                            debugPrint("hello i am nana $s");
                             if (s != "") data = jsonDecode(s);
                             if (!data.containsKey(a.name)) {
-                              print("ADDING TO THE PREFS");
+                              debugPrint("ADDING TO THE PREFS");
                               data.addEntries(
                                   [MapEntry(a.name, a.toJson() as dynamic)]);
                               value.setString(

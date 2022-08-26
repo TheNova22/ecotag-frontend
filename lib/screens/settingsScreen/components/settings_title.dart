@@ -7,13 +7,13 @@ class SettingsTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 20, bottom: 5),
+      margin: const EdgeInsets.only(top: 10, left: 20, bottom: 5),
       alignment: Alignment.centerLeft,
       width: width,
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
       ),
     );
   }
