@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sih_frontend/configs/palette.dart';
+import 'package:sih_frontend/screens/customerScreen/components/half_filled_icon.dart';
 import 'package:sih_frontend/screens/customerScreen/components/hero_dialog_route_2.dart';
 import 'package:sih_frontend/screens/customerScreen/components/organisation_tile_2.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -455,7 +456,22 @@ class _CustomerScreenState extends State<CustomerScreen> {
 
 const String _heroAddTodo = 'add-todo-hero';
 
+
+class _ProductCard extends StatelessWidget {
+  static const _kFontFam = 'MyFlutterApp';
+  static const String? _kFontPkg = null;
+  static const IconData leaf =
+      IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData leaf_2 =
+      IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData leaf_1 =
+      IconData(0xe849, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData zigzag_leaf =
+      IconData(0xeaee, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
+
 class _ProductCard extends StatefulWidget {
+
   /// {@macro add_todo_popup_card}
   final String barcode;
   final Product? product;
@@ -503,18 +519,198 @@ class _ProductCardState extends State<_ProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    print(product);
     return Container(
-      margin: EdgeInsets.all(30),
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       child: Center(
         child: Hero(
           tag: _heroAddTodo,
           child: Material(
+            // -----------------------------------------------------------------------
             // color: Colors.white,
             color: Palette.white,
-            elevation: 2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-            child: SingleChildScrollView(
+              child: product != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30, left: 20, right: 20, bottom: 20),
+                      child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          //padding: EdgeInsets.all(25),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //Text(a.name),
+
+                                IconButton(
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    icon: Icon(Icons.arrow_back, size: 30)),
+
+                                Center(
+                                  child: AutoSizeText(
+                                    product!.name,
+                                    minFontSize: 8,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.openSans(
+                                        color: Palette.primaryDarkGreen,
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    decoration: BoxDecoration(
+                                      color: Palette.secondaryGreen,
+                                      borderRadius: BorderRadius.circular(200),
+                                    ),
+                                    padding: EdgeInsets.all(20),
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: product!.image_url,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  ),
+                                ),
+                                // SizedBox(height: 20),
+                                // AutoSizeText(
+                                //   "Categories: " +
+                                //       product!.category.reduce(
+                                //           (value, element) =>
+                                //               element = value + ", " + element),
+                                //   minFontSize: 8,
+                                //   maxLines: 3,
+                                //   overflow: TextOverflow.ellipsis,
+                                //   style: GoogleFonts.openSans(
+                                //       color: Palette.primaryDarkGreen,
+                                //       fontSize: 16,
+                                //       fontWeight: FontWeight.w500),
+                                // ),
+                                SizedBox(height: 20),
+
+                                AutoSizeText(
+                                  "EcoTag rating: ",
+                                  minFontSize: 15,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.openSans(
+                                      color: Palette.forestGreen,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(height: 15),
+
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    RatingBar(
+                                      itemSize: 30,
+                                      ignoreGestures: true,
+                                      initialRating: product!.rating,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      ratingWidget: RatingWidget(
+                                        full: Icon(leaf_2, color: Colors.green),
+                                        half: HalfFilledIcon(
+                                            icon: leaf_2,
+                                            size: 20,
+                                            color: Colors.green),
+                                        empty: Icon(leaf_2, color: Colors.grey),
+                                      ),
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
+                                      onRatingUpdate: (rating) {},
+                                    ),
+                                    SizedBox(width: 10),
+                                    AutoSizeText(
+                                      "( " +
+                                          product!.rating.toString() +
+                                          "/5 )",
+                                      minFontSize: 15,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.openSans(
+                                          color: Palette.forestGreen,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+
+                                SizedBox(height: 20),
+                                AutoSizeText(
+                                  "Similar Products:",
+                                  minFontSize: 15,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.openSans(
+                                      color: Palette.forestGreen,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(height: 15),
+                                SizedBox(
+                                    height: 70,
+                                    child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          SimilarProduct(),
+                                          SimilarProduct(),
+                                          SimilarProduct(),
+                                          SimilarProduct(),
+                                        ])),
+
+                                SizedBox(height: 20),
+                                AutoSizeText(
+                                  "How to recycle this product? ",
+                                  minFontSize: 15,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.openSans(
+                                      color: Palette.forestGreen,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.end,
+                                //   children: [
+                                //     InkWell(
+                                //       onTap: () {},
+                                //       child: Container(
+                                //         padding: EdgeInsets.symmetric(
+                                //             horizontal: 10, vertical: 5),
+                                //         decoration: BoxDecoration(
+                                //             color: Palette.primaryOcar,
+                                //             borderRadius:
+                                //                 BorderRadius.circular(15)),
+                                //         child: Row(
+                                //           children: [
+                                //             Icon(Icons.location_pin, size: 25),
+                                //             SizedBox(width: 5),
+                                //             Text("Nearby Suppliers")
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                              ])),
+                    )
+
               child: widget.product != null
                   ? Container(
                       padding: EdgeInsets.all(25),
@@ -600,6 +796,7 @@ class _ProductCardState extends State<_ProductCard> {
                                         .map((e) => SimilarProduct(e.image_url))
                                         .toList())),
                           ]))
+
                   : FutureBuilder(
                       future: EcoTagAPI().getProductDetailsByBarcode(
                           barcode: widget.barcode.trim()),

@@ -24,6 +24,15 @@ class _HomePageState extends State<HomePage> {
     ReverseLogisticsScreen(),
   ];
   late PageController _pageController;
+  static const _kFontFam = 'MyFlutterApp';
+  static const String? _kFontPkg = null;
+
+  static const IconData youtube_searched_for =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData dashboard =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData playlist_add =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 
   Future<String> getUser() async {
     await Firebase.initializeApp();
@@ -85,16 +94,16 @@ class _HomePageState extends State<HomePage> {
           showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined, size: 28),
-                activeIcon: Icon(Icons.home, size: 28),
+                icon: Icon(dashboard, size: 28),
+                activeIcon: Icon(dashboard, size: 30),
                 label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.work_outline_outlined, size: 28),
-                activeIcon: Icon(Icons.work_rounded, size: 28),
+                icon: Icon(playlist_add, size: 28),
+                activeIcon: Icon(playlist_add, size: 30),
                 label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.widgets_outlined, size: 28),
-                activeIcon: Icon(Icons.widgets_rounded, size: 28),
+                icon: Icon(youtube_searched_for, size: 28),
+                activeIcon: Icon(youtube_searched_for, size: 30),
                 label: "Home"),
           ],
           currentIndex: _selectedPageIndex,
