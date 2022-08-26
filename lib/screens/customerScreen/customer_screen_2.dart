@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable, non_constant_identifier_names, use_build_context_synchronously, unused_element
 
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -455,6 +456,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
 
 const String _heroAddTodo = 'add-todo-hero';
 
+
 class _ProductCard extends StatelessWidget {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
@@ -467,12 +469,46 @@ class _ProductCard extends StatelessWidget {
   static const IconData zigzag_leaf =
       IconData(0xeaee, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 
+
+class _ProductCard extends StatefulWidget {
+
   /// {@macro add_todo_popup_card}
   final String barcode;
   final Product? product;
   final Function? statechange;
   const _ProductCard(
       {super.key, required this.barcode, this.product, this.statechange});
+
+  @override
+  State<_ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<_ProductCard> {
+  Map<String, int> prods = Map<String, int>();
+  EcoTagAPI api = EcoTagAPI();
+
+  List<Product> fin = [];
+
+  Future<List<Product>> getrecommendations() async {
+    List<String> cats = widget.product!.category;
+
+    return await api.getProductsByCategory(categories: cats);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // getrecommendations().then((arr) {
+    //   Map<int, int> map = {};
+    //   for (int i = 0; i < arr.length; i++) {
+    //     int ct = 0;
+    //     for (int j = 0; j < arr[i].category.length; j++) {
+    //       if
+    //     }
+    //   }
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     print(product);
@@ -486,7 +522,6 @@ class _ProductCard extends StatelessWidget {
             // -----------------------------------------------------------------------
             // color: Colors.white,
             color: Palette.white,
-            child: SingleChildScrollView(
               child: product != null
                   ? Padding(
                       padding: const EdgeInsets.only(
@@ -667,9 +702,96 @@ class _ProductCard extends StatelessWidget {
                                 // ),
                               ])),
                     )
+
+              child: widget.product != null
+                  ? Container(
+                      padding: EdgeInsets.all(25),
+                      child: Flex(
+                          direction: Axis.vertical,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            //Text(a.name),
+                            AutoSizeText(
+                              widget.product!.name,
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 20),
+                            SizedBox(
+                              height: 150,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.product!.image_url,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Categories: ${widget.product!.category.reduce((value, element) => element = "$value, $element")}",
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Ecotag rating: ${widget.product!.rating}/5",
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 10),
+                            RatingBarIndicator(
+                              rating: widget.product!.rating,
+                              unratedColor: Color.fromARGB(255, 204, 206, 209),
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Color(0xffba0c822),
+                                //color: Color(0xff8bbb87),
+                              ),
+                              itemCount: 5,
+                              itemSize: 40.0,
+                              direction: Axis.horizontal,
+                            ),
+
+                            SizedBox(height: 20),
+                            AutoSizeText(
+                              "Similar Products:",
+                              minFontSize: 8,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                  color: Palette.primaryDarkGreen,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(height: 10),
+                            SizedBox(
+                                height: 70,
+                                child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: fin
+                                        .map((e) => SimilarProduct(e.image_url))
+                                        .toList())),
+                          ]))
+
                   : FutureBuilder(
-                      future: EcoTagAPI()
-                          .getProductDetailsByBarcode(barcode: barcode.trim()),
+                      future: EcoTagAPI().getProductDetailsByBarcode(
+                          barcode: widget.barcode.trim()),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -718,7 +840,7 @@ class _ProductCard extends StatelessWidget {
                                   [MapEntry(a.name, a.toJson() as dynamic)]);
                               value.setString(
                                   'scannedProducts', jsonEncode(data));
-                              statechange!(data);
+                              widget.statechange!(data);
                             }
                           });
                           return Container(
@@ -802,12 +924,10 @@ class _ProductCard extends StatelessWidget {
                                         height: 70,
                                         child: ListView(
                                             scrollDirection: Axis.horizontal,
-                                            children: [
-                                              SimilarProduct(),
-                                              SimilarProduct(),
-                                              SimilarProduct(),
-                                              SimilarProduct(),
-                                            ])),
+                                            children: fin
+                                                .map((e) =>
+                                                    SimilarProduct(e.image_url))
+                                                .toList())),
                                   ]));
                         }
                       },
@@ -819,7 +939,7 @@ class _ProductCard extends StatelessWidget {
     );
   }
 
-  Widget SimilarProduct() {
+  Widget SimilarProduct(String imageUrl) {
     return InkWell(
       onTap: () {},
       child: Container(
@@ -831,7 +951,7 @@ class _ProductCard extends StatelessWidget {
             color: Palette.lightOcar,
             borderRadius: BorderRadius.circular(30),
           ),
-          child: Image.asset("assets/logo.png", fit: BoxFit.cover)),
+          child: Image.network(imageUrl, fit: BoxFit.cover)),
     );
   }
 }

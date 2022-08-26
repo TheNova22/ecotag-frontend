@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_frontend/screens/customerScreen/customer_screen_2.dart';
+import 'package:sih_frontend/screens/create_form_screen/create_form_screen.dart';
 import 'package:sih_frontend/screens/homePage/home_page.dart';
 
 import 'package:sih_frontend/screens/login/login_screen.dart';
@@ -50,12 +51,13 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
           // print(FirebaseAuth.instance.currentUser!.uid);
-          return const HomePage();
+          // return const HomePage();
           // return CustomerScreen();
+          return const CreateFormScreen();
           // return UpdateShipment();
 
         }
-        return const LoginScreen();
+        return const CustomerScreen();
       },
     );
     return MaterialApp(

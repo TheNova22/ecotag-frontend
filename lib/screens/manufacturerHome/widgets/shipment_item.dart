@@ -106,7 +106,13 @@ class _ShipmentItemState extends State<ShipmentItem> {
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.airport_shuttle_rounded),
+                      Icon(widget.shipment.transportMode == "RAIL"
+                          ? Icons.train
+                          : widget.shipment.transportMode == "ROAD"
+                              ? Icons.airport_shuttle_rounded
+                              : widget.shipment.transportMode == "AIR"
+                                  ? Icons.airplanemode_active
+                                  : Icons.directions_boat_rounded),
                       const SizedBox(
                         width: 10,
                       ),

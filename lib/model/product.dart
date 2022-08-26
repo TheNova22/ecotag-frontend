@@ -1,92 +1,96 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
 class Product {
   final String id;
-  final String image_url;
   final List<String> category;
-  final String categoryID;
-  final List<String> manufacturer;
   final String name;
+  final String categoryID;
+  final String image_url;
+  final double weight;
+  final int price;
   final double rating;
+  final List<String> rawMaterials;
+  final List<String> manufacturer;
   final double totalEmission;
   final int totalManufacturers;
-  final double weight;
-  final double price;
   Product({
     required this.id,
-    required this.image_url,
     required this.category,
-    required this.categoryID,
-    required this.manufacturer,
     required this.name,
-    required this.rating,
-    required this.totalEmission,
-    required this.totalManufacturers,
+    required this.categoryID,
+    required this.image_url,
     required this.weight,
     required this.price,
+    required this.rating,
+    required this.rawMaterials,
+    required this.manufacturer,
+    required this.totalEmission,
+    required this.totalManufacturers,
   });
 
   Product copyWith({
     String? id,
-    String? image_url,
     List<String>? category,
-    String? categoryID,
-    List<String>? manufacturer,
     String? name,
+    String? categoryID,
+    String? image_url,
+    double? weight,
+    int? price,
     double? rating,
+    List<String>? rawMaterials,
+    List<String>? manufacturer,
     double? totalEmission,
     int? totalManufacturers,
-    double? weight,
-    double? price,
   }) {
     return Product(
       id: id ?? this.id,
-      image_url: image_url ?? this.image_url,
       category: category ?? this.category,
-      categoryID: categoryID ?? this.categoryID,
-      manufacturer: manufacturer ?? this.manufacturer,
       name: name ?? this.name,
-      rating: rating ?? this.rating,
-      totalEmission: totalEmission ?? this.totalEmission,
-      totalManufacturers: totalManufacturers ?? this.totalManufacturers,
+      categoryID: categoryID ?? this.categoryID,
+      image_url: image_url ?? this.image_url,
       weight: weight ?? this.weight,
       price: price ?? this.price,
+      rating: rating ?? this.rating,
+      rawMaterials: rawMaterials ?? this.rawMaterials,
+      manufacturer: manufacturer ?? this.manufacturer,
+      totalEmission: totalEmission ?? this.totalEmission,
+      totalManufacturers: totalManufacturers ?? this.totalManufacturers,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'image_url': image_url,
       'category': category,
-      'categoryID': categoryID,
-      'manufacturer': manufacturer,
       'name': name,
-      'rating': rating,
-      'totalEmission': totalEmission,
-      'totalManufacturers': totalManufacturers,
+      'categoryID': categoryID,
+      'image_url': image_url,
       'weight': weight,
       'price': price,
+      'rating': rating,
+      'rawMaterials': rawMaterials,
+      'manufacturer': manufacturer,
+      'totalEmission': totalEmission,
+      'totalManufacturers': totalManufacturers,
     };
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       id: map['_id'] ?? '',
-      image_url: map['image_url'] ?? '',
       category: List<String>.from(map['category']),
-      categoryID: map['categoryID'] ?? '',
-      manufacturer: List<String>.from(map['manufacturer']),
       name: map['name'] ?? '',
+      categoryID: map['categoryID'] ?? '',
+      image_url: map['image_url'] ?? '',
+      weight: map['weight']?.toDouble() ?? 0.0,
+      price: map['price']?.toInt() ?? 0,
       rating: map['rating']?.toDouble() ?? 0.0,
+      rawMaterials: List<String>.from(map['rawMaterials']),
+      manufacturer: List<String>.from(map['manufacturer']),
       totalEmission: map['totalEmission']?.toDouble() ?? 0.0,
       totalManufacturers: map['totalManufacturers']?.toInt() ?? 0,
-      weight: map['weight']?.toDouble() ?? 0.0,
-      price: map['price']?.toDouble() ?? 0.0,
     );
   }
 
@@ -97,7 +101,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, image_url: $image_url, category: $category, categoryID: $categoryID, manufacturer: $manufacturer, name: $name, rating: $rating, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers, weight: $weight, price: $price)';
+    return 'Product(_id: $id, category: $category, name: $name, categoryID: $categoryID, image_url: $image_url, weight: $weight, price: $price, rating: $rating, rawMaterials: $rawMaterials, manufacturer: $manufacturer, totalEmission: $totalEmission, totalManufacturers: $totalManufacturers)';
   }
 
   @override
@@ -106,30 +110,32 @@ class Product {
 
     return other is Product &&
         other.id == id &&
-        other.image_url == image_url &&
         listEquals(other.category, category) &&
-        other.categoryID == categoryID &&
-        listEquals(other.manufacturer, manufacturer) &&
         other.name == name &&
-        other.rating == rating &&
-        other.totalEmission == totalEmission &&
-        other.totalManufacturers == totalManufacturers &&
+        other.categoryID == categoryID &&
+        other.image_url == image_url &&
         other.weight == weight &&
-        other.price == price;
+        other.price == price &&
+        other.rating == rating &&
+        listEquals(other.rawMaterials, rawMaterials) &&
+        listEquals(other.manufacturer, manufacturer) &&
+        other.totalEmission == totalEmission &&
+        other.totalManufacturers == totalManufacturers;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        image_url.hashCode ^
         category.hashCode ^
-        categoryID.hashCode ^
-        manufacturer.hashCode ^
         name.hashCode ^
-        rating.hashCode ^
-        totalEmission.hashCode ^
-        totalManufacturers.hashCode ^
+        categoryID.hashCode ^
+        image_url.hashCode ^
         weight.hashCode ^
-        price.hashCode;
+        price.hashCode ^
+        rating.hashCode ^
+        rawMaterials.hashCode ^
+        manufacturer.hashCode ^
+        totalEmission.hashCode ^
+        totalManufacturers.hashCode;
   }
 }
