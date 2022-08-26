@@ -249,7 +249,8 @@ class EcoTagAPI {
       "paper": [
         "A.U. Barlaskar & Co",
         "24.770735367483493,92.81920223983637",
-        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=24.770735367483493,92.81920223983637&locations=24.770735367483493,92.81920223983637&size=@2x"
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&center=24.770735367483493,92.81920223983637&locations=24.770735367483493,92.81920223983637&size=@2x",
+        "https://www.mapquestapi.com/staticmap/v5/map?key=qAn7noSbYnqlsqntF65B3cFo1X3nb2rp&locations=24.823035408902186,92.79052457067884||24.822650372467383,92.79814417539595||24.830284427940793,92.79247934969443||24.69039794626271,92.84146204855546||24.82838992450862,92.73539937874871||24.841738912868543,92.80848282360753||24.82482279588932,92.78507488001006&size=@2x"
       ],
       "cardboard": [
         "UNITED GLOBAL TRUST",
