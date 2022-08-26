@@ -616,7 +616,7 @@ class _ProductCardState extends State<_ProductCard> {
           key: (k) => k, value: (k) => map[k]);
 
       setState(() {
-        fin = sortedMap.keys.map((e) => arr[e]).toList().reversed.toList();
+        fin = sortedMap.keys.map((e) => arr[e]).toList();
       });
     });
 
@@ -776,9 +776,15 @@ class _ProductCardState extends State<_ProductCard> {
                             itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                             onRatingUpdate: (rating) {},
                           ),
-                          SizedBox(width: 10),
+                          Container(
+                            height: 30.0,
+                            width: 1.0,
+                            color: Colors.black,
+                            margin:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                          ),
                           AutoSizeText(
-                            "( " + rating.toString() + "/5 )",
+                            rating.toString() + "/5",
                             minFontSize: 15,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
