@@ -482,15 +482,23 @@ class _ProductCardState extends State<_ProductCard> {
   @override
   void initState() {
     super.initState();
-    // getrecommendations().then((arr) {
-    //   Map<int, int> map = {};
-    //   for (int i = 0; i < arr.length; i++) {
-    //     int ct = 0;
-    //     for (int j = 0; j < arr[i].category.length; j++) {
-    //       if
-    //     }
-    //   }
-    // });
+    getrecommendations().then((arr) {
+      Map<int, int> map = {};
+      for (int i = 0; i < arr.length; i++) {
+        int ct = 0;
+        for (int j = 0; j < arr[i].category.length; j++) {
+          if (widget.product!.category.contains(arr[i].category[j])) {
+            ct += 1;
+          }
+        }
+        map[i] = ct;
+      }
+
+      var sortedKeys = map.keys.toList(growable: false)
+        ..sort((k1, k2) => map[k1]!.compareTo(map[k2]!));
+      LinkedHashMap sortedMap = LinkedHashMap.fromIterable(sortedKeys,
+          key: (k) => k, value: (k) => map[k]);
+    });
   }
 
   @override
