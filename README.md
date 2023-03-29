@@ -1,16 +1,7 @@
-# sih_frontend
+# EcoTag
 
-A new Flutter project.
+The following is the frontend/UI for an upcoming mobile application titled EcoTag.
 
-## Getting Started
+The details and code are subject to copyright. Duplication for any commercial or personal use is not recommended.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Copyright © 2023, Ecotag
